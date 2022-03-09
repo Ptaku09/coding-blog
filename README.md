@@ -9,8 +9,10 @@ git clone https://github.com/Ptaku09/next-app-ts-boilerplate.git [YOUR_PROJECT_N
 After that, install dependencies:
 
 ```bash
+npx husky-init
 npm install
 # or
+yarn create husky-init
 yarn
 ```
 
