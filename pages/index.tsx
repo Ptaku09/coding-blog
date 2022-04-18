@@ -5,6 +5,7 @@ import Github from '../assets/github-brands.svg';
 import LogoBlue from '../assets/logo-blue.svg';
 import LogoWhite from '../assets/logo-white.svg';
 import Image from 'next/image';
+import { Post } from '../components/Post';
 
 const Home: NextPage = () => {
   const [isOpen, setIsOpen] = useState(true);
@@ -38,12 +39,18 @@ const Home: NextPage = () => {
           <div
             className={`${
               isOpen ? 'w-1/2 overflow-hidden' : 'w-11/12 overflow-y-scroll'
-            } min-h-screen relative flex flex-col transition-all duration-300 scroll-smooth`}
+            } min-h-screen relative flex items-center justify-center flex-col transition-all duration-300 scroll-smooth`}
           >
             <span className="fixed top-4 left-4 text-2xl font-raleway font-bold text-blue-500 flex items-center justify-center gap-3">
               <Image src={LogoBlue} width={35} height={35} alt="logo" />
               coding blog
             </span>
+            <Post
+              nickname="CodingMaster09"
+              role="Backend dev"
+              comment="Coding blog is a place where you can share your knowledge and experience with other people. It's an amazing feeling when someone
+            appreciates your idea!"
+            />
           </div>
           <div
             className={`${
