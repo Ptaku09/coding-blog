@@ -20,6 +20,10 @@ module.exports = {
         flower: ['Indie Flower', 'cursive'],
         bebas: ['Bebas Neue', 'cursive'],
         jakarta: ['Plus Jakarta Sans', 'sans-serif'],
+        raleway: ['Raleway', 'sans-serif'],
+      },
+      transitionTimingFunction: {
+        'slide-in-out': 'cubic-bezier(0.65, 0, 0.35, 1)',
       },
     },
   },
