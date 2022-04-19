@@ -15,10 +15,19 @@ module.exports = {
             opacity: 1,
           },
         },
+        slide: {
+          '0%': {
+            transform: 'translateX(-100%)',
+          },
+          '100%': {
+            transform: 'translateX(0%)',
+          },
+        },
       },
       animation: {
         appearing: 'appear 0.5s ease-in-out',
         'appearing-short': 'appear 0.35s ease-in-out',
+        sliding: 'slide 7s linear infinite',
       },
       fontFamily: {
         flower: ['Indie Flower', 'cursive'],

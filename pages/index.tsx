@@ -6,6 +6,8 @@ import LogoBlue from '../assets/logo-blue.svg';
 import LogoWhite from '../assets/logo-white.svg';
 import Image from 'next/image';
 import { Post } from '../components/Post';
+import { Carousel } from '../components/Carousel';
+import { CarouselItem } from '../components/CarouselItem';
 
 const Home: NextPage = () => {
   const [isOpen, setIsOpen] = useState(true);
@@ -45,12 +47,32 @@ const Home: NextPage = () => {
               <Image src={LogoBlue} width={35} height={35} alt="logo" />
               coding blog
             </span>
-            <Post
-              nickname="CodingMaster09"
-              role="Backend dev"
-              comment="Coding blog is a place where you can share your knowledge and experience with other people. It's an amazing feeling when someone
+            <Carousel>
+              <CarouselItem>
+                <Post
+                  nickname="CodingMaster09"
+                  role="Backend dev"
+                  comment="Coding blog is a place where you can share your knowledge and experience with other people. It's an amazing feeling when someone
             appreciates your idea!"
-            />
+                />
+              </CarouselItem>
+              <CarouselItem>
+                <Post
+                  nickname="CodingMaster09s"
+                  role="Backend dev"
+                  comment="Coding blog is a place where you can share your knowledge and experience with other people. It's an amazing feeling when someone
+              appreciates your idea!"
+                />
+              </CarouselItem>
+              <CarouselItem>
+                <Post
+                  nickname="CodingMaster09s"
+                  role="Backend dev"
+                  comment="Coding blog is a place where you can share your knowledge and experience with other people. It's an amazing feeling when someone
+              appreciates your idea!"
+                />
+              </CarouselItem>
+            </Carousel>
           </div>
           <div
             className={`${
@@ -93,7 +115,7 @@ const Home: NextPage = () => {
               </div>
             </div>
             {isOpen ? (
-              <p className={`text-white font-raleway absolute bottom-0 right-4 animate-appearing flex items-center justify-center gap-2`}>
+              <p className="text-white font-raleway absolute bottom-0 right-4 animate-appearing flex items-center justify-center gap-2">
                 Created with ❤️ by Ptaku09 2022
                 <a href="https://github.com/Ptaku09" target="_blank" rel="noreferrer">
                   <Image src={Github} width={15} height={15} alt="github" />
@@ -103,7 +125,7 @@ const Home: NextPage = () => {
               <a
                 href="https://github.com/Ptaku09"
                 target="_blank"
-                className={`text-white absolute bottom-5 mx-auto duration-200 animate-appearing transition-all hover:-translate-y-1`}
+                className="text-white absolute bottom-5 mx-auto duration-200 animate-appearing transition-all hover:-translate-y-1"
                 rel="noreferrer"
               >
                 <Image src={Github} width={40} height={40} alt="github" />

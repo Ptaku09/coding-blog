@@ -20,7 +20,7 @@ export const Post = ({ avatar = defaultAvatar, nickname, role, comment }: Props)
               <p className="text-sm">{role}</p>
             </div>
           </div>
-          <p className="pt-5">{comment}</p>
+          <p className="pt-5 whitespace-normal">{comment}</p>
         </div>
       </div>
     </div>
