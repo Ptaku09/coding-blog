@@ -40,8 +40,8 @@ const Home: NextPage = () => {
         <div className="w-full min-h-screen absolute z-[3] flex items-start justify-start">
           <div
             className={`${
-              isOpen ? 'w-1/2 overflow-hidden' : 'w-11/12 overflow-y-scroll'
-            } min-h-screen relative flex items-center justify-start md:justify-center flex-col transition-all duration-300 scroll-smooth overflow-x-hidden`}
+              isOpen ? 'md:w-1/2 overflow-hidden' : 'w-screen md:w-11/12 overflow-y-scroll'
+            } mt-10 md:mt-0 min-h-screen relative flex items-center justify-start md:justify-center flex-col transition-all duration-300 scroll-smooth overflow-x-hidden`}
           >
             <span className="fixed top-4 left-4 text-2xl font-raleway font-bold text-blue-500 flex items-center justify-center gap-3">
               <Image src={LogoBlue} width={35} height={35} alt="logo" />
@@ -76,13 +76,15 @@ const Home: NextPage = () => {
           </div>
           <div
             className={`${
-              isOpen ? 'w-screen md:w-1/2' : 'w-1/12'
+              isOpen ? 'w-screen translate-y-0 md:w-1/2' : '-translate-y-[90%] w-screen md:w-1/12 md:translate-y-0'
             } h-screen fixed right-0 flex items-center justify-center flex-col py-10 bg-gradient-to-b from-blue-500 to-purple-600 transition-all duration-300 ease-in`}
           >
             <span
-              className={`absolute z-[4] left-0 my-auto w-0 h-0 border-x-[1.5rem] border-transparent border-t-0 border-b-[2rem] border-b-white ${
-                isOpen ? 'rotate-90 md:hover:translate-x-1.5' : '-rotate-90 -translate-x-2 md:translate-x-1.5 md:hover:translate-x-0'
-              } transition-all ease-in-out duration-400 cursor-pointer hover:border-b-gray-200 scale-50 md:scale-100`}
+              className={`absolute z-[4] right-[42%] md:left-0 md:top-auto md:bottom-auto w-0 h-0 border-x-[1.5rem] border-transparent border-t-0 border-b-[2rem] border-b-white ${
+                isOpen
+                  ? 'md:rotate-90 bottom-7 md:hover:translate-x-1.5'
+                  : 'rotate-180 md:-rotate-90 bottom-4 -translate-x-2 md:translate-x-1.5 md:hover:translate-x-0'
+              } transition-all ease-in-out duration-400 cursor-pointer hover:border-b-gray-200 scale-75 md:scale-100`}
               onClick={handleOpening}
             />
             {isOpen ? (
@@ -94,7 +96,7 @@ const Home: NextPage = () => {
                 Welcome to coding blog!
               </h1>
             ) : (
-              <div className="text-white absolute top-5 mx-auto duration-200 animate-appearing scale-75 md:scale-100">
+              <div className="text-white absolute bottom-4 left-5 md:top-5 md:left-auto duration-200 animate-appearing scale-75 md:scale-100">
                 <Image src={LogoWhite} width={50} height={50} alt="logo" />
               </div>
             )}
@@ -115,9 +117,9 @@ const Home: NextPage = () => {
               </div>
             </div>
             {isOpen ? (
-              <p className="text-white font-raleway absolute bottom-0 right-4 animate-appearing flex items-center justify-center gap-2">
-                Created with ❤️ by Ptaku09 2022
-                <a href="https://github.com/Ptaku09" target="_blank" rel="noreferrer">
+              <p className="text-white text-xs md:text-sm font-raleway absolute bottom-0 right-auto md:right-4 animate-appearing flex items-center justify-center gap-2">
+                Created with ❤️ by Ptaku09
+                <a className="scale-90 scale-100 mt-1.5" href="https://github.com/Ptaku09" target="_blank" rel="noreferrer">
                   <Image src={Github} width={15} height={15} alt="github" />
                 </a>
               </p>
@@ -125,7 +127,7 @@ const Home: NextPage = () => {
               <a
                 href="https://github.com/Ptaku09"
                 target="_blank"
-                className="text-white absolute bottom-5 mx-auto duration-200 animate-appearing transition-all hover:-translate-y-1 scale-75 md:scale-100"
+                className="text-white absolute bottom-5 right-5 md:right-auto duration-200 animate-appearing transition-all md:hover:-translate-y-1 scale-75 md:scale-100"
                 rel="noreferrer"
               >
                 <Image src={Github} width={40} height={40} alt="github" />

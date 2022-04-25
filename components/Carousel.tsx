@@ -32,7 +32,7 @@ export const Carousel = ({ children }: { children: React.ReactElement[] }) => {
   });
 
   return (
-    <div {...handlers} className="relative mt-5 md:mt-0 overflow-hidden w-[32rem] scale-[65%] md:scale-100">
+    <div {...handlers} className="relative mt-5 md:mt-0 overflow-hidden w-[32rem] scale-[70%] md:scale-100">
       <div style={{ transform: `translate(${-100 * activeIndex}%)` }} className="whitespace-nowrap transition-transform duration-500">
         {children}
       </div>
