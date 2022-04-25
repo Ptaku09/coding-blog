@@ -9,6 +9,8 @@ import { Post } from '../components/Post';
 import { Carousel } from '../components/Carousel';
 import { CarouselItem } from '../components/CarouselItem';
 import { useSwipeable } from 'react-swipeable';
+import mysterious from '../public/images/mysterious.jpg';
+import jakeWebb from '../public/images/jakeWebb.jpg';
 
 const Home: NextPage = () => {
   const [isOpen, setIsOpen] = useState(true);
@@ -47,7 +49,7 @@ const Home: NextPage = () => {
           <div
             className={`${
               isOpen ? 'md:w-1/2 overflow-hidden' : 'w-screen md:w-11/12 overflow-y-scroll'
-            } pt-10 md:pt-0 min-h-screen relative flex items-center justify-start md:justify-center flex-col transition-all duration-300 scroll-smooth overflow-x-hidden`}
+            } pt-32 md:pt-0 min-h-screen relative flex items-center justify-end md:justify-center flex-col-reverse md:flex-col transition-all duration-300 scroll-smooth overflow-x-hidden`}
           >
             <span className="fixed top-4 left-4 text-2xl font-raleway font-bold text-blue-500 flex items-center justify-center gap-3">
               <Image src={LogoBlue} width={35} height={35} alt="logo" />
@@ -58,27 +60,28 @@ const Home: NextPage = () => {
                 <Post
                   nickname="CodingMaster09"
                   role="Backend dev"
-                  comment="Coding blog is a place where you can share your knowledge and experience with other people. It's an amazing feeling when someone
+                  comment="Coding Blog is a place where you can share your knowledge and experience with other people. It's an amazing feeling when someone
             appreciates your idea!"
                 />
               </CarouselItem>
               <CarouselItem>
                 <Post
-                  nickname="CodingMaster09s"
-                  role="Backend dev"
-                  comment="Coding blog is a place where you can share your knowledge and experience with other people. It's an amazing feeling when someone
-              appreciates your idea!"
+                  avatar={mysterious}
+                  nickname="Mysterious_"
+                  role="Frontend dev"
+                  comment="I take a lot of inspiration from the Coding Blog. To my mind every frontend developer should check out this blog. It's a great."
                 />
               </CarouselItem>
               <CarouselItem>
                 <Post
-                  nickname="CodingMaster09s"
-                  role="Backend dev"
-                  comment="Coding blog is a place where you can share your knowledge and experience with other people. It's an amazing feeling when someone
-              appreciates your idea!"
+                  avatar={jakeWebb}
+                  nickname="JakeWebb123"
+                  role="Devops"
+                  comment="My name is Jake and I'm a devops engineer. Coding Blog is something between Twitter and Pinterest. It's hard to explain it in few sentences. You must try it on your own!"
                 />
               </CarouselItem>
             </Carousel>
+            <h2 className="text-3xl font-jakarta">How it works?</h2>
           </div>
           <div
             {...loginMenuHandlers}
