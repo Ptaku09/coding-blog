@@ -27,7 +27,7 @@ module.exports = {
       animation: {
         appearing: 'appear 0.5s ease-in-out',
         'appearing-short': 'appear 0.35s ease-in-out',
-        sliding: 'slide 7s linear infinite',
+        sliding: 'slide 7s linear',
       },
       fontFamily: {
         flower: ['Indie Flower', 'cursive'],
