@@ -33,7 +33,9 @@ export const Carousel = ({ children }: { children: React.ReactElement[] }) => {
 
   return (
     <div {...handlers} className="relative overflow-hidden w-[32rem]">
-      <div className={`-translate-x-[${100 * activeIndex}%] whitespace-nowrap transition-transform duration-500`}>{children}</div>
+      <div style={{ transform: `translate(${-100 * activeIndex}%)` }} className="whitespace-nowrap transition-transform duration-500">
+        {children}
+      </div>
       <div className="absolute bottom-4 left-1/2 right-1/2 -translate-x-1/2 flex flex-row gap-2 w-10">
         {React.Children.map(children, (child: React.ReactElement, index: number) => (
           <button className={`p-1 rounded-full ${activeIndex === index ? 'bg-purple-700' : 'bg-gray-200'}`} onClick={() => setActiveIndex(index)} />
