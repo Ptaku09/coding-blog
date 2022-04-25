@@ -41,7 +41,7 @@ const Home: NextPage = () => {
           <div
             className={`${
               isOpen ? 'w-1/2 overflow-hidden' : 'w-11/12 overflow-y-scroll'
-            } min-h-screen relative flex items-center justify-center flex-col transition-all duration-300 scroll-smooth`}
+            } min-h-screen relative flex items-center justify-start md:justify-center flex-col transition-all duration-300 scroll-smooth overflow-x-hidden`}
           >
             <span className="fixed top-4 left-4 text-2xl font-raleway font-bold text-blue-500 flex items-center justify-center gap-3">
               <Image src={LogoBlue} width={35} height={35} alt="logo" />
@@ -76,37 +76,37 @@ const Home: NextPage = () => {
           </div>
           <div
             className={`${
-              isOpen ? 'w-1/2' : 'w-1/12'
+              isOpen ? 'w-screen md:w-1/2' : 'w-1/12'
             } h-screen fixed right-0 flex items-center justify-center flex-col py-10 bg-gradient-to-b from-blue-500 to-purple-600 transition-all duration-300 ease-in`}
           >
             <span
               className={`absolute z-[4] left-0 my-auto w-0 h-0 border-x-[1.5rem] border-transparent border-t-0 border-b-[2rem] border-b-white ${
-                isOpen ? 'rotate-90 hover:translate-x-1.5' : '-rotate-90 translate-x-1.5 hover:translate-x-0'
-              } transition-all ease-in-out duration-400 cursor-pointer hover:border-b-gray-200`}
+                isOpen ? 'rotate-90 md:hover:translate-x-1.5' : '-rotate-90 -translate-x-2 md:translate-x-1.5 md:hover:translate-x-0'
+              } transition-all ease-in-out duration-400 cursor-pointer hover:border-b-gray-200 scale-50 md:scale-100`}
               onClick={handleOpening}
             />
             {isOpen ? (
               <h1
-                className={`text-6xl text-white absolute top-5 font-bebas border-b-2 pb-2 px-5 mb-10 transition-opacity ${
+                className={`text-6xl text-white text-center absolute top-5 font-bebas border-b-2 pb-2 px-5 mb-10 transition-opacity ${
                   isOpen ? 'opacity-100 delay-100 duration-200 animate-appearing' : 'opacity-0'
                 }`}
               >
                 Welcome to coding blog!
               </h1>
             ) : (
-              <div className="text-white absolute top-5 mx-auto duration-200 animate-appearing">
+              <div className="text-white absolute top-5 mx-auto duration-200 animate-appearing scale-75 md:scale-100">
                 <Image src={LogoWhite} width={50} height={50} alt="logo" />
               </div>
             )}
             <div
-              className={`w-1/2 h-3/5 bg-white p-1 transition-opacity ${
+              className={`w-2/3 h-3/5 md:w-1/2 md:h-3/5 bg-white p-1 transition-opacity ${
                 isOpen ? 'opacity-100 delay-100 duration-200 animate-appearing' : 'opacity-0'
               }`}
             >
               <div className="w-full h-full bg-gradient-to-b from-blue-500 to-purple-600 p-1">
                 <div className="w-full h-full bg-white p-5 flex items-center justify-start flex-col font-jakarta">
                   <ul className="flex items-center justify-center flex-col gap-6">
-                    <li className="font-flower text-xl">Start sharing your coding ideas!</li>
+                    <li className="font-flower text-center text-xl">Start sharing your coding ideas!</li>
                     <li>sign in with Google</li>
                     <li>sign in with Twitter</li>
                     <li>sign in with Github</li>
@@ -125,7 +125,7 @@ const Home: NextPage = () => {
               <a
                 href="https://github.com/Ptaku09"
                 target="_blank"
-                className="text-white absolute bottom-5 mx-auto duration-200 animate-appearing transition-all hover:-translate-y-1"
+                className="text-white absolute bottom-5 mx-auto duration-200 animate-appearing transition-all hover:-translate-y-1 scale-75 md:scale-100"
                 rel="noreferrer"
               >
                 <Image src={Github} width={40} height={40} alt="github" />
