@@ -14,7 +14,6 @@ const Home: NextPage = () => {
 
   useEffect(() => {
     document.body.style.overflow = 'hidden';
-    screen.orientation.lock('portrait');
   }, []);
 
   const handleOpening = () => {
