@@ -35,6 +35,9 @@ module.exports = {
         jakarta: ['Plus Jakarta Sans', 'sans-serif'],
         raleway: ['Raleway', 'sans-serif'],
       },
+      height: {
+        'mobile-screen': 'calc(100vh - 64px)',
+      },
       transitionTimingFunction: {
         'slide-in-out': 'cubic-bezier(0.65, 0, 0.35, 1)',
       },

@@ -83,20 +83,20 @@ const Home: NextPage = () => {
           <div
             {...loginMenuHandlers}
             className={`${
-              isOpen ? 'w-screen translate-y-0 md:w-1/2' : '-translate-y-[90%] w-screen md:w-1/12 md:translate-y-0'
-            } h-screen fixed right-0 flex items-center justify-center flex-col py-10 bg-gradient-to-b from-blue-500 to-purple-600 transition-all duration-300 ease-in`}
+              isOpen ? 'w-full translate-y-0 md:w-1/2' : '-translate-y-[90%] w-full md:w-1/12 md:translate-y-0'
+            } h-full fixed right-0 flex items-center justify-center flex-col py-10 bg-gradient-to-b from-blue-500 to-purple-600 transition-all duration-300 ease-in`}
           >
             <span
               className={`absolute z-[4] right-[42%] md:left-0 md:top-auto md:bottom-auto w-0 h-0 border-x-[1.5rem] border-transparent border-t-0 border-b-[2rem] border-b-white ${
                 isOpen
-                  ? 'md:rotate-90 bottom-7 md:hover:translate-x-1.5'
+                  ? 'md:rotate-90 bottom-11 md:hover:translate-x-1.5'
                   : 'rotate-180 md:-rotate-90 bottom-4 -translate-x-2 md:translate-x-1.5 md:hover:translate-x-0'
               } transition-all ease-in-out duration-400 cursor-pointer hover:border-b-gray-200 scale-75 md:scale-100`}
               onClick={handleOpening}
             />
             {isOpen ? (
               <h1
-                className={`text-6xl text-white text-center absolute top-5 font-bebas border-b-2 pb-2 px-5 mb-10 transition-opacity ${
+                className={`text-6xl text-white text-center absolute top-5 font-bebas md:border-b-2 pb-2 px-5 mb-10 transition-opacity ${
                   isOpen ? 'opacity-100 delay-100 duration-200 animate-appearing' : 'opacity-0'
                 }`}
               >
@@ -124,7 +124,7 @@ const Home: NextPage = () => {
               </div>
             </div>
             {isOpen ? (
-              <p className="text-white text-xs md:text-sm font-raleway absolute bottom-0 right-auto md:right-4 animate-appearing flex items-center justify-center gap-2">
+              <p className="text-white text-xs md:text-sm font-raleway absolute bottom-4 md:bottom-0 right-auto md:right-4 animate-appearing flex items-center justify-center gap-2">
                 Created with ❤️ by Ptaku09
                 <a className="scale-90 scale-100 mt-1.5" href="https://github.com/Ptaku09" target="_blank" rel="noreferrer">
                   <Image src={Github} width={15} height={15} alt="github" />
