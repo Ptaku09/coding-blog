@@ -8,6 +8,7 @@ import Image from 'next/image';
 import { Post } from '../components/Post';
 import { Carousel } from '../components/Carousel';
 import { CarouselItem } from '../components/CarouselItem';
+import { useSwipeable } from 'react-swipeable';
 
 const Home: NextPage = () => {
   const [isOpen, setIsOpen] = useState(true);
@@ -26,6 +27,11 @@ const Home: NextPage = () => {
     document.body.style.overflow === 'hidden' ? (document.body.style.overflow = 'unset') : (document.body.style.overflow = 'hidden');
   };
 
+  const loginMenuHandlers = useSwipeable({
+    onSwipedDown: () => setIsOpen(true),
+    onSwipedUp: () => setIsOpen(false),
+  });
+
   return (
     <>
       <Head>
@@ -41,7 +47,7 @@ const Home: NextPage = () => {
           <div
             className={`${
               isOpen ? 'md:w-1/2 overflow-hidden' : 'w-screen md:w-11/12 overflow-y-scroll'
-            } mt-10 md:mt-0 min-h-screen relative flex items-center justify-start md:justify-center flex-col transition-all duration-300 scroll-smooth overflow-x-hidden`}
+            } pt-10 md:pt-0 min-h-screen relative flex items-center justify-start md:justify-center flex-col transition-all duration-300 scroll-smooth overflow-x-hidden`}
           >
             <span className="fixed top-4 left-4 text-2xl font-raleway font-bold text-blue-500 flex items-center justify-center gap-3">
               <Image src={LogoBlue} width={35} height={35} alt="logo" />
@@ -75,6 +81,7 @@ const Home: NextPage = () => {
             </Carousel>
           </div>
           <div
+            {...loginMenuHandlers}
             className={`${
               isOpen ? 'w-screen translate-y-0 md:w-1/2' : '-translate-y-[90%] w-screen md:w-1/12 md:translate-y-0'
             } h-screen fixed right-0 flex items-center justify-center flex-col py-10 bg-gradient-to-b from-blue-500 to-purple-600 transition-all duration-300 ease-in`}
