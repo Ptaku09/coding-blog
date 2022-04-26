@@ -11,6 +11,7 @@ import { CarouselItem } from '../components/CarouselItem';
 import { useSwipeable } from 'react-swipeable';
 import mysterious from '../public/images/mysterious.jpg';
 import jakeWebb from '../public/images/jakeWebb.jpg';
+import { HowToStartComponents } from '../components/HowToStartComponents';
 
 const Home: NextPage = () => {
   const [isOpen, setIsOpen] = useState(true);
@@ -29,9 +30,10 @@ const Home: NextPage = () => {
     document.body.style.overflow === 'hidden' ? (document.body.style.overflow = 'unset') : (document.body.style.overflow = 'hidden');
   };
 
+  //Gestures to login menu
   const loginMenuHandlers = useSwipeable({
-    onSwipedDown: () => setIsOpen(true),
-    onSwipedUp: () => setIsOpen(false),
+    onSwipedDown: handleOpening,
+    onSwipedUp: handleOpening,
   });
 
   return (
@@ -81,7 +83,29 @@ const Home: NextPage = () => {
                 />
               </CarouselItem>
             </Carousel>
-            <h2 className="text-3xl font-jakarta">How it works?</h2>
+            <div className="w-full min-h-screen flex items-center justify-start flex-col">
+              <h2 className="text-3xl font-bold font-jakarta">How to start?</h2>
+              <HowToStartComponents componentNumber={1} title="Create an account">
+                <ul className="list-disc pl-4 mt-5">
+                  <li>Click the triangle above or swipe it down</li>
+                  <li>Then sign in via Google, Twitter or Github</li>
+                </ul>
+              </HowToStartComponents>
+              <HowToStartComponents componentNumber={2} title="Share your code">
+                <ul className="list-disc pl-4 mt-5">
+                  <li>Click the triangle above or swipe it down</li>
+                  <li>Then click the button Share your code</li>
+                  <li>Then write your code and click the button</li>
+                </ul>
+              </HowToStartComponents>
+              <HowToStartComponents componentNumber={3} title="Wait for reactions">
+                <ul className="list-disc pl-4 mt-5">
+                  <li>Click the triangle above or swipe it down</li>
+                  <li>Then click the button Share your code</li>
+                  <li>Then write your code and click the button</li>
+                </ul>
+              </HowToStartComponents>
+            </div>
           </div>
           <div
             {...loginMenuHandlers}

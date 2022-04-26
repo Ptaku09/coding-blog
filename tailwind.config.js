@@ -38,6 +38,9 @@ module.exports = {
       height: {
         'mobile-screen': 'calc(100vh - 64px)',
       },
+      minHeight: {
+        56: '14rem',
+      },
       transitionTimingFunction: {
         'slide-in-out': 'cubic-bezier(0.65, 0, 0.35, 1)',
       },
