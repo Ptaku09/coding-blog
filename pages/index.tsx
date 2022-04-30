@@ -1,9 +1,14 @@
 import type { NextPage } from 'next';
 import Head from 'next/head';
 import { useEffect, useState } from 'react';
-import Github from '../assets/github-brands.svg';
+import GithubWhite from '../assets/github-white.svg';
+import GithubBlack from '../assets/github-black.svg';
+import Google from '../assets/google.svg';
+import Twitter from '../assets/twitter.svg';
 import LogoBlue from '../assets/logo-blue.svg';
 import LogoWhite from '../assets/logo-white.svg';
+import NewPostBlack from '../assets/new-post-black.svg';
+import SubmitBlack from '../assets/submit-black.svg';
 import Image from 'next/image';
 import { Post } from '../components/Post';
 import { Carousel } from '../components/Carousel';
@@ -11,7 +16,8 @@ import { CarouselItem } from '../components/CarouselItem';
 import { useSwipeable } from 'react-swipeable';
 import mysterious from '../public/images/mysterious.jpg';
 import jakeWebb from '../public/images/jakeWebb.jpg';
-import { HowToStartComponents } from '../components/HowToStartComponents';
+import { HowToStartComponent } from '../components/HowToStartComponent';
+import { Background } from '../components/Background';
 
 const Home: NextPage = () => {
   const [isOpen, setIsOpen] = useState(true);
@@ -43,10 +49,7 @@ const Home: NextPage = () => {
       </Head>
 
       <div className="w-screen h-screen relative">
-        <div className="w-96 h-96 md:w-[32rem] md:h-[32rem] fixed -top-20 lg:top-20 -left-24 bg-blue-700 rounded-full blur-2xl" />
-        <div className="w-72 h-72 md:w-[36rem] md:h-[36rem] lg:w-96 lg:h-96 fixed -bottom-32 lg:-top-20 lg:-right-24 bg-blue-700 rounded-full blur-2xl" />
-        <div className="w-80 h-80 md:w-[40rem] md:h-[40rem] fixed -right-32 top-72 lg:-bottom-56 md:left-[35rem] bg-purple-700 rounded-full blur-2xl" />
-        <div className="w-full min-h-screen bg-white z-[2] fixed opacity-80" />
+        <Background />
         <div className="w-full min-h-screen absolute z-[3] flex items-start justify-start">
           <div
             className={`${
@@ -85,26 +88,29 @@ const Home: NextPage = () => {
             </Carousel>
             <div className="w-full min-h-screen flex items-center justify-start flex-col">
               <h2 className="text-3xl font-bold font-jakarta">How to start?</h2>
-              <HowToStartComponents componentNumber={1} title="Create an account">
+              <HowToStartComponent componentNumber={1} title="Create an account">
                 <ul className="list-disc pl-4 mt-5">
                   <li>Click the triangle above or swipe it down</li>
-                  <li>Then sign in via Google, Twitter or Github</li>
+                  <li>
+                    Then sign in via <Image src={Google} width={17} height={17} alt="google" />,{' '}
+                    <Image src={Twitter} width={17} height={17} alt="twitter" /> or <Image src={GithubBlack} width={17} height={17} alt="github" />
+                  </li>
                 </ul>
-              </HowToStartComponents>
-              <HowToStartComponents componentNumber={2} title="Share your code">
+              </HowToStartComponent>
+              <HowToStartComponent componentNumber={2} title="Share your code">
                 <ul className="list-disc pl-4 mt-5">
-                  <li>Click the triangle above or swipe it down</li>
-                  <li>Then click the button Share your code</li>
-                  <li>Then write your code and click the button</li>
+                  <li>
+                    Click the <Image src={NewPostBlack} width={17} height={17} alt="new post" /> button
+                  </li>
+                  <li>Paste your code or select a file</li>
+                  <li>
+                    Add a short comment and submit your code via <Image src={SubmitBlack} width={17} height={17} alt="submit" /> button
+                  </li>
                 </ul>
-              </HowToStartComponents>
-              <HowToStartComponents componentNumber={3} title="Wait for reactions">
-                <ul className="list-disc pl-4 mt-5">
-                  <li>Click the triangle above or swipe it down</li>
-                  <li>Then click the button Share your code</li>
-                  <li>Then write your code and click the button</li>
-                </ul>
-              </HowToStartComponents>
+              </HowToStartComponent>
+              <HowToStartComponent componentNumber={3} title="Wait for reactions">
+                <p className="absolute left-8 mt-5 w-full text-left">Show yourself to the world!</p>
+              </HowToStartComponent>
             </div>
           </div>
           <div
@@ -154,7 +160,7 @@ const Home: NextPage = () => {
               <p className="text-white text-xs md:text-sm font-raleway absolute bottom-4 md:bottom-0 right-auto md:right-4 animate-appearing flex items-center justify-center gap-2">
                 Created with ❤️ by Ptaku09
                 <a className="scale-90 scale-100 mt-1.5" href="https://github.com/Ptaku09" target="_blank" rel="noreferrer">
-                  <Image src={Github} width={15} height={15} alt="github" />
+                  <Image src={GithubWhite} width={15} height={15} alt="github" />
                 </a>
               </p>
             ) : (
@@ -164,7 +170,7 @@ const Home: NextPage = () => {
                 className="text-white absolute bottom-5 right-5 md:right-auto duration-200 animate-appearing transition-all md:hover:-translate-y-1 scale-75 md:scale-100"
                 rel="noreferrer"
               >
-                <Image src={Github} width={40} height={40} alt="github" />
+                <Image src={GithubWhite} width={40} height={40} alt="github" />
               </a>
             )}
           </div>
