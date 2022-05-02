@@ -1,4 +1,4 @@
-import Image from 'next/image';
+import Image, { StaticImageData } from 'next/image';
 import defaultAvatar from '../public/images/defaultAvatar.jpg';
 
 type Props = {

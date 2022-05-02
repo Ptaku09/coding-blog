@@ -3,21 +3,21 @@ import Head from 'next/head';
 import { useEffect, useState } from 'react';
 import GithubWhite from '../assets/github-white.svg';
 import GithubBlack from '../assets/github-black.svg';
-import Google from '../assets/google.svg';
-import Twitter from '../assets/twitter.svg';
 import LogoBlue from '../assets/logo-blue.svg';
 import LogoWhite from '../assets/logo-white.svg';
+import mysterious from '../public/images/mysterious.jpg';
+import jakeWebb from '../public/images/jakeWebb.jpg';
+import Google from '../assets/google.svg';
+import Twitter from '../assets/twitter.svg';
 import NewPostBlack from '../assets/new-post-black.svg';
 import SubmitBlack from '../assets/submit-black.svg';
 import Image from 'next/image';
-import { Post } from '../components/Post';
+import { useSwipeable } from 'react-swipeable';
+import { Background } from '../components/Background';
 import { Carousel } from '../components/Carousel';
 import { CarouselItem } from '../components/CarouselItem';
-import { useSwipeable } from 'react-swipeable';
-import mysterious from '../public/images/mysterious.jpg';
-import jakeWebb from '../public/images/jakeWebb.jpg';
+import { Post } from '../components/Post';
 import { HowToStartComponent } from '../components/HowToStartComponent';
-import { Background } from '../components/Background';
 
 const Home: NextPage = () => {
   const [isOpen, setIsOpen] = useState(true);
