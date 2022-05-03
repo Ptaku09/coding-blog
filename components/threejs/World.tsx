@@ -1,20 +1,16 @@
-import dynamic from 'next/dynamic';
 import { useEffect, useRef, useState } from 'react';
 
-const Globe = dynamic(() => import('react-globe.gl'), {
-  ssr: false,
-});
-
-// let Globe = () => null;
-// if (typeof window !== 'undefined') Globe = require('react-globe.gl').default;
+let Globe = () => null;
+if (typeof window !== 'undefined') Globe = require('react-globe.gl').default;
 
 export const World = () => {
   const [countries, setCountries] = useState({ features: [] });
   const globeRef = useRef() as any;
 
   useEffect(() => {
-    globeRef.current!.controls().enableZoom = false;
-    globeRef.current!.controls().autoRotate = true;
+    globeRef.current.controls().enableZoom = false;
+    globeRef.current.controls().autoRotate = true;
+    globeRef.current.controls().autoRotateSpeed = 1;
   }, []);
 
   const loadData = () => {
@@ -28,6 +24,7 @@ export const World = () => {
     <div>
       {typeof window === 'undefined' ? null : (
         <Globe
+          // @ts-ignore
           ref={globeRef}
           animateIn={true}
           waitForGlobeReady={true}
