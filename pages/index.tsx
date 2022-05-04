@@ -18,9 +18,12 @@ import mysterious from '../public/images/mysterious.jpg';
 import jakeWebb from '../public/images/jakeWebb.jpg';
 import { HowToStartComponent } from '../components/HowToStartComponent';
 import { Background } from '../components/Background';
+import dynamic from 'next/dynamic';
+
+const AnimatedGlobe = dynamic(() => import('../components/AnimatedGlobe'), { ssr: false });
 
 const Home: NextPage = () => {
-  const [isOpen, setIsOpen] = useState(true);
+  const [isOpen, setIsOpen] = useState(false);
 
   useEffect(() => {
     document.body.style.overflow = 'hidden';
@@ -112,6 +115,7 @@ const Home: NextPage = () => {
                 <p className="absolute left-8 mt-5 w-full text-left">Show yourself to the world!</p>
               </HowToStartComponent>
             </div>
+            <AnimatedGlobe />
           </div>
           <div
             {...loginMenuHandlers}
