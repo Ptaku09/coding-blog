@@ -27,7 +27,7 @@ const AnimatedGlobe = () => {
     globeRef.current.controls().autoRotate = true;
     globeRef.current.controls().autoRotateSpeed = 0.65;
     globeRef.current.camera().fov = 60;
-    globeRef.current.camera().position.set(globeRef.current.camera().position.x, 100, globeRef.current.camera().position.z);
+    globeRef.current.camera().position.set(globeRef.current.camera().position.x, 150, globeRef.current.camera().position.z);
     setGlobeMaterial(new THREE.MeshPhongMaterial({ color: 0x474ed6, shininess: 0.5 }));
 
     // set arcs
@@ -46,7 +46,7 @@ const AnimatedGlobe = () => {
   return (
     <Globe
       animateIn={false}
-      backgroundColor="rgba(0, 0, 0, 1)"
+      backgroundColor="rgba(0, 0, 0, 0)"
       globeMaterial={globeMaterial}
       hexPolygonsData={countries.features}
       hexPolygonResolution={3}

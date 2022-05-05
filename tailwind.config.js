@@ -23,11 +23,22 @@ module.exports = {
             transform: 'translateX(0%)',
           },
         },
+        myBounce: {
+          '0%, 100%': {
+            transform: 'translate(-50%, -15%)',
+            'animation-timing-function': 'cubic-bezier(0.8, 0, 1, 1)',
+          },
+          '50%': {
+            transform: 'translate(-50%, 0%)',
+            'animation-timing-function': 'cubic-bezier(0, 0, 0.2, 1)',
+          },
+        },
       },
       animation: {
         appearing: 'appear 0.5s ease-in-out',
         'appearing-short': 'appear 0.35s ease-in-out',
         sliding: 'slide 7s linear',
+        myBounce: 'myBounce 1s infinite',
       },
       fontFamily: {
         flower: ['Indie Flower', 'cursive'],
