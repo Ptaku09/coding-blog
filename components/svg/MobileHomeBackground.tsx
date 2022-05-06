@@ -1,4 +1,4 @@
-export const MobileBackground = () => {
+export const MobileHomeBackground = () => {
   return (
     <div className="fixed w-full min-h-screen">
       <svg
