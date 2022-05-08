@@ -8,7 +8,7 @@ export const HowToStartComponent = ({ componentNumber, title, children }: { comp
       <div className="mb-5">{children}</div>
       <div className="absolute bottom-3 left-1/2 right-1/2 -translate-x-1/2 flex items-center justify-center gap-2 w-10">
         {['', '', ''].map((item: string, index: number) => (
-          <span key={index} className={`p-1 rounded-full ${index + 1 === componentNumber ? 'bg-purple-700' : 'bg-gray-200'} bg-purple-700`} />
+          <span key={index} className={`p-1 rounded-full ${index + 1 === componentNumber ? 'bg-purple-700' : 'bg-gray-200'}`} />
         ))}
       </div>
     </div>
