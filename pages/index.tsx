@@ -7,85 +7,10 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import HowToStartSection from '../components/organisms/HowToStartSection';
 import Button from '../components/atoms/Button';
 import LogoAndName from '../components/atoms/LogoAndName';
-import { RefObject, useEffect, useRef } from 'react';
-import gsap from 'gsap';
-import { ScrollTrigger } from 'gsap/dist/ScrollTrigger';
 
 const AnimatedGlobe = dynamic(() => import('../components/molecules/AnimatedGlobe'), { ssr: false });
 
 const Home: NextPage = () => {
-  const mainWrapperRef = useRef() as RefObject<HTMLDivElement>;
-  gsap.registerPlugin(ScrollTrigger);
-
-  useEffect(() => {
-    const element = mainWrapperRef.current;
-
-    gsap.fromTo(
-      element!.querySelector('#create-an-account'),
-      {
-        x: -50,
-        opacity: 0,
-      },
-      {
-        opacity: 1,
-        x: 0,
-        lazy: false,
-        scrollTrigger: {
-          scroller: '#main-wrapper',
-          trigger: element!.querySelector('#create-an-account'),
-          start: 'bottom bottom-=100',
-          end: 'bottom bottom-=100',
-        },
-      }
-    );
-  }, []);
-
-  useEffect(() => {
-    const element = mainWrapperRef.current;
-
-    gsap.fromTo(
-      element!.querySelector('#share-your-code'),
-      {
-        x: 50,
-        opacity: 0,
-      },
-      {
-        opacity: 1,
-        x: 0,
-        lazy: false,
-        scrollTrigger: {
-          scroller: '#main-wrapper',
-          trigger: element!.querySelector('#share-your-code'),
-          start: 'bottom bottom-=100',
-          end: 'bottom bottom-=100',
-        },
-      }
-    );
-  }, []);
-
-  useEffect(() => {
-    const element = mainWrapperRef.current;
-
-    gsap.fromTo(
-      element!.querySelector('#wait-for-reactions'),
-      {
-        x: -50,
-        opacity: 0,
-      },
-      {
-        opacity: 1,
-        x: 0,
-        lazy: false,
-        scrollTrigger: {
-          scroller: '#main-wrapper',
-          trigger: element!.querySelector('#wait-for-reactions'),
-          start: 'bottom bottom-=100',
-          end: 'bottom bottom-=100',
-        },
-      }
-    );
-  }, []);
-
   return (
     <>
       <Head>
@@ -93,7 +18,7 @@ const Home: NextPage = () => {
         <meta name="viewport" content="initial-scale=1.0, width=device-width" />
       </Head>
 
-      <div id="main-wrapper" className="w-screen h-screen overflow-x-hidden scroll-smooth" ref={mainWrapperRef}>
+      <div id="main-wrapper" className="w-screen h-screen scroll-smooth">
         <MobileHomeBackground />
         <div className="w-full min-h-screen h-full relative z-[2] flex items-start justify-start">
           <div className="absolute z-[2] w-screen h-1/2">
@@ -122,3 +47,9 @@ const Home: NextPage = () => {
 };
 
 export default Home;
+
+/*
+ * TODO:
+ *  - Add color mode (change background and globe color)
+ *  - Replace 'how to start' section with images rather than text
+ * */

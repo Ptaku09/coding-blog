@@ -5,10 +5,85 @@ import Twitter from '../../assets/twitter.svg';
 import GithubBlack from '../../assets/github-black.svg';
 import NewPostBlack from '../../assets/new-post-black.svg';
 import SubmitBlack from '../../assets/submit-black.svg';
+import gsap from 'gsap';
+import { ScrollTrigger } from 'gsap/dist/ScrollTrigger';
+import { RefObject, useEffect, useRef } from 'react';
 
 const HowToStartSection = () => {
+  const ref = useRef() as RefObject<HTMLElement>;
+  gsap.registerPlugin(ScrollTrigger);
+
+  useEffect(() => {
+    const element = ref.current;
+
+    gsap.fromTo(
+      element!.querySelector('#create-an-account'),
+      {
+        x: -50,
+        opacity: 0,
+      },
+      {
+        opacity: 1,
+        x: 0,
+        lazy: false,
+        scrollTrigger: {
+          scroller: 'body',
+          trigger: element!.querySelector('#create-an-account'),
+          start: 'bottom bottom-=100',
+          end: 'bottom bottom-=100',
+        },
+      }
+    );
+  }, []);
+
+  useEffect(() => {
+    const element = ref.current;
+
+    gsap.fromTo(
+      element!.querySelector('#share-your-code'),
+      {
+        x: 50,
+        opacity: 0,
+      },
+      {
+        opacity: 1,
+        x: 0,
+        lazy: false,
+        scrollTrigger: {
+          scroller: 'body',
+          trigger: element!.querySelector('#share-your-code'),
+          start: 'bottom bottom-=100',
+          end: 'bottom bottom-=100',
+        },
+      }
+    );
+  }, []);
+
+  useEffect(() => {
+    const element = ref.current;
+
+    gsap.fromTo(
+      element!.querySelector('#wait-for-reactions'),
+      {
+        x: -50,
+        opacity: 0,
+      },
+      {
+        opacity: 1,
+        x: 0,
+        lazy: false,
+        scrollTrigger: {
+          scroller: 'body',
+          trigger: element!.querySelector('#wait-for-reactions'),
+          start: 'bottom bottom-=100',
+          end: 'bottom bottom-=100',
+        },
+      }
+    );
+  }, []);
+
   return (
-    <section className="flex items-center justify-start flex-col w-screen h-auto px-6">
+    <section className="flex items-center justify-start flex-col w-screen h-auto px-6" ref={ref}>
       <h3 className="relative text-black text-4xl font-raleway mt-16 mb-5">
         <span id="how-to-start" className="absolute -top-5" />
         How to start?
