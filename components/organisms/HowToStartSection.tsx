@@ -29,8 +29,8 @@ const HowToStartSection = () => {
         scrollTrigger: {
           scroller: 'body',
           trigger: element!.querySelector('#create-an-account'),
-          start: 'bottom bottom-=100',
-          end: 'bottom bottom-=100',
+          start: 'bottom bottom-=20',
+          end: 'bottom bottom-=20',
         },
       }
     );
@@ -52,8 +52,8 @@ const HowToStartSection = () => {
         scrollTrigger: {
           scroller: 'body',
           trigger: element!.querySelector('#share-your-code'),
-          start: 'bottom bottom-=100',
-          end: 'bottom bottom-=100',
+          start: 'bottom bottom-=20',
+          end: 'bottom bottom-=20',
         },
       }
     );
@@ -75,8 +75,8 @@ const HowToStartSection = () => {
         scrollTrigger: {
           scroller: 'body',
           trigger: element!.querySelector('#wait-for-reactions'),
-          start: 'bottom bottom-=100',
-          end: 'bottom bottom-=100',
+          start: 'bottom bottom-=20',
+          end: 'bottom bottom-=20',
         },
       }
     );
