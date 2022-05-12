@@ -8,7 +8,7 @@ import SubmitBlack from '../../assets/submit-black.svg';
 
 const HowToStartSection = () => {
   return (
-    <div className="flex items-center justify-start flex-col w-screen h-auto px-6">
+    <section className="flex items-center justify-start flex-col w-screen h-auto px-6">
       <h3 className="relative text-black text-4xl font-raleway mt-16 mb-5">
         <span id="how-to-start" className="absolute -top-5" />
         How to start?
@@ -36,7 +36,7 @@ const HowToStartSection = () => {
       <HowToStartComponent componentNumber={3} title="Wait for reactions">
         <p className="absolute left-8 mt-5 w-full text-left">Show yourself to the world!</p>
       </HowToStartComponent>
-    </div>
+    </section>
   );
 };
 

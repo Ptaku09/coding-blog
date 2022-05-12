@@ -1,8 +1,17 @@
 import React from 'react';
 
-export const HowToStartComponent = ({ componentNumber, title, children }: { componentNumber: number; title: string; children: React.ReactNode }) => {
+type Props = {
+  componentNumber: number;
+  title: string;
+  children: React.ReactNode;
+};
+
+export const HowToStartComponent = ({ componentNumber, title, children }: Props) => {
   return (
-    <div className="w-4/5 h-auto min-h-56 my-10 bg-white relative flex items-end justify-start flex-col p-4 shadow-2xl rounded-xl font-jakarta">
+    <div
+      id={title.split(' ').join('-').toLowerCase()}
+      className="w-4/5 h-auto min-h-56 my-10 bg-white relative flex items-end justify-start flex-col p-4 shadow-2xl rounded-xl font-jakarta"
+    >
       <p className="absolute -left-3 -top-10 font-raleway text-8xl font-bold text-purple-600">{componentNumber}</p>
       <p className="text-xl text-right border-b-[1px] border-b-black">{title.toLocaleUpperCase()}</p>
       <div className="mb-5">{children}</div>
