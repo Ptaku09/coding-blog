@@ -28,7 +28,7 @@ const Home: NextPage = () => {
               <FontAwesomeIcon icon={faLightbulb} />
             </div>
             <div className="w-screen h-1/2 absolute bottom-7 flex items-center justify-center flex-col">
-              <h1 className="text-white font-raleway text-6xl font-bold text-center border-b-2 mx-12 mb-5 pb-4">Show your ideas to the world!</h1>
+              <h1 className="text-white font-raleway text-5xl font-bold text-center border-b-2 mx-12 mb-5 pb-4">Show your ideas to the world!</h1>
               <Button text="Login" onClickFunc={() => console.log('Login')} />
             </div>
           </div>

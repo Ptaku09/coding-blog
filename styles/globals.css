@@ -4,6 +4,7 @@
 
 @layer utilities {
     html, body {
+        position: absolute;
         height: 100%;
         box-sizing: border-box;
         overflow-x: hidden;
