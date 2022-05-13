@@ -1,6 +1,6 @@
 export const MobileHomeBackground = () => {
   return (
-    <div className="fixed w-full min-h-screen">
+    <div className="fixed w-screen h-screen">
       <svg
         id="visual"
         viewBox="0 0 390 844"

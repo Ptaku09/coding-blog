@@ -16,13 +16,18 @@ const Home: NextPage = () => {
     <>
       <Head>
         <title>Coding blog</title>
-        <meta name="viewport" content="initial-scale=1.0, width=device-width" />
+        <meta
+          name="viewport"
+          content="height=device-height,
+                      width=device-width, initial-scale=1.0,
+                      minimum-scale=1.0, maximum-scale=1.0"
+        />
       </Head>
 
-      <div id="main-wrapper" className="w-screen h-screen">
+      <div id="main-wrapper" className="w-screen min-h-full h-auto">
         <MobileHomeBackground />
-        <div className="w-full min-h-screen h-full relative z-[2] flex items-start justify-start">
-          <div className="absolute z-[2] w-screen h-1/2">
+        <div className="w-screen h-full relative flex items-start justify-start">
+          <div className="absolute z-[2] w-screen h-2/5">
             <div className="w-screen relative p-4 pr-8 text-2xl font-raleway font-bold text-white flex items-center justify-between">
               <LogoAndName />
               <FontAwesomeIcon icon={faLightbulb} />
@@ -35,7 +40,7 @@ const Home: NextPage = () => {
           <div className="mt-[18rem]">
             <AnimatedGlobe />
           </div>
-          <div className="w-[102rem] h-[102rem] absolute -bottom-[98.5rem] left-1/2 -translate-x-1/2 bg-white rounded-full flex items-center justify-start flex-col">
+          <div className="w-[102rem] h-[102rem] absolute top-[49.5rem] left-1/2 -translate-x-1/2 bg-white rounded-full flex items-center justify-start flex-col">
             <a className="mt-3" href="#how-to-start">
               <FontAwesomeIcon className="animate-myBounce" icon={faArrowDown} />
             </a>
