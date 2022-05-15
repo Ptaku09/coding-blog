@@ -40,7 +40,7 @@ const Home: NextPage = () => {
           <div className="mt-[18rem]">
             <AnimatedGlobe />
           </div>
-          <div className="w-screen h-[102rem] absolute top-[49.5rem] left-1/2 -translate-x-1/2 bg-white rounded-full flex items-center justify-start flex-col">
+          <div className="w-screen h-auto absolute top-[49.5rem] bg-white rounded-tl-[100%80px] rounded-tr-[100%80px] flex items-center justify-start flex-col">
             <a className="mt-3" href="#how-to-start">
               <FontAwesomeIcon className="animate-myBounce" icon={faArrowDown} />
             </a>
