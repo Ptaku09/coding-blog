@@ -7,7 +7,6 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import HowToStartSection from '../components/organisms/HowToStartSection';
 import Button from '../components/atoms/Button';
 import LogoAndName from '../components/atoms/LogoAndName';
-import HowItWorksSection from '../components/organisms/HowItWorksSection';
 
 const AnimatedGlobe = dynamic(() => import('../components/molecules/AnimatedGlobe'), { ssr: false });
 
@@ -45,7 +44,6 @@ const Home: NextPage = () => {
               <FontAwesomeIcon className="animate-myBounce" icon={faArrowDown} />
             </a>
             <HowToStartSection />
-            <HowItWorksSection />
           </div>
         </div>
       </div>
@@ -54,9 +52,3 @@ const Home: NextPage = () => {
 };
 
 export default Home;
-
-/*
- * TODO:
- *  - Add color mode (change background and globe color)
- *  - Replace 'how to start' section with images rather than text
- * */

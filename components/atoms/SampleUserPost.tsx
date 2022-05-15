@@ -15,8 +15,7 @@ const SampleUserPost = () => {
         <span className="w-3/5 h-2 mb-3 bg-gray-300 rounded-full" />
         <span className="w-4/5 h-2 mb-3 bg-gray-300 rounded-full" />
         <span className="w-11/12 h-2 mb-3 bg-gray-300 rounded-full" />
-        <span className="w-4/5 h-2 mb-3 bg-gray-300 rounded-full" />
-        <span className="w-1/4 h-2 mb-8 bg-gray-300 rounded-full" />
+        <span className="w-1/4 h-2 mb-4 bg-gray-300 rounded-full" />
       </div>
       <div className="w-full mb-2 grid grid-cols-2">
         <div className="flex items-center justify-center gap-2">
