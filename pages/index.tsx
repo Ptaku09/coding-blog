@@ -9,6 +9,7 @@ import GradientButton from '../components/atoms/GradientButton';
 import HomePageLayout from '../components/templates/HomePageLayout';
 import { ReactElement } from 'react';
 import Curiosity from '../components/atoms/Curiosity';
+import Carousel from '../components/organisms/Carousel';
 
 const AnimatedGlobe = dynamic(() => import('../components/molecules/AnimatedGlobe'), { ssr: false });
 
@@ -49,8 +50,9 @@ const Home = () => {
             <HowToStartSection />
             <GradientButton text="start now" onClickFunc={() => console.log('Login')} />
           </div>
-          <div className="w-screen min-h-screen h-auto relative -mt-16 pt-16 bg-user-opinions-mobile flex flex-col items-center overflow-x-hidden">
+          <div className="w-screen h-auto relative -mt-16 pt-16 bg-user-opinions-mobile flex flex-col items-center overflow-x-hidden">
             <Curiosity />
+            <Carousel />
           </div>
         </div>
       </div>
