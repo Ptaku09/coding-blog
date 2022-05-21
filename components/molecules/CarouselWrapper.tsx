@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { useSwipeable } from 'react-swipeable';
 
-export const Carousel = ({ children }: { children: React.ReactElement[] }) => {
+export const CarouselWrapper = ({ children }: { children: React.ReactElement[] }) => {
   const [activeIndex, setActiveIndex] = useState(0);
   const loadingBarRef = useRef<HTMLSpanElement>(null);
 

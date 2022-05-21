@@ -1,3 +1,4 @@
+const { position } = require('tailwindcss/lib/util/dataTypes');
 module.exports = {
   content: ['./pages/**/*.{js,ts,jsx,tsx}', './components/**/*.{js,ts,jsx,tsx}'],
   theme: {
@@ -33,12 +34,24 @@ module.exports = {
             'animation-timing-function': 'cubic-bezier(0, 0, 0.2, 1)',
           },
         },
+        gradientBackground: {
+          '0%': {
+            'background-position': '0% 63%',
+          },
+          '50%': {
+            'background-position': '100% 38%',
+          },
+          '100%': {
+            'background-position': '0% 63%',
+          },
+        },
       },
       animation: {
         appearing: 'appear 0.5s ease-in-out',
         'appearing-short': 'appear 0.35s ease-in-out',
         sliding: 'slide 7s linear',
         myBounce: 'myBounce 1s infinite',
+        gradientBackground: 'gradientBackground 7s ease infinite',
       },
       fontFamily: {
         flower: ['Indie Flower', 'cursive'],

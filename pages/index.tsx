@@ -1,4 +1,3 @@
-import type { NextPage } from 'next';
 import Head from 'next/head';
 import { MobileHomeBackground } from '../components/atoms/svg/MobileHomeBackground';
 import { faArrowDown, faLightbulb } from '@fortawesome/free-solid-svg-icons';
@@ -7,10 +6,13 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import HowToStartSection from '../components/organisms/HowToStartSection';
 import Button from '../components/atoms/Button';
 import LogoAndName from '../components/atoms/LogoAndName';
+import GradientButton from '../components/atoms/GradientButton';
+import HomePageLayout from '../components/templates/HomePageLayout';
+import { ReactElement } from 'react';
 
 const AnimatedGlobe = dynamic(() => import('../components/molecules/AnimatedGlobe'), { ssr: false });
 
-const Home: NextPage = () => {
+const Home = () => {
   return (
     <>
       <Head>
@@ -39,16 +41,21 @@ const Home: NextPage = () => {
           <div className="mt-[18rem]">
             <AnimatedGlobe />
           </div>
-          <div className="w-screen h-auto absolute top-[49.5rem] bg-white rounded-tl-[100%80px] rounded-tr-[100%80px] flex items-center justify-start flex-col">
+          <div className="w-screen h-auto absolute top-[49.5rem] bg-white rounded-t-[100%80px] rounded-b-[100%80px] flex items-center justify-start flex-col">
             <a className="mt-3" href="#how-to-start">
               <FontAwesomeIcon className="animate-myBounce" icon={faArrowDown} />
             </a>
             <HowToStartSection />
+            <GradientButton text="start now" onClickFunc={() => console.log('Login')} />
           </div>
         </div>
       </div>
     </>
   );
+};
+
+Home.getLayout = (page: ReactElement) => {
+  return <HomePageLayout>{page}</HomePageLayout>;
 };
 
 export default Home;
