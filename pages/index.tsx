@@ -8,6 +8,7 @@ import LogoAndName from '../components/atoms/LogoAndName';
 import GradientButton from '../components/atoms/GradientButton';
 import HomePageLayout from '../components/templates/HomePageLayout';
 import { ReactElement } from 'react';
+import Curiosity from '../components/atoms/Curiosity';
 
 const AnimatedGlobe = dynamic(() => import('../components/molecules/AnimatedGlobe'), { ssr: false });
 
@@ -48,6 +49,9 @@ const Home = () => {
             <HowToStartSection />
             <GradientButton text="start now" onClickFunc={() => console.log('Login')} />
           </div>
+          <div className="w-screen min-h-screen h-auto relative -mt-16 pt-16 bg-user-opinions-mobile flex flex-col items-center overflow-x-hidden">
+            <Curiosity />
+          </div>
         </div>
       </div>
     </>
@@ -55,11 +59,7 @@ const Home = () => {
 };
 
 Home.getLayout = (page: ReactElement) => {
-  return (
-    <div className="w-full h-auto bg-home-page-mobile">
-      <HomePageLayout>{page}</HomePageLayout>
-    </div>
-  );
+  return <HomePageLayout>{page}</HomePageLayout>;
 };
 
 export default Home;
