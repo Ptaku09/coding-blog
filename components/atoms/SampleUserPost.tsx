@@ -1,7 +1,7 @@
 import Image from 'next/image';
-import Heart from '../../assets/heart.svg';
-import Share from '../../assets/share.svg';
-import Copy from '../../assets/copy.svg';
+import Heart from '../../public/icons/heart.svg';
+import Share from '../../public/icons/share.svg';
+import Copy from '../../public/icons/copy.svg';
 
 const SampleUserPost = () => {
   return (

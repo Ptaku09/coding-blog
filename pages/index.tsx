@@ -8,7 +8,6 @@ import LogoAndName from '../components/atoms/LogoAndName';
 import GradientButton from '../components/atoms/GradientButton';
 import HomePageLayout from '../components/templates/HomePageLayout';
 import { ReactElement } from 'react';
-import { MobileHomeBackground } from '../components/atoms/svg/MobileHomeBackground';
 
 const AnimatedGlobe = dynamic(() => import('../components/molecules/AnimatedGlobe'), { ssr: false });
 
@@ -25,9 +24,8 @@ const Home = () => {
         />
       </Head>
 
-      <div className="w-screen h-auto">
-        <MobileHomeBackground />
-        <div className="w-screen bg-blue-900 h-auto flex items-start justify-start flex-col">
+      <div className="w-screen bg-home-page-mobile h-auto flex items-center justify-start flex-col">
+        <div className="w-screen h-auto flex items-start justify-start flex-col">
           <div className="h-mobile-screen">
             <div className="absolute z-[2] w-screen top-0 h-1/2">
               <div className="w-screen p-4 pr-8 text-2xl font-raleway font-bold text-white flex items-center justify-between">
@@ -57,7 +55,11 @@ const Home = () => {
 };
 
 Home.getLayout = (page: ReactElement) => {
-  return <HomePageLayout>{page}</HomePageLayout>;
+  return (
+    <div className="w-full h-auto bg-home-page-mobile">
+      <HomePageLayout>{page}</HomePageLayout>
+    </div>
+  );
 };
 
 export default Home;

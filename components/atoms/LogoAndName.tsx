@@ -1,5 +1,5 @@
 import Image from 'next/image';
-import LogoWhite from '../../assets/logo-white.svg';
+import LogoWhite from '../../public/icons/logo-white.svg';
 
 const LogoAndName = () => {
   return (

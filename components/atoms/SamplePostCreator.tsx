@@ -1,6 +1,6 @@
 import Image from 'next/image';
-import SubmitBlack from '../../assets/submit-black.svg';
-import XmarkBlack from '../../assets/xmark-black.svg';
+import SubmitBlack from '../../public/icons/submit-black.svg';
+import XmarkBlack from '../../public/icons/xmark-black.svg';
 
 const SamplePostCreator = () => {
   return (

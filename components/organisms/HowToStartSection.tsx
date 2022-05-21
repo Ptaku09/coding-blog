@@ -1,6 +1,6 @@
 import { HowToStartComponent } from '../atoms/HowToStartComponent';
 import Image from 'next/image';
-import NewPostBlack from '../../assets/new-post-black.svg';
+import NewPostBlack from '../../public/icons/new-post-black.svg';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/dist/ScrollTrigger';
 import { RefObject, useEffect, useRef } from 'react';
