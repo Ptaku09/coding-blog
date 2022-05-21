@@ -1,6 +1,6 @@
 const Footer = () => {
   return (
-    <div className="w-screen absolute -bottom-[120rem] h-44 bg-black">
+    <div className="w-screen relative z-[2] h-44 bg-black">
       <p className="text-white">footer</p>
     </div>
   );
