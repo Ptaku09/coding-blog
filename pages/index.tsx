@@ -30,7 +30,7 @@ const Home = () => {
         <div className="w-screen h-auto flex items-start justify-start flex-col">
           <div className="h-mobile-screen">
             <div className="absolute z-[2] w-screen top-0 h-1/2">
-              <div className="w-screen p-4 pr-8 text-2xl font-raleway font-bold text-white flex items-center justify-between">
+              <div className="w-screen p-4 pr-8 text-2xl text-white flex items-center justify-between">
                 <LogoAndName />
                 <FontAwesomeIcon icon={faLightbulb} />
               </div>
@@ -52,6 +52,7 @@ const Home = () => {
           </div>
           <div className="w-screen h-auto relative -mt-16 pt-16 bg-user-opinions-mobile flex flex-col items-center overflow-x-hidden">
             <Curiosity />
+            <h3 className="font-bebas text-5xl text-white -mb-12 mt-16">Hear the crowd!</h3>
             <Carousel />
           </div>
         </div>

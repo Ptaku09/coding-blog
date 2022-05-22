@@ -1,7 +1,7 @@
 import Image from 'next/image';
 import Google from '../../public/icons/google.svg';
 import GithubBlack from '../../public/icons/github-black.svg';
-import Twitter from '../../public/icons/twitter.svg';
+import Twitter from '../../public/icons/twitter-black.svg';
 
 const SampleSingInMenu = () => {
   return (
