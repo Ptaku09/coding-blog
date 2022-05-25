@@ -22,11 +22,13 @@ const AnimatedGlobe = () => {
       .then((res) => res.json())
       .then(setCountries);
 
+    const isMobile = window.innerWidth < 768;
+
     // set initial params
     globeRef.current.controls().enableZoom = false;
     globeRef.current.controls().autoRotate = true;
     globeRef.current.controls().autoRotateSpeed = 0.65;
-    globeRef.current.camera().fov = 60;
+    globeRef.current.camera().fov = isMobile ? 60 : 45;
     globeRef.current.camera().position.set(globeRef.current.camera().position.x, 150, globeRef.current.camera().position.z);
     setGlobeMaterial(new THREE.MeshPhongMaterial({ color: 0x474ed6, shininess: 0.5 }));
 
