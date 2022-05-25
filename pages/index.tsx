@@ -2,20 +2,26 @@ import Head from 'next/head';
 import { faArrowDown, faLightbulb } from '@fortawesome/free-solid-svg-icons';
 import dynamic from 'next/dynamic';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import HowToStartSection from '../components/organisms/HowToStartSection';
+import MobileHowToStartSection from '../components/organisms/MobileHowToStartSection';
 import Button from '../components/atoms/Button';
 import LogoAndName from '../components/atoms/LogoAndName';
-import GradientButton from '../components/atoms/GradientButton';
 import HomePageLayout from '../components/templates/HomePageLayout';
-import { ReactElement } from 'react';
+import { ReactElement, useEffect, useState } from 'react';
 import Curiosity from '../components/atoms/Curiosity';
 import Carousel from '../components/organisms/Carousel';
 import MainViewPicture from '../public/images/main-view-pictrue-desktop.svg';
 import Image from 'next/image';
+import DesktopHowToStartSection from '../components/organisms/DesktopHowToStartSection';
 
 const AnimatedGlobe = dynamic(() => import('../components/molecules/AnimatedGlobe'), { ssr: false });
 
 const Home = () => {
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    setIsMobile(window.innerWidth < 768);
+  }, []);
+
   return (
     <>
       <Head>
@@ -50,12 +56,15 @@ const Home = () => {
               <AnimatedGlobe />
             </div>
           </div>
-          <div className="w-screen md:-mt-36 relative z-[2] h-auto bg-white rounded-t-[100%80px] md:rounded-tr-[100%150%] md:rounded-br-[100%150%] rounded-b-[100%80px] flex items-center justify-start flex-col">
+          <div className="w-screen md:-mt-36 relative z-[2] h-auto bg-white rounded-t-[100%80px] rounded-b-[100%80px] flex items-center justify-start flex-col">
             <a className="mt-3" href="#how-to-start">
               <FontAwesomeIcon className="animate-myBounce" icon={faArrowDown} />
             </a>
-            <HowToStartSection />
-            <GradientButton text="start now" onClickFunc={() => console.log('Login')} />
+            <h3 className="relative text-black text-3xl font-raleway mt-16 mb-3 px-8 pb-2 border-b-[1px] border-gray-200">
+              <span id="how-to-start" className="absolute -top-5" />
+              HOW TO START?
+            </h3>
+            {isMobile ? <MobileHowToStartSection /> : <DesktopHowToStartSection />}
           </div>
           <div className="w-screen h-auto relative -mt-16 pt-16 bg-user-opinions-mobile md:bg-user-opinions-desktop flex flex-col items-center overflow-x-hidden">
             <Curiosity />

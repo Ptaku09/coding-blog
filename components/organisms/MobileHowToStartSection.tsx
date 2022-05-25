@@ -1,4 +1,4 @@
-import { HowToStartComponent } from '../atoms/HowToStartComponent';
+import { MobileHowToStartComponent } from '../atoms/MobileHowToStartComponent';
 import Image from 'next/image';
 import NewPostBlack from '../../public/icons/new-post-black.svg';
 import gsap from 'gsap';
@@ -7,8 +7,9 @@ import { RefObject, useEffect, useRef } from 'react';
 import SampleUserPost from '../atoms/SampleUserPost';
 import SamplePostCreator from '../atoms/SamplePostCreator';
 import SampleSingInMenu from '../atoms/SampleSingInMenu';
+import GradientButton from '../atoms/GradientButton';
 
-const HowToStartSection = () => {
+const MobileHowToStartSection = () => {
   const ref = useRef() as RefObject<HTMLElement>;
   gsap.registerPlugin(ScrollTrigger);
 
@@ -83,26 +84,23 @@ const HowToStartSection = () => {
 
   return (
     <section className="flex items-center justify-start flex-col w-screen h-auto px-6" ref={ref}>
-      <h3 className="relative text-black text-3xl font-raleway mt-16 mb-3 px-8 pb-2 border-b-[1px] border-gray-200">
-        <span id="how-to-start" className="absolute -top-5" />
-        HOW TO START?
-      </h3>
-      <HowToStartComponent title="Create an account">
+      <MobileHowToStartComponent title="Create an account">
         <p className="mb-4 p-1 font-raleway text-lg text-center">Sign in for free via Google, Github or Twitter.</p>
         <SampleSingInMenu />
-      </HowToStartComponent>
-      <HowToStartComponent title="Share your code">
+      </MobileHowToStartComponent>
+      <MobileHowToStartComponent title="Share your code">
         <p className="mb-4 p-1 font-raleway text-lg text-center">
           Click the <Image src={NewPostBlack} width={13} height={13} alt="new post" /> button and add your code with short comment.
         </p>
         <SamplePostCreator />
-      </HowToStartComponent>
-      <HowToStartComponent title="Wait for reactions">
+      </MobileHowToStartComponent>
+      <MobileHowToStartComponent title="Wait for reactions">
         <p className="mb-4 p-1 font-raleway text-lg text-center">Share your knowledge and gain reactions!</p>
         <SampleUserPost />
-      </HowToStartComponent>
+      </MobileHowToStartComponent>
+      <GradientButton text="start now" onClickFunc={() => console.log('Login')} />
     </section>
   );
 };
 
-export default HowToStartSection;
+export default MobileHowToStartSection;

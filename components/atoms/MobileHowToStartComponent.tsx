@@ -5,7 +5,7 @@ type Props = {
   children: React.ReactNode;
 };
 
-export const HowToStartComponent = ({ title, children }: Props) => {
+export const MobileHowToStartComponent = ({ title, children }: Props) => {
   return (
     <div
       id={title.split(' ').join('-').toLowerCase()}

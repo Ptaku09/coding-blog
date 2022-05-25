@@ -38,7 +38,7 @@ const GradientButton = ({ text, onClickFunc }: Props) => {
   return (
     <button
       ref={ref}
-      className="w-1/2 h-12 mb-8 rounded-md flex items-center justify-center text-xl text-white font-bebas bg-gradient-to-tr from-purple-600 to-blue-500 bg-[length:400%_400%] animate-gradientBackground"
+      className="w-1/2 md:w-1/6 h-12 mb-8 rounded-md flex items-center justify-center text-xl text-white font-bebas bg-gradient-to-tr from-purple-600 to-blue-500 bg-[length:400%_400%] animate-gradientBackground"
       onClick={onClickFunc}
     >
       {text.toUpperCase()}
