@@ -56,7 +56,7 @@ const Home = () => {
               <AnimatedGlobe />
             </div>
           </div>
-          <div className="w-screen md:-mt-36 relative z-[2] h-auto bg-white rounded-t-[100%80px] rounded-b-[100%80px] flex items-center justify-start flex-col">
+          <div className="w-screen md:-mt-16 relative z-[2] h-auto bg-white rounded-t-[100%80px] rounded-b-[100%80px] flex items-center justify-start flex-col">
             <a className="mt-3" href="#how-to-start">
               <FontAwesomeIcon className="animate-myBounce" icon={faArrowDown} />
             </a>
