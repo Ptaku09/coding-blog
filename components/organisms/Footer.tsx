@@ -10,7 +10,7 @@ const Footer = () => {
       <div className="flex justify-start text-xl border-b-[1px] pb-2">
         <LogoAndName />
       </div>
-      <div className="grid grid-cols-2 pt-5 px-5">
+      <div className="grid grid-cols-2 md:flex md:items-center md:justify-center md:gap-56 md:bg-black pt-5 px-5">
         <div className="flex flex-col justify-start items-start gap-4">
           <p className="text-xl">Follow me!</p>
           <a className="flex items-center justify-center gap-1" href="https://github.com/Ptaku09" target="_blank" rel="noreferrer">
