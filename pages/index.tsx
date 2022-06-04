@@ -66,9 +66,9 @@ const Home = () => {
             </h3>
             {isMobile ? <MobileHowToStartSection /> : <DesktopHowToStartSection />}
           </div>
-          <div className="w-screen h-auto relative -mt-16 pt-16 bg-user-opinions-mobile md:bg-user-opinions-desktop flex flex-col items-center overflow-x-hidden">
-            <Curiosity />
-            <h3 className="font-bebas text-5xl text-white -mb-12 mt-16">Hear the crowd!</h3>
+          <div className="w-screen h-auto relative -mt-16 pt-16 md:pb-12 bg-user-opinions-mobile md:bg-user-opinions-desktop flex flex-col items-center overflow-x-hidden">
+            {isMobile ? <Curiosity /> : null}
+            <h3 className="font-bebas text-5xl md:text-7xl text-white -mb-12 md:mb-5 mt-16">Hear the crowd!</h3>
             <Carousel />
           </div>
         </div>
