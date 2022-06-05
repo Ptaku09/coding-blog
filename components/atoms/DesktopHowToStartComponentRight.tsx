@@ -7,7 +7,7 @@ type Props = {
 
 const DesktopHowToStartComponentRight = ({ title, children }: Props) => {
   return (
-    <div className="w-auto h-auto relative">
+    <div className="w-auto h-auto relative text-black">
       <div
         id={title.split(' ').join('-').toLowerCase()}
         className="w-auto h-auto relative bg-gray-100 shadow-2xl shadow-blue-500/40 py-5 px-10 flex items-center justify-center flex-col gap-5"

@@ -1,19 +1,21 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faLightbulb, faMoon } from '@fortawesome/free-solid-svg-icons';
+import { faMoon, faSun } from '@fortawesome/free-solid-svg-icons';
 import { useTheme } from 'next-themes';
+import { useEffect, useState } from 'react';
 
 const ColorModeToggle = () => {
   const { theme, setTheme } = useTheme();
+  const [icon, setIcon] = useState(faSun);
+
+  useEffect(() => {
+    theme === 'dark' ? setIcon(faMoon) : setIcon(faSun);
+  }, [theme]);
 
   const handleChangeColorMode = () => {
     theme === 'light' ? setTheme('dark') : setTheme('light');
   };
 
-  return theme === 'dark' ? (
-    <FontAwesomeIcon onClick={handleChangeColorMode} icon={faLightbulb} />
-  ) : (
-    <FontAwesomeIcon onClick={handleChangeColorMode} icon={faMoon} />
-  );
+  return <FontAwesomeIcon className="animate-appearing cursor-pointer" onClick={handleChangeColorMode} icon={icon} />;
 };
 
 export default ColorModeToggle;

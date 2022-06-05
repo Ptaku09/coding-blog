@@ -47,7 +47,7 @@ const Curiosity = () => {
   }, []);
 
   return (
-    <div ref={ref} className="mt-16 shadow-2xl">
+    <div ref={ref} className="mt-16 shadow-2xl text-black">
       <div id="curiosity-title" className="w-screen h-16 bg-curiosity bg-cover text-white font-bebas text-3xl flex items-center justify-center">
         <p className="bg-black p-1">Did you know that...?</p>
       </div>
