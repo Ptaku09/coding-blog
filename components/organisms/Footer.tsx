@@ -6,7 +6,7 @@ import Image from 'next/image';
 
 const Footer = () => {
   return (
-    <div className="w-screen relative z-[2] p-3 pb-0 min-h-56 h-auto bg-black text-white grid grid-rows-[1fr_2fr_1fr] font-bebas md:w-96 md:mx-auto">
+    <div className="w-screen relative z-[2] p-3 pb-0 md:p-5 min-h-56 md:min-h-0 h-auto bg-black text-white grid grid-rows-[1fr_2fr_1fr] font-bebas md:flex md:justify-around">
       <div className="flex justify-start text-xl border-b-[1px] md:border-0 pb-0">
         <LogoAndName />
       </div>
@@ -24,7 +24,7 @@ const Footer = () => {
           <p className="text-sm">@Ptaku08</p>
         </a>
       </div>
-      <div className="flex items-center justify-between w-full text-sm">
+      <div className="flex items-center justify-between w-full md:w-auto text-sm">
         <p>
           <span className="after:content-['❤'] after:mx-1">Created with</span>
           by{' '}
