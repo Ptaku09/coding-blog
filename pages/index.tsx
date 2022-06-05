@@ -1,5 +1,5 @@
 import Head from 'next/head';
-import { faArrowDown, faLightbulb } from '@fortawesome/free-solid-svg-icons';
+import { faArrowDown } from '@fortawesome/free-solid-svg-icons';
 import dynamic from 'next/dynamic';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import MobileHowToStartSection from '../components/organisms/MobileHowToStartSection';
@@ -12,6 +12,7 @@ import Carousel from '../components/organisms/Carousel';
 import MainViewPicture from '../public/images/main-view-pictrue-desktop.svg';
 import Image from 'next/image';
 import DesktopHowToStartSection from '../components/organisms/DesktopHowToStartSection';
+import ColorModeToggle from '../components/atoms/ColorModeToggle';
 
 const AnimatedGlobe = dynamic(() => import('../components/molecules/AnimatedGlobe'), { ssr: false });
 
@@ -37,7 +38,7 @@ const Home = () => {
       <div className="w-screen bg-home-page-mobile md:bg-home-page-desktop h-auto flex items-center justify-start flex-col">
         <div className="absolute z-10 w-screen p-4 pr-8 text-2xl text-white flex items-center justify-between">
           <LogoAndName />
-          <FontAwesomeIcon icon={faLightbulb} />
+          <ColorModeToggle />
         </div>
         <div className="w-screen h-auto flex items-start justify-start flex-col">
           <div className="h-mobile-screen w-screen md:h-screen md:flex md:items-center md:flex-row-reverse">
