@@ -20,6 +20,25 @@ module.exports = {
             opacity: 1,
           },
         },
+        typing: {
+          '0%': {
+            width: 0,
+          },
+          '100%': {
+            width: '100%',
+          },
+        },
+        blinkCaret: {
+          '0%': {
+            'border-color': 'transparent',
+          },
+          '50%': {
+            'border-color': '#8f00f4',
+          },
+          '100%': {
+            'border-color': 'transparent',
+          },
+        },
         slide: {
           '0%': {
             transform: 'translateX(-100%)',
@@ -56,6 +75,7 @@ module.exports = {
         sliding: 'slide 7s linear',
         myBounce: 'myBounce 1s infinite',
         gradientBackground: 'gradientBackground 7s ease infinite',
+        typing: 'typing 5s steps(40, end), blinkCaret 1s step-end infinite',
       },
       fontFamily: {
         flower: ['Indie Flower', 'cursive'],

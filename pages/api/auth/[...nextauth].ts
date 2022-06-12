@@ -24,6 +24,7 @@ const client = DynamoDBDocument.from(new DynamoDB(config), {
 
 export default NextAuth({
   adapter: DynamoDBAdapter(client, { tableName: 'coding-blog-users' }),
+  secret: process.env.NEXT_AUTH_SECRET as string,
   providers: [
     GitHub({
       clientId: process.env.GITHUB_CLIENT_ID as string,
@@ -39,4 +40,8 @@ export default NextAuth({
       clientSecret: process.env.GOOGLE_CLIENT_SECRET as string,
     }),
   ],
+  pages: {
+    signIn: '/signin',
+    error: '/signin',
+  },
 });
