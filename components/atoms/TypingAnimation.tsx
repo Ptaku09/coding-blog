@@ -33,8 +33,9 @@ const TypingAnimation = ({ baseText, textsToAnimate }: { baseText: string; texts
 
     return () => clearTimeout(timeout);
   }, [blink]);
+
   return (
-    <p className="font-bebas text-7xl w-full text-left">
+    <p className="h-36 font-bebas text-7xl w-full text-left flex md:items-center">
       {baseText} {words[index].substring(0, subIndex)}
       {blink ? '|' : ''}
     </p>

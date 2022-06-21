@@ -10,6 +10,7 @@ module.exports = {
         'user-opinions-mobile': 'url(/backgrounds/user-opinions-mobile.svg)',
         'user-opinions-desktop': 'url(/backgrounds/user-opinions-desktop.svg)',
         'signin-page-desktop': 'url(/backgrounds/signin-page-desktop.svg)',
+        'signin-page-mobile': 'url(/backgrounds/signin-page-mobile.svg)',
         curiosity: 'url(/backgrounds/curiosity.svg)',
       },
       keyframes: {
