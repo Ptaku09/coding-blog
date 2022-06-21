@@ -3,7 +3,8 @@ import Google from '../public/icons/google.svg';
 import GithubBlack from '../public/icons/github-black.svg';
 import Twitter from '../public/icons/twitter-black.svg';
 import Image from 'next/image';
-import { signIn } from 'next-auth/react';
+import { getSession, signIn } from 'next-auth/react';
+import { GetServerSideProps } from 'next';
 
 const Signin = () => {
   return (
@@ -37,3 +38,20 @@ const Signin = () => {
 };
 
 export default Signin;
+
+export const getServerSideProps: GetServerSideProps = async (context) => {
+  const session = await getSession(context);
+
+  if (session) {
+    return {
+      redirect: {
+        destination: '/',
+        permanent: false,
+      },
+    };
+  }
+
+  return {
+    props: {},
+  };
+};

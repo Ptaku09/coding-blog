@@ -7,7 +7,7 @@ import { RefObject, useEffect, useRef } from 'react';
 import SampleUserPost from '../atoms/SampleUserPost';
 import SamplePostCreator from '../atoms/SamplePostCreator';
 import SampleSingInMenu from '../atoms/SampleSingInMenu';
-import GradientButton from '../atoms/GradientButton';
+import GradientLink from '../atoms/GradientLink';
 
 const MobileHowToStartSection = () => {
   const ref = useRef() as RefObject<HTMLElement>;
@@ -98,7 +98,7 @@ const MobileHowToStartSection = () => {
         <p className="mb-4 p-1 font-raleway text-lg text-center">Share your knowledge and gain reactions!</p>
         <SampleUserPost />
       </MobileHowToStartComponent>
-      <GradientButton text="start now" onClickFunc={() => console.log('Login')} />
+      <GradientLink text="start now" direction="/signin" />
     </section>
   );
 };

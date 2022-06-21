@@ -1,14 +1,15 @@
 import { RefObject, useEffect, useRef } from 'react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/dist/ScrollTrigger';
+import Link from 'next/link';
 
 type Props = {
   text: string;
-  onClickFunc: () => void;
+  direction: string;
 };
 
-const GradientButton = ({ text, onClickFunc }: Props) => {
-  const ref = useRef() as RefObject<HTMLButtonElement>;
+const GradientLink = ({ text, direction }: Props) => {
+  const ref = useRef() as RefObject<HTMLAnchorElement>;
   gsap.registerPlugin(ScrollTrigger);
 
   useEffect(() => {
@@ -36,14 +37,15 @@ const GradientButton = ({ text, onClickFunc }: Props) => {
   }, []);
 
   return (
-    <button
-      ref={ref}
-      className="w-1/2 md:w-1/6 h-12 mb-8 rounded-md flex items-center justify-center text-xl text-white font-bebas bg-gradient-to-tr from-purple-600 to-blue-500 bg-[length:400%_400%] animate-gradientBackground"
-      onClick={onClickFunc}
-    >
-      {text.toUpperCase()}
-    </button>
+    <Link href={direction}>
+      <a
+        ref={ref}
+        className="w-1/2 md:w-1/6 h-12 mb-8 rounded-md flex items-center justify-center text-xl text-white font-bebas bg-gradient-to-tr from-purple-600 to-blue-500 bg-[length:400%_400%] animate-gradientBackground"
+      >
+        {text.toUpperCase()}
+      </a>
+    </Link>
   );
 };
 
-export default GradientButton;
+export default GradientLink;

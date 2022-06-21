@@ -3,7 +3,7 @@ import { faArrowDown } from '@fortawesome/free-solid-svg-icons';
 import dynamic from 'next/dynamic';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import MobileHowToStartSection from '../components/organisms/MobileHowToStartSection';
-import Button from '../components/atoms/Button';
+import MyLink from '../components/atoms/MyLink';
 import LogoAndName from '../components/atoms/LogoAndName';
 import HomePageLayout from '../components/templates/HomePageLayout';
 import { ReactElement, useEffect, useState } from 'react';
@@ -45,7 +45,7 @@ const Home = () => {
             <div className="absolute z-[2] w-screen top-0 h-1/2 md:w-1/2">
               <div className="w-full h-1/2 absolute bottom-7 md:top-1/2 flex items-center justify-center flex-col md:h-full">
                 <h1 className="text-white font-raleway text-5xl font-bold text-center border-b-2 mx-12 mb-5 pb-4">Show your ideas to the world!</h1>
-                <Button text="Login" onClickFunc={() => console.log('Login')} />
+                <MyLink text="Login" direction="/signin" />
                 <div className="hidden md:flex md:flex-col md:justify-center md:items-center md:gap-4 md:mt-12">
                   <a className="" href="https://storyset.com/technology" target="_blank" rel="noreferrer">
                     <Image src={MainViewPicture} width={300} height={300} alt="story" />
