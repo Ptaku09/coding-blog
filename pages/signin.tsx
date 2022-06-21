@@ -1,45 +1,37 @@
-import { useEffect, useState } from 'react';
+import TypingAnimation from '../components/atoms/TypingAnimation';
+import Google from '../public/icons/google.svg';
+import GithubBlack from '../public/icons/github-black.svg';
+import Twitter from '../public/icons/twitter-black.svg';
+import Image from 'next/image';
+import { signIn } from 'next-auth/react';
 
 const Signin = () => {
-  const [words] = useState(['Google', 'Twitter', 'Github']);
-  const [index, setIndex] = useState(0);
-  const [subIndex, setSubIndex] = useState(0);
-  const [blink, setBlink] = useState(true);
-  const [reverse, setReverse] = useState(false);
-
-  useEffect(() => {
-    if (subIndex === words[index].length + 1 && !reverse) {
-      setReverse(true);
-      return;
-    }
-
-    if (subIndex === 0 && reverse) {
-      setReverse(false);
-      setIndex((prevState) => (prevState + 1) % words.length);
-      return;
-    }
-
-    const timeout = setTimeout(() => {
-      setSubIndex((prevState) => (reverse ? prevState - 1 : prevState + 1));
-    }, Math.max(reverse ? 175 : subIndex === words[index].length ? 1000 : 150, Math.random() * 350));
-
-    return () => clearTimeout(timeout);
-  }, [words, index, subIndex, reverse]);
-
-  useEffect(() => {
-    const timeout = setTimeout(() => {
-      setBlink((prevState) => !prevState);
-    }, 750);
-
-    return () => clearTimeout(timeout);
-  }, [blink]);
-
   return (
-    <div className="w-screen bg-red-500 h-screen py-10 px-auto flex justify-center">
-      <p className="font-bebas text-7xl w-1/2 text-left">
-        Sign in via {words[index].substring(0, subIndex)}
-        {blink ? '|' : ''}
-      </p>
+    <div className="w-screen h-screen p-10 bg-cover bg-signin-page-desktop flex flex-col font-raleway text-2xl">
+      <TypingAnimation baseText="Sign in via" textsToAnimate={['Google', 'Twitter', 'Github']} />
+      <div className="w-1/3 my-8 flex flex-col items-center gap-6 border-y-[1px] border-gray-500 py-6 px-12">
+        <button
+          onClick={() => signIn('google')}
+          className="w-full h-auto flex flex-row items-center justify-center gap-3 border-[1px] py-3 transform duration-500 hover:bg-gray-300"
+        >
+          <p>Google</p>
+          <Image src={Google} width={25} height={25} alt="google" />
+        </button>
+        <button
+          onClick={() => signIn('twitter')}
+          className="w-full h-auto flex flex-row items-center justify-center gap-3 border-[1px] py-3 transform duration-500 hover:bg-gray-300"
+        >
+          <p>Twitter</p>
+          <Image src={Twitter} width={25} height={25} alt="twitter" />
+        </button>
+        <button
+          onClick={() => signIn('github')}
+          className="w-full h-auto flex flex-row items-center justify-center gap-3 border-[1px] py-3 transform duration-500 hover:bg-gray-300"
+        >
+          <p>Github</p>
+          <Image src={GithubBlack} width={25} height={25} alt="google" />
+        </button>
+      </div>
     </div>
   );
 };
