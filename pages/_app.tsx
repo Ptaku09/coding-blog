@@ -3,16 +3,19 @@ import type { AppProps } from 'next/app';
 import { ReactElement, ReactNode } from 'react';
 import { NextPage } from 'next';
 import { ThemeProvider } from 'next-themes';
+import { SessionProvider } from 'next-auth/react';
 
 type NextPageWithLayout = NextPage & { getLayout?: (page: ReactElement) => ReactNode };
 type AppPropsWithLayout = AppProps & { Component: NextPageWithLayout };
 
-function MyApp({ Component, pageProps }: AppPropsWithLayout) {
+function MyApp({ Component, pageProps: { session, ...pageProps } }: AppPropsWithLayout) {
   const getLayout = Component.getLayout || ((page: ReactElement) => page);
 
   return getLayout(
     <ThemeProvider attribute="class">
-      <Component {...pageProps} />
+      <SessionProvider session={session} refetchInterval={0}>
+        <Component {...pageProps} />
+      </SessionProvider>
     </ThemeProvider>
   );
 }

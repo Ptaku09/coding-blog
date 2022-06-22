@@ -17,8 +17,10 @@ export const CarouselWrapper = ({ children }: { children: React.ReactElement[] }
 
   //handle loading animation to restart after every slide
   useEffect(() => {
-    loadingBarRef.current!.className =
-      'absolute left-1/2 right-1/2 -translate-x-1/2 top-3 w-16 h-1 before:-translate-x-full bg-gray-200 rounded-full overflow-hidden before:animate-none before:absolute before:bg-blue-500 before:w-full before:rounded-full before:h-full';
+    if (loadingBarRef.current) {
+      loadingBarRef.current.className =
+        'absolute left-1/2 right-1/2 -translate-x-1/2 top-3 w-16 h-1 before:-translate-x-full bg-gray-200 rounded-full overflow-hidden before:animate-none before:absolute before:bg-blue-500 before:w-full before:rounded-full before:h-full';
+    }
 
     setTimeout(() => {
       loadingBarRef.current!.className =

@@ -8,7 +8,7 @@ import { GetServerSideProps } from 'next';
 
 const Signin = () => {
   return (
-    <div className="w-screen h-screen p-10 bg-cover bg-signin-page-mobile md:bg-signin-page-desktop flex flex-col font-raleway text-2xl">
+    <div className="w-screen h-screen p-10 bg-cover bg-signin-page-mobile md:bg-signin-page-desktop flex flex-col font-raleway text-2xl text-black">
       <TypingAnimation baseText={`Sign in via...`} textsToAnimate={['Google', 'Twitter', 'Github']} />
       <div className="w-full md:w-1/3 my-8 flex flex-col items-center gap-6 border-y-[1px] border-gray-500 py-6 px-12">
         <button

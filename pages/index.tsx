@@ -1,5 +1,5 @@
 import Head from 'next/head';
-import { faArrowDown } from '@fortawesome/free-solid-svg-icons';
+import { faArrowDown, faUser } from '@fortawesome/free-solid-svg-icons';
 import dynamic from 'next/dynamic';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import MobileHowToStartSection from '../components/organisms/MobileHowToStartSection';
@@ -12,16 +12,19 @@ import Carousel from '../components/organisms/Carousel';
 import MainViewPicture from '../public/images/main-view-pictrue-desktop.svg';
 import Image from 'next/image';
 import DesktopHowToStartSection from '../components/organisms/DesktopHowToStartSection';
-import ColorModeToggle from '../components/atoms/ColorModeToggle';
+import { useSession } from 'next-auth/react';
+import defaultAvatar from '../public/images/defaultAvatar.jpg';
+import Link from 'next/link';
 
 const AnimatedGlobe = dynamic(() => import('../components/molecules/AnimatedGlobe'), { ssr: false });
 
 const Home = () => {
   const [isMobile, setIsMobile] = useState(false);
+  const { data: session, status } = useSession();
 
   useEffect(() => {
     setIsMobile(window.innerWidth < 768);
-  }, []);
+  }, [session]);
 
   return (
     <>
@@ -35,10 +38,26 @@ const Home = () => {
         />
       </Head>
 
-      <div className="w-screen bg-home-page-mobile md:bg-home-page-desktop h-auto flex items-center justify-start flex-col">
+      <div className="w-screen bg-home-page-mobile md:bg-home-page-desktop h-auto flex items-center justify-start flex-col text-black">
         <div className="absolute z-10 w-screen p-4 pr-8 text-2xl text-white flex items-center justify-between">
           <LogoAndName />
-          <ColorModeToggle />
+          {status === 'authenticated' ? (
+            <div className="w-12 h-12 rounded-full border-[1px] border-white overflow-hidden">
+              <Image
+                src={session?.user?.image || defaultAvatar}
+                height={45}
+                width={45}
+                objectFit="contain"
+                alt={session?.user?.image || 'default photo'}
+              />
+            </div>
+          ) : (
+            <Link href="/signin">
+              <a>
+                <FontAwesomeIcon className="cursor-pointer" icon={faUser} />
+              </a>
+            </Link>
+          )}
         </div>
         <div className="w-screen h-auto flex items-start justify-start flex-col">
           <div className="h-mobile-screen w-screen md:h-screen md:flex md:items-center md:flex-row-reverse">
