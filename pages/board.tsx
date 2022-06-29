@@ -1,5 +1,7 @@
 import BoardMobileLayout from './BoardMobileLayout';
 import { ReactElement } from 'react';
+import { GetServerSideProps } from 'next';
+import { getSession } from 'next-auth/react';
 
 const Board = () => {
   return (
@@ -23,3 +25,20 @@ Board.getLayout = (page: ReactElement) => {
 };
 
 export default Board;
+
+export const getServerSideProps: GetServerSideProps = async (context) => {
+  const session = await getSession(context);
+
+  if (!session) {
+    return {
+      redirect: {
+        destination: '/signin',
+        permanent: false,
+      },
+    };
+  }
+
+  return {
+    props: {},
+  };
+};

@@ -100,7 +100,7 @@ const MobileHowToStartSection = () => {
         <p className="mb-4 p-1 font-raleway text-lg text-center">Share your knowledge and gain reactions!</p>
         <SampleUserPost />
       </MobileHowToStartComponent>
-      <GradientLink text={status === 'authenticated' ? 'go to board' : 'Login'} direction={status === 'authenticated' ? '/' : '/signin'} />
+      <GradientLink text={status === 'authenticated' ? 'go to board' : 'Login'} direction={status === 'authenticated' ? '/board' : '/signin'} />
     </section>
   );
 };

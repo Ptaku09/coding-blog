@@ -1,4 +1,7 @@
 import useScroll, { ScrollDirection } from '../../hooks/useScroll';
+import LogoWhite from '../../public/icons/logo-white.svg';
+import Image from 'next/image';
+import Link from 'next/link';
 
 const BoardMobileHeader = () => {
   const { scrollDirection, scrollPosition } = useScroll();
@@ -9,7 +12,11 @@ const BoardMobileHeader = () => {
         scrollDirection === ScrollDirection.UP || scrollPosition <= 20 ? 'translate-y-0' : '-translate-y-12'
       }`}
     >
-      <p>icon</p>
+      <Link href="/">
+        <a>
+          <Image src={LogoWhite} width={25} height={25} alt="white logo" />
+        </a>
+      </Link>
       <p>CODING BLOG</p>
       <p>logout</p>
     </div>
