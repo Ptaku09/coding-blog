@@ -1,4 +1,6 @@
 import useScroll from '../../hooks/useScroll';
+import arrowUp from '../../public/icons/arrowUp.svg';
+import Image from 'next/image';
 
 const GoToTopButton = () => {
   const { scrollPosition, scrollToTop } = useScroll();
@@ -6,9 +8,11 @@ const GoToTopButton = () => {
   return (
     <button
       onClick={scrollToTop}
-      className={`fixed bottom-16 right-4 w-10 h-10 bg-black transform duration-300 ${scrollPosition >= 200 ? 'translate-x-0' : 'translate-x-14'}`}
+      className={`fixed flex items-center justify-center rounded-lg shadow-xl bottom-16 right-4 w-10 h-10 bg-black transform duration-300 ${
+        scrollPosition >= 200 ? 'translate-x-0' : 'translate-x-16'
+      }`}
     >
-      <p>go</p>
+      <Image src={arrowUp} width={25} height={25} alt="go to top" />
     </button>
   );
 };

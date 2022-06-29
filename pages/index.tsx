@@ -24,7 +24,7 @@ const Home = () => {
 
   useEffect(() => {
     setIsMobile(window.innerWidth < 768);
-  }, [session]);
+  }, []);
 
   return (
     <>

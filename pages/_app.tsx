@@ -11,10 +11,10 @@ type AppPropsWithLayout = AppProps & { Component: NextPageWithLayout };
 function MyApp({ Component, pageProps: { session, ...pageProps } }: AppPropsWithLayout) {
   const getLayout = Component.getLayout || ((page: ReactElement) => page);
 
-  return getLayout(
+  return (
     <ThemeProvider attribute="class">
       <SessionProvider session={session} refetchInterval={0}>
-        <Component {...pageProps} />
+        {getLayout(<Component {...pageProps} />)}
       </SessionProvider>
     </ThemeProvider>
   );
