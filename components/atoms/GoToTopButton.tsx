@@ -1,5 +1,5 @@
 import useScroll from '../../hooks/useScroll';
-import arrowUp from '../../public/icons/arrowUp.svg';
+import arrowUp from '../../public/icons/arrow-up.svg';
 import Image from 'next/image';
 
 const GoToTopButton = () => {

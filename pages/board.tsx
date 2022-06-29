@@ -6,7 +6,7 @@ import BoardPost from '../components/molecules/BoardPost';
 
 const Board = () => {
   return (
-    <div className="w-screen h-auto min-h-screen py-12 bg-white bg-fixed text-white overflow-y-scroll scroll-smooth flex items-center justify-start flex-col">
+    <div className="w-screen h-auto min-h-screen py-12 bg-white dark:bg-[#0e172a] bg-fixed text-white overflow-y-scroll scroll-smooth flex items-center justify-start flex-col">
       <BoardPost />
       <BoardPost />
       <BoardPost />

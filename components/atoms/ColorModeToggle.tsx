@@ -1,8 +1,8 @@
 import { faMoon, faSun } from '@fortawesome/free-solid-svg-icons';
 import { useTheme } from 'next-themes';
 import { useEffect, useState } from 'react';
-import lightMode from '../../public/icons/lightMode.svg';
-import darkMode from '../../public/icons/darkMode.svg';
+import lightMode from '../../public/icons/light-mode.svg';
+import darkMode from '../../public/icons/dark-mode.svg';
 import Image from 'next/image';
 
 const ColorModeToggle = () => {
