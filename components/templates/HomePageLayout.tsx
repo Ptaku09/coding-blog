@@ -1,11 +1,11 @@
 import { ReactNode } from 'react';
-import Footer from '../organisms/Footer';
+import HomeFooter from '../organisms/HomeFooter';
 
 const HomePageLayout = ({ children }: { children: ReactNode }) => {
   return (
     <div>
       <main>{children}</main>
-      <Footer />
+      <HomeFooter />
     </div>
   );
 };

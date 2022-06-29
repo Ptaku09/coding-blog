@@ -4,7 +4,7 @@ import TwitterWhite from '../../public/icons/twitter-white.svg';
 import InstagramWhite from '../../public/icons/instagram-white.svg';
 import Image from 'next/image';
 
-const Footer = () => {
+const HomeFooter = () => {
   return (
     <div className="w-screen relative z-[2] p-3 pb-0 md:p-5 min-h-56 md:min-h-0 h-auto bg-black text-white grid grid-rows-[1fr_2fr_1fr] font-bebas md:flex md:justify-around">
       <div className="flex justify-start text-xl border-b-[1px] md:border-0 pb-0">
@@ -38,4 +38,4 @@ const Footer = () => {
   );
 };
 
-export default Footer;
+export default HomeFooter;
