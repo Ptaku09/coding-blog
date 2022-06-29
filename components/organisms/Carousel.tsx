@@ -1,5 +1,5 @@
 import { CarouselItem } from '../atoms/CarouselItem';
-import { Post } from '../atoms/Post';
+import { CarouselPost } from '../atoms/CarouselPost';
 import mysterious from '../../public/images/mysterious.jpg';
 import jakeWebb from '../../public/images/jakeWebb.jpg';
 import { CarouselWrapper } from '../molecules/CarouselWrapper';
@@ -8,7 +8,7 @@ const Carousel = () => {
   return (
     <CarouselWrapper>
       <CarouselItem>
-        <Post
+        <CarouselPost
           nickname="CodingMaster09"
           role="Backend dev"
           comment="Coding Blog is a place where you can share your knowledge and experience with other people. It's an amazing feeling when someone
@@ -16,7 +16,7 @@ const Carousel = () => {
         />
       </CarouselItem>
       <CarouselItem>
-        <Post
+        <CarouselPost
           avatar={mysterious}
           nickname="Mysterious_"
           role="Frontend dev"
@@ -24,7 +24,7 @@ const Carousel = () => {
         />
       </CarouselItem>
       <CarouselItem>
-        <Post
+        <CarouselPost
           avatar={jakeWebb}
           nickname="JakeWebb123"
           role="Devops"

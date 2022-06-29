@@ -27,11 +27,13 @@
     "react-dom": "17.0.2",
     "react-globe.gl": "^2.22.0",
     "react-swipeable": "^6.2.1",
+    "react-syntax-highlighter": "^15.5.0",
     "three": "^0.140.0"
   },
   "devDependencies": {
     "@types/node": "17.0.21",
     "@types/react": "17.0.39",
+    "@types/react-syntax-highlighter": "^15.5.2",
     "@types/three": "^0.140.0",
     "autoprefixer": "^10.4.2",
     "eslint": "8.10.0",

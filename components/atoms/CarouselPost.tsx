@@ -8,7 +8,7 @@ type Props = {
   comment: string;
 };
 
-export const Post = ({ avatar = defaultAvatar, nickname, role, comment }: Props) => {
+export const CarouselPost = ({ avatar = defaultAvatar, nickname, role, comment }: Props) => {
   return (
     <div className="w-[32rem] h-[22rem] bg-gradient-to-b from-blue-500 to-purple-600 p-1 font-jakarta">
       <div className="w-full h-full bg-white p-1">
