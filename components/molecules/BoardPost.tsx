@@ -4,6 +4,10 @@ import ShareBlack from '../../public/icons/share-black.svg';
 import CopyBlack from '../../public/icons/copy-black.svg';
 import ShareWhite from '../../public/icons/share-white.svg';
 import CopyWhite from '../../public/icons/copy-white.svg';
+import BookmarkFilledWhite from '../../public/icons/bookmark_filled_white.svg';
+import BookmarkEmptyWhite from '../../public/icons/bookmark_empty_white.svg';
+import BookmarkEmptyBlack from '../../public/icons/bookmark_empty_black.svg';
+import BookmarkFilledBlack from '../../public/icons/bookmark_filled_black.svg';
 import defaultAvatar from '../../public/images/defaultAvatar.jpg';
 import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
 import { materialDark, materialLight } from 'react-syntax-highlighter/dist/cjs/styles/prism';
@@ -15,7 +19,7 @@ const sampleText = `public static void main(String[] args) {
 }
 `;
 
-const BoardPost = () => {
+const BoardPost = ({ isFavorite = true }: { isFavorite?: boolean }) => {
   const { theme } = useTheme();
   const [themeMode, setThemeMode] = useState('dark');
 
@@ -40,7 +44,7 @@ const BoardPost = () => {
           {sampleText}
         </SyntaxHighlighter>
       </div>
-      <div className="w-full my-6 grid grid-cols-2">
+      <div className="w-full my-6 grid grid-cols-[1fr_2fr]">
         <div className="flex items-center justify-center gap-2">
           <Image src={Heart} width={20} height={20} className="scale-90 md:hover:scale-100 animate-scale" alt="heart" />
           <p>23k</p>
@@ -50,6 +54,17 @@ const BoardPost = () => {
             <Image src={ShareWhite} width={18} height={18} alt="share" />
           ) : (
             <Image src={ShareBlack} width={18} height={18} alt="share" />
+          )}
+          {theme === 'dark' ? (
+            isFavorite ? (
+              <Image src={BookmarkFilledWhite} width={18} height={18} alt="share" />
+            ) : (
+              <Image src={BookmarkEmptyWhite} width={18} height={18} alt="share" />
+            )
+          ) : isFavorite ? (
+            <Image src={BookmarkFilledBlack} width={18} height={18} alt="share" />
+          ) : (
+            <Image src={BookmarkEmptyBlack} width={18} height={18} alt="share" />
           )}
           {theme === 'dark' ? (
             <Image src={CopyWhite} width={18} height={18} alt="copy" />
