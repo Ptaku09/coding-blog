@@ -5,7 +5,7 @@ import ColorModeToggle from '../atoms/ColorModeToggle';
 import Search from '../../public/icons/search.svg';
 import Bookmarks from '../../public/icons/bookmarks.svg';
 
-const BoardMobileFooter = () => {
+const MobileFooter = () => {
   const { data: session } = useSession();
 
   return (
@@ -20,4 +20,4 @@ const BoardMobileFooter = () => {
   );
 };
 
-export default BoardMobileFooter;
+export default MobileFooter;

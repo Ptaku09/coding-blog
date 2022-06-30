@@ -29,15 +29,15 @@ const BoardPost = ({ isFavorite = true }: { isFavorite?: boolean }) => {
   }, [theme]);
 
   return (
-    <div className="w-screen h-auto bg-white dark:bg-[#0e172a] dark:text-white dark:border-[#2e3336] border-b-[1px] text-black flex flex-col items-start justify-between px-4 pt-4 animate-appearing-short">
-      <div className="w-full border-b-[1px] dark:border-[#2e3336]">
+    <div className="w-screen h-auto bg-white dark:bg-dark dark:text-white dark:border-dark border-b-[1px] text-black flex flex-col items-start justify-between px-4 pt-4 animate-appearing-short">
+      <div className="w-full border-b-[1px] dark:border-dark">
         <div className="flex flex-row items-center gap-3 font-raleway font-bold">
           <div className="w-9 h-9 rounded-full border-[1px] border-white overflow-hidden">
             <Image src={defaultAvatar} width={45} height={45} objectFit="cover" alt="avatar" />
           </div>
           <p>nickname</p>
         </div>
-        <div className="py-2 font-raleway border-b-[1px] dark:border-[#2e3336] mb-2">
+        <div className="py-2 font-raleway border-b-[1px] dark:border-dark mb-2">
           <p>This is sample comment in comment section. Here you can describe your code.</p>
         </div>
         <SyntaxHighlighter language="java" showLineNumbers={true} wrapLines={true} style={themeMode === 'dark' ? materialDark : materialLight}>

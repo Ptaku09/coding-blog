@@ -5,7 +5,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { signOut } from 'next-auth/react';
 
-const BoardMobileHeader = () => {
+const MobileHeader = () => {
   const { scrollDirection, scrollPosition } = useScroll();
 
   return (
@@ -27,4 +27,4 @@ const BoardMobileHeader = () => {
   );
 };
 
-export default BoardMobileHeader;
+export default MobileHeader;
