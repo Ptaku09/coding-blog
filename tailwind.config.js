@@ -31,6 +31,14 @@ module.exports = {
             opacity: 1,
           },
         },
+        appearOpacity: {
+          '0%': {
+            opacity: 0,
+          },
+          '100%': {
+            opacity: 0.9,
+          },
+        },
         typing: {
           '0%': {
             width: 0,
@@ -83,6 +91,7 @@ module.exports = {
       animation: {
         appearing: 'appear 0.5s ease-in-out',
         'appearing-short': 'appear 0.35s ease-in-out',
+        'appearing-opacity': 'appearOpacity 0.35s ease-in-out',
         sliding: 'slide 7s linear',
         myBounce: 'myBounce 1s infinite',
         gradientBackground: 'gradientBackground 7s ease infinite',
