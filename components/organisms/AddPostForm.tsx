@@ -7,7 +7,7 @@ import { useSession } from 'next-auth/react';
 
 const AddPostForm = () => {
   const [charsCount, setCharsCount] = useState(0);
-  const [fileName, setFileName] = useState('');
+  const [fileInputText, setFileInputText] = useState('');
   const [isDragActive, setIsDragActive] = useState(false);
   const [formattedFile, setFormattedFile] = useState('');
   const [comment, setComment] = useState('');
@@ -33,15 +33,14 @@ const AddPostForm = () => {
     setIsDragActive(false);
 
     if (e.dataTransfer.files && e.dataTransfer.files.length > 0) {
-      const file = e.dataTransfer.files[0];
+      const file: File = e.dataTransfer.files[0];
       const validation = validateExtension(file.name);
-      setFileName(validation ? file.name : 'Wrong file type');
 
       if (validation) {
-        setFileName(file.name);
-        readFile(file);
+        setFileInputText(file.name);
+        readAndFormatFile(file);
       } else {
-        setFileName('Wrong file type');
+        setFileInputText('Wrong file type');
         fileInputRef.current.value = '';
       }
     }
@@ -55,10 +54,10 @@ const AddPostForm = () => {
       const validation = validateExtension(file.name);
 
       if (validation) {
-        setFileName(file.name);
-        readFile(file);
+        setFileInputText(file.name);
+        readAndFormatFile(file);
       } else {
-        setFileName('Wrong file type');
+        setFileInputText('Wrong file type');
         e.target.value = '';
       }
     }
@@ -69,15 +68,15 @@ const AddPostForm = () => {
     setCharsCount(e.target.value.length);
   };
 
-  const validateExtension = (fileName: string) => {
-    const extension = fileName.split('.').pop() as string;
+  const validateExtension = (fileInputText: string) => {
+    const extension = fileInputText.split('.').pop() as string;
 
     return ['java', 'js', 'jsx', 'ts', 'tsx', 'html', 'css', 'scss', 'sass', 'less', 'json', 'py', 'c', 'cpp', 'go', 'php', 'cs', 'cake'].includes(
       extension
     );
   };
 
-  const readFile = (file: File) => {
+  const readAndFormatFile = (file: File) => {
     const reader = new FileReader();
     reader.readAsText(file, 'UTF-8');
 
@@ -88,7 +87,7 @@ const AddPostForm = () => {
 
   const handleFormReset = () => {
     setCharsCount(0);
-    setFileName('');
+    setFileInputText('');
     setComment('');
     fileInputRef.current.value = '';
   };
@@ -104,7 +103,7 @@ const AddPostForm = () => {
         },
         body: JSON.stringify({
           username: session?.user?.name,
-          avatar: session?.user?.image,
+          image: session?.user?.image,
           comment,
           code: formattedFile,
         }),
@@ -115,8 +114,8 @@ const AddPostForm = () => {
     <form onSubmit={handleSubmit} onDragEnter={handleDrag} className="relative w-full flex flex-col items-center font-raleway">
       <input ref={fileInputRef} onChange={handleChange} className="hidden" type="file" id="file" multiple={false} required />
       <label className="my-4 p-10 h-32 w-full rounded-xl border-[1px] flex flex-col items-center justify-center" htmlFor="file">
-        {fileName ? (
-          <p>{fileName}</p>
+        {fileInputText ? (
+          <p>{fileInputText}</p>
         ) : (
           <>
             <button className="" onClick={() => fileInputRef.current.click()}>
