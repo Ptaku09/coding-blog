@@ -1,12 +1,44 @@
 import { GetServerSideProps } from 'next';
 import { getSession } from 'next-auth/react';
-import { ReactElement, useState } from 'react';
+import React, { ReactElement, useRef, useState } from 'react';
 import AddPostMobileLayout from '../components/templates/AddPostMobileLayout';
 import Image from 'next/image';
 import defaultAvatar from '../public/images/defaultAvatar.jpg';
 
 const AddPost = () => {
   const [count, setCount] = useState(0);
+  const [isDragActive, setIsDragActive] = useState(false);
+  const inputRef = useRef() as React.MutableRefObject<HTMLInputElement>;
+
+  const handleDrag = (e: React.DragEvent<HTMLDivElement> | React.DragEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    e.stopPropagation();
+
+    if (e.type === 'dragenter' || e.type === 'dragover') {
+      setIsDragActive(true);
+    } else if (e.type === 'dragleave') {
+      setIsDragActive(false);
+    }
+  };
+
+  const handleDrop = (e: React.DragEvent<HTMLDivElement>) => {
+    e.preventDefault();
+    e.stopPropagation();
+
+    setIsDragActive(false);
+
+    if (e.dataTransfer.files && e.dataTransfer.files.length > 0) {
+      // handleFiles(e.target.files);
+    }
+  };
+
+  const handleChange = function (e: React.ChangeEvent<HTMLInputElement>) {
+    e.preventDefault();
+
+    if (e.target.files && e.target.files[0]) {
+      // handleFiles(e.target.files);
+    }
+  };
 
   return (
     <div className="min-h-screen w-screen py-16 bg-white dark:bg-dark flex flex-col items-center justify-start">
@@ -17,7 +49,31 @@ const AddPost = () => {
           </div>
           <p>nickname</p>
         </div>
-        <form className="w-full flex flex-col items-center">
+        <form onDragEnter={handleDrag} className="relative w-full flex flex-col items-center">
+          <input
+            ref={inputRef}
+            onChange={handleChange}
+            className="hidden"
+            type="file"
+            id="file"
+            multiple={false}
+            accept=".java, .js, .jsx, .ts, .tsx, .html, .css, .scss, .less, .sass, .styl, .json, .yml, .yaml, .py, .c, .cpp, .go, .php"
+          />
+          <label className="my-4 p-10 w-full rounded-xl border-[1px] flex flex-col items-center justify-center" htmlFor="file">
+            <button className="" onClick={() => inputRef.current.click()}>
+              <strong>Choose a file</strong>
+            </button>
+            <span className=""> or drag it here</span>
+          </label>
+          {isDragActive && (
+            <div
+              onDragEnter={handleDrag}
+              onDragLeave={handleDrag}
+              onDragOver={handleDrag}
+              onDrop={handleDrop}
+              className="absolute w-full h-full top-0 left-0"
+            />
+          )}
           <textarea
             className="peer relative dark:bg-dark w-full min-h-56 rounded-xl border-[1px] my-2 dark:text-white font-raleway p-2 outline-purple-600"
             maxLength={250}
