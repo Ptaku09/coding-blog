@@ -14,6 +14,7 @@ const AddPostForm = () => {
   const [comment, setComment] = useState('');
   const [wrongFileType, setWrongFileType] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
+  const [isEmpty, setIsEmpty] = useState(false);
   const fileInputRef = useRef() as React.MutableRefObject<HTMLInputElement>;
   const { theme } = useTheme();
   const { data: session } = useSession();
@@ -94,6 +95,14 @@ const AddPostForm = () => {
     };
   };
 
+  const handleEmptyForm = () => {
+    setIsEmpty(true);
+
+    setTimeout(() => {
+      setIsEmpty(false);
+    }, 2500);
+  };
+
   const handleFormReset = () => {
     setCharsCount(0);
     setFileInputText('');
@@ -105,7 +114,7 @@ const AddPostForm = () => {
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    formattedFile &&
+    if (fileInputText.length > 0 && comment.length > 0) {
       fetch('/api/storePost', {
         method: 'POST',
         headers: {
@@ -125,11 +134,27 @@ const AddPostForm = () => {
           setIsSuccess(false);
         }, 2500);
       });
+    } else {
+      setIsEmpty(true);
+
+      setTimeout(() => {
+        setIsEmpty(false);
+      }, 2500);
+    }
   };
 
   return (
     <form onSubmit={handleSubmit} onDragEnter={handleDrag} className="relative w-full flex flex-col items-center font-raleway">
-      <input ref={fileInputRef} onChange={handleChange} className="hidden" type="file" id="file" multiple={false} required />
+      <input
+        ref={fileInputRef}
+        onChange={handleChange}
+        className="hidden"
+        type="file"
+        id="file"
+        multiple={false}
+        onInvalid={handleEmptyForm}
+        required
+      />
       <label className="relative my-4 p-10 h-32 w-full rounded-xl border-[1px] flex flex-col items-center justify-center" htmlFor="file">
         {fileInputText ? (
           <>
@@ -195,6 +220,7 @@ const AddPostForm = () => {
       </div>
       {wrongFileType && <StatusMessage type={StatusMessageType.ERROR} message="Wrong file type" />}
       {isSuccess && <StatusMessage type={StatusMessageType.SUCCESS} message="Post added correctly" />}
+      {isEmpty && <StatusMessage type={StatusMessageType.INFORMATION} message="Provide file and comment" />}
     </form>
   );
 };
