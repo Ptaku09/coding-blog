@@ -93,6 +93,7 @@ module.exports = {
         'appearing-short': 'appear 0.35s ease-in-out',
         'appearing-opacity': 'appearOpacity 0.35s ease-in-out',
         sliding: 'slide 7s linear',
+        slidingShort: 'slide 2s linear',
         myBounce: 'myBounce 1s infinite',
         gradientBackground: 'gradientBackground 7s ease infinite',
         typing: 'typing 5s steps(40, end), blinkCaret 1s step-end infinite',

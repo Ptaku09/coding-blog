@@ -4,6 +4,7 @@ import DropBlack from '../../public/icons/drop-black.svg';
 import React, { useRef, useState } from 'react';
 import { useTheme } from 'next-themes';
 import { useSession } from 'next-auth/react';
+import StatusMessage, { StatusMessageType } from '../atoms/StatusMessage';
 
 const AddPostForm = () => {
   const [charsCount, setCharsCount] = useState(0);
@@ -11,6 +12,8 @@ const AddPostForm = () => {
   const [isDragActive, setIsDragActive] = useState(false);
   const [formattedFile, setFormattedFile] = useState('');
   const [comment, setComment] = useState('');
+  const [wrongFileType, setWrongFileType] = useState(false);
+  const [isSuccess, setIsSuccess] = useState(false);
   const fileInputRef = useRef() as React.MutableRefObject<HTMLInputElement>;
   const { theme } = useTheme();
   const { data: session } = useSession();
@@ -40,8 +43,7 @@ const AddPostForm = () => {
         setFileInputText(file.name);
         readAndFormatFile(file);
       } else {
-        setFileInputText('Wrong file type');
-        fileInputRef.current.value = '';
+        handleWrongExtension();
       }
     }
   };
@@ -57,8 +59,7 @@ const AddPostForm = () => {
         setFileInputText(file.name);
         readAndFormatFile(file);
       } else {
-        setFileInputText('Wrong file type');
-        e.target.value = '';
+        handleWrongExtension();
       }
     }
   };
@@ -71,9 +72,17 @@ const AddPostForm = () => {
   const validateExtension = (fileInputText: string) => {
     const extension = fileInputText.split('.').pop() as string;
 
-    return ['java', 'js', 'jsx', 'ts', 'tsx', 'html', 'css', 'scss', 'sass', 'less', 'json', 'py', 'c', 'cpp', 'go', 'php', 'cs', 'cake'].includes(
-      extension
-    );
+    return ['java', 'js', 'ts', 'html', 'py', 'c', 'cpp', 'go', 'php', 'cs', 'sh', 'rs', 'rb'].includes(extension);
+  };
+
+  const handleWrongExtension = () => {
+    fileInputRef.current.value = '';
+    setWrongFileType(true);
+    setFileInputText('');
+
+    setTimeout(() => {
+      setWrongFileType(false);
+    }, 2500);
   };
 
   const readAndFormatFile = (file: File) => {
@@ -89,6 +98,7 @@ const AddPostForm = () => {
     setCharsCount(0);
     setFileInputText('');
     setComment('');
+    setWrongFileType(false);
     fileInputRef.current.value = '';
   };
 
@@ -107,21 +117,38 @@ const AddPostForm = () => {
           comment,
           code: formattedFile,
         }),
-      }).then(() => handleFormReset());
+      }).then(() => {
+        handleFormReset();
+        setIsSuccess(true);
+
+        setTimeout(() => {
+          setIsSuccess(false);
+        }, 2500);
+      });
   };
 
   return (
     <form onSubmit={handleSubmit} onDragEnter={handleDrag} className="relative w-full flex flex-col items-center font-raleway">
       <input ref={fileInputRef} onChange={handleChange} className="hidden" type="file" id="file" multiple={false} required />
-      <label className="my-4 p-10 h-32 w-full rounded-xl border-[1px] flex flex-col items-center justify-center" htmlFor="file">
+      <label className="relative my-4 p-10 h-32 w-full rounded-xl border-[1px] flex flex-col items-center justify-center" htmlFor="file">
         {fileInputText ? (
-          <p>{fileInputText}</p>
+          <>
+            <p>{fileInputText}</p>
+            <p className="absolute bottom-1 text-xs">
+              drag another or click{' '}
+              <button onClick={() => fileInputRef.current.click()}>
+                <strong className="text-blue-500">here</strong>
+              </button>{' '}
+              to change selected file
+            </p>
+          </>
         ) : (
           <>
-            <button className="" onClick={() => fileInputRef.current.click()}>
+            <button onClick={() => fileInputRef.current.click()}>
               <strong className="text-lg">Choose a file</strong>
             </button>
-            <span className=""> or drag it here</span>
+            <span> or drag it here</span>
+            <p className="absolute bottom-1 text-xs text-gray-600">.java, .js, .ts, .html, .py, .c, .cpp, .go, .php, .cs, .sh, .rs, .rb</p>
           </>
         )}
       </label>
@@ -136,9 +163,9 @@ const AddPostForm = () => {
           <div className="w-full h-full flex flex-col items-center justify-center">
             <div className="animate-bounce">
               {theme === 'dark' ? (
-                <Image src={DropWhite} width={60} height={60} alt="drop white" />
+                <Image src={DropWhite} width={60} height={60} alt="drop white" priority />
               ) : (
-                <Image src={DropBlack} width={60} height={60} alt="drop black" />
+                <Image src={DropBlack} width={60} height={60} alt="drop black" priority />
               )}
             </div>
           </div>
@@ -166,6 +193,8 @@ const AddPostForm = () => {
           Add post
         </button>
       </div>
+      {wrongFileType && <StatusMessage type={StatusMessageType.ERROR} message="Wrong file type" />}
+      {isSuccess && <StatusMessage type={StatusMessageType.SUCCESS} message="Post added correctly" />}
     </form>
   );
 };
