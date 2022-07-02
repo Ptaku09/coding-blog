@@ -19,7 +19,7 @@ const StatusMessage = ({ message, type }: { message: string; type: StatusMessage
 
   return (
     <div
-      className={`animate-appearing-short relative mt-10 transition duration-500 text-black font-bebas text-3xl shadow-xl border-2 border-red-500 px-8 py-4 rounded-xl
+      className={`fixed bottom-16 animate-appearing-short mt-10 transition duration-500 bg-white dark:bg-dark text-black font-bebas text-3xl shadow-xl border-2 border-red-500 px-8 py-4 rounded-xl
        ${isShown ? 'translate-x-0' : '-translate-x-96'} ${
         type === StatusMessageType.ERROR ? 'border-red-500' : type === StatusMessageType.SUCCESS ? 'border-green-500' : 'border-blue-500'
       }`}
