@@ -161,7 +161,12 @@ const AddPostForm = () => {
             <p>{fileInputText}</p>
             <p className="absolute bottom-1 text-xs">
               drag another or click{' '}
-              <button onClick={() => fileInputRef.current.click()}>
+              <button
+                onClick={(e: React.MouseEvent<HTMLButtonElement>) => {
+                  e.preventDefault();
+                  fileInputRef.current.click();
+                }}
+              >
                 <strong className="text-blue-500">here</strong>
               </button>{' '}
               to change selected file
@@ -169,7 +174,12 @@ const AddPostForm = () => {
           </>
         ) : (
           <>
-            <button onClick={() => fileInputRef.current.click()}>
+            <button
+              onClick={(e: React.MouseEvent<HTMLButtonElement>) => {
+                e.preventDefault();
+                fileInputRef.current.click();
+              }}
+            >
               <strong className="text-lg">Choose a file</strong>
             </button>
             <span> or drag it here</span>
