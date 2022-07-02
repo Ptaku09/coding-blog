@@ -15,6 +15,7 @@ const AddPostForm = () => {
   const [wrongFileType, setWrongFileType] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
   const [isEmpty, setIsEmpty] = useState(false);
+  const [isTooBig, setIsTooBig] = useState(false);
   const fileInputRef = useRef() as React.MutableRefObject<HTMLInputElement>;
   const { theme } = useTheme();
   const { data: session } = useSession();
@@ -33,41 +34,30 @@ const AddPostForm = () => {
   const handleDrop = (e: React.DragEvent<HTMLDivElement>) => {
     e.preventDefault();
     e.stopPropagation();
-
     setIsDragActive(false);
 
-    if (e.dataTransfer.files && e.dataTransfer.files.length > 0) {
-      const file: File = e.dataTransfer.files[0];
-      const validation = validateExtension(file.name);
-
-      if (validation) {
-        setFileInputText(file.name);
-        readAndFormatFile(file);
-      } else {
-        handleWrongExtension();
-      }
-    }
+    if (e.dataTransfer.files && e.dataTransfer.files.length > 0) dealWithFile(e.dataTransfer.files[0]);
   };
 
   const handleChange = function (e: React.ChangeEvent<HTMLInputElement>) {
     e.preventDefault();
 
-    if (e.target.files && e.target.files[0]) {
-      const file: File = e.target.files[0];
-      const validation = validateExtension(file.name);
-
-      if (validation) {
-        setFileInputText(file.name);
-        readAndFormatFile(file);
-      } else {
-        handleWrongExtension();
-      }
-    }
+    if (e.target.files && e.target.files[0]) dealWithFile(e.target.files[0]);
   };
 
-  const onTextChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
-    setComment(e.target.value);
-    setCharsCount(e.target.value.length);
+  const dealWithFile = (file: File) => {
+    if (file.size > 100000) {
+      handleFileTooBig();
+      return;
+    }
+
+    if (!validateExtension(file.name)) {
+      handleWrongExtension();
+      return;
+    }
+
+    setFileInputText(file.name);
+    readAndFormatFile(file);
   };
 
   const validateExtension = (fileInputText: string) => {
@@ -86,6 +76,16 @@ const AddPostForm = () => {
     }, 2500);
   };
 
+  const handleFileTooBig = () => {
+    fileInputRef.current.value = '';
+    setIsTooBig(true);
+    setFileInputText('');
+
+    setTimeout(() => {
+      setIsTooBig(false);
+    }, 2500);
+  };
+
   const readAndFormatFile = (file: File) => {
     const reader = new FileReader();
     reader.readAsText(file, 'UTF-8');
@@ -93,6 +93,11 @@ const AddPostForm = () => {
     reader.onload = (event: any) => {
       setFormattedFile(event.target.result.split('\n'));
     };
+  };
+
+  const onTextChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+    setComment(e.target.value);
+    setCharsCount(e.target.value.length);
   };
 
   const handleEmptyForm = () => {
@@ -230,6 +235,7 @@ const AddPostForm = () => {
         </button>
       </div>
       {wrongFileType && <StatusMessage type={StatusMessageType.ERROR} message="Wrong file type" />}
+      {isTooBig && <StatusMessage type={StatusMessageType.ERROR} message="Max file size: 100KB" />}
       {isSuccess && <StatusMessage type={StatusMessageType.SUCCESS} message="Post added correctly" />}
       {isEmpty && <StatusMessage type={StatusMessageType.INFORMATION} message="Provide file and comment" />}
     </form>
