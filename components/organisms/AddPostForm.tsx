@@ -73,7 +73,7 @@ const AddPostForm = () => {
   const validateExtension = (fileInputText: string) => {
     const extension = fileInputText.split('.').pop() as string;
 
-    return ['java', 'js', 'ts', 'html', 'py', 'c', 'cpp', 'go', 'php', 'cs', 'sh', 'rs', 'rb'].includes(extension);
+    return ['java', 'js', 'ts', 'py', 'c', 'cpp', 'go', 'php', 'cs', 'sh', 'rs', 'rb'].includes(extension);
   };
 
   const handleWrongExtension = () => {
@@ -125,6 +125,7 @@ const AddPostForm = () => {
           image: session?.user?.image,
           comment,
           code: formattedFile,
+          extension: fileInputText.split('.').pop() as string,
         }),
       }).then(() => {
         handleFormReset();
@@ -173,7 +174,7 @@ const AddPostForm = () => {
               <strong className="text-lg">Choose a file</strong>
             </button>
             <span> or drag it here</span>
-            <p className="absolute bottom-1 text-xs text-gray-600">.java, .js, .ts, .html, .py, .c, .cpp, .go, .php, .cs, .sh, .rs, .rb</p>
+            <p className="absolute bottom-1 text-xs text-gray-600">.java, .js, .ts, .py, .c, .cpp, .go, .php, .cs, .sh, .rs, .rb</p>
           </>
         )}
       </label>
