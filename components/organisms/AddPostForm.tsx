@@ -173,7 +173,9 @@ const AddPostForm = () => {
               <strong className="text-lg">Choose a file</strong>
             </button>
             <span> or drag it here</span>
-            <p className="absolute bottom-1 text-xs text-gray-600">.java, .js, .ts, .html, .py, .c, .cpp, .go, .php, .cs, .sh, .rs, .rb</p>
+            <p className="absolute bottom-1 text-xs text-gray-600 dark:text-gray-200">
+              .java, .js, .ts, .html, .py, .c, .cpp, .go, .php, .cs, .sh, .rs, .rb
+            </p>
           </>
         )}
       </label>
