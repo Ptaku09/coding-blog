@@ -5,10 +5,11 @@ import React, { useRef, useState } from 'react';
 import { useTheme } from 'next-themes';
 import { useSession } from 'next-auth/react';
 import StatusMessage, { StatusMessageType } from '../atoms/StatusMessage';
+import { ACCEPTED_EXTENSIONS } from '../../lib/extensions';
 
 const AddPostForm = () => {
   const [charsCount, setCharsCount] = useState(0);
-  const [fileInputText, setFileInputText] = useState('');
+  const [fileTitle, setFileTitle] = useState('');
   const [isDragActive, setIsDragActive] = useState(false);
   const [formattedFile, setFormattedFile] = useState('');
   const [comment, setComment] = useState('');
@@ -51,25 +52,19 @@ const AddPostForm = () => {
       return;
     }
 
-    if (!validateExtension(file.name)) {
+    if (!ACCEPTED_EXTENSIONS.includes(file.name.split('.').pop() as string)) {
       handleWrongExtension();
       return;
     }
 
-    setFileInputText(file.name);
+    setFileTitle(file.name);
     readAndFormatFile(file);
-  };
-
-  const validateExtension = (fileInputText: string) => {
-    const extension = fileInputText.split('.').pop() as string;
-
-    return ['java', 'js', 'ts', 'py', 'c', 'cpp', 'go', 'php', 'cs', 'sh', 'rs', 'rb'].includes(extension);
   };
 
   const handleWrongExtension = () => {
     fileInputRef.current.value = '';
     setWrongFileType(true);
-    setFileInputText('');
+    setFileTitle('');
 
     setTimeout(() => {
       setWrongFileType(false);
@@ -79,7 +74,7 @@ const AddPostForm = () => {
   const handleFileTooBig = () => {
     fileInputRef.current.value = '';
     setIsTooBig(true);
-    setFileInputText('');
+    setFileTitle('');
 
     setTimeout(() => {
       setIsTooBig(false);
@@ -110,7 +105,7 @@ const AddPostForm = () => {
 
   const handleFormReset = () => {
     setCharsCount(0);
-    setFileInputText('');
+    setFileTitle('');
     setComment('');
     setWrongFileType(false);
     fileInputRef.current.value = '';
@@ -119,7 +114,7 @@ const AddPostForm = () => {
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    if (fileInputText.length > 0 && comment.length > 0) {
+    if (fileTitle.length > 0 && comment.length > 0) {
       fetch('/api/storePost', {
         method: 'POST',
         headers: {
@@ -130,7 +125,7 @@ const AddPostForm = () => {
           image: session?.user?.image,
           comment,
           code: formattedFile,
-          extension: fileInputText.split('.').pop() as string,
+          extension: fileTitle.split('.').pop() as string,
         }),
       }).then(() => {
         handleFormReset();
@@ -162,9 +157,9 @@ const AddPostForm = () => {
         required
       />
       <label className="relative my-4 p-10 h-32 w-full rounded-xl border-[1px] flex flex-col items-center justify-center" htmlFor="file">
-        {fileInputText ? (
+        {fileTitle ? (
           <>
-            <p>{fileInputText}</p>
+            <p>{fileTitle}</p>
             <p className="absolute bottom-1 text-xs">
               drag another or click{' '}
               <button
@@ -189,7 +184,9 @@ const AddPostForm = () => {
               <strong className="text-lg">Choose a file</strong>
             </button>
             <span> or drag it here</span>
-            <p className="absolute bottom-1 text-xs text-gray-600">.java, .js, .ts, .py, .c, .cpp, .go, .php, .cs, .sh, .rs, .rb</p>
+            <p className="absolute bottom-1 text-xs text-gray-600">
+              {ACCEPTED_EXTENSIONS.map((ext: string, i: number) => '.' + ext + (i !== ACCEPTED_EXTENSIONS.length - 1 ? ', ' : ''))}
+            </p>
           </>
         )}
       </label>

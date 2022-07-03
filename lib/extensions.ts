@@ -16,3 +16,5 @@ const extensions: { [key: string]: string } = {
 export const detectLanguage = (extension: string): string => {
   return extensions[extension];
 };
+
+export const ACCEPTED_EXTENSIONS = Object.keys(extensions);
