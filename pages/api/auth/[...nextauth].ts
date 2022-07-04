@@ -1,4 +1,4 @@
-import NextAuth from 'next-auth';
+import NextAuth, { Session, User } from 'next-auth';
 import GitHub from 'next-auth/providers/github';
 import Twitter from 'next-auth/providers/twitter';
 import Google from 'next-auth/providers/google';
@@ -53,5 +53,11 @@ export default NextAuth({
   pages: {
     signIn: '/signin',
     error: '/signin',
+  },
+  callbacks: {
+    session: async (params: { session: Session; user: User }) => {
+      if (params.user) params.session.user.username = params.user.username;
+      return Promise.resolve(params.session);
+    },
   },
 });

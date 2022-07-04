@@ -16,7 +16,7 @@ const AddPost = () => {
           <div className="w-11 h-11 rounded-full border-[1px] border-white overflow-hidden">
             <Image src={session?.user?.image || defaultAvatar} width={55} height={55} objectFit="cover" alt="avatar" />
           </div>
-          <p className="text-lg">{session?.user?.name}</p>
+          <p className="text-lg">{session?.user?.username}</p>
         </div>
         <AddPostForm />
       </div>
