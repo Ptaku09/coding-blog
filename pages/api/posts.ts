@@ -7,6 +7,12 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
   const db = client.db(process.env.MONGODB_POST_NAME);
 
   switch (req.method) {
+    case 'GET':
+      const posts = await db.collection('Posts').find().toArray();
+
+      posts ? res.json({ status: 200, data: posts }) : res.json({ status: 500 });
+      break;
+
     case 'POST':
       const { username, image, comment, code, extension } = req.body;
       const language = detectLanguage(extension);

@@ -86,7 +86,7 @@ const AddPostForm = () => {
     reader.readAsText(file, 'UTF-8');
 
     reader.onload = (event: any) => {
-      setFormattedFile(event.target.result.split('\n'));
+      setFormattedFile(event.target.result);
     };
   };
 
@@ -115,7 +115,7 @@ const AddPostForm = () => {
     e.preventDefault();
 
     if (fileTitle.length > 0 && comment.length > 0) {
-      fetch('/api/storePost', {
+      fetch('/api/posts', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -146,16 +146,7 @@ const AddPostForm = () => {
 
   return (
     <form onSubmit={handleSubmit} onDragEnter={handleDrag} className="relative w-full flex flex-col items-center font-raleway">
-      <input
-        ref={fileInputRef}
-        onChange={handleChange}
-        className="hidden"
-        type="file"
-        id="file"
-        multiple={false}
-        onInvalid={handleEmptyForm}
-        required
-      />
+      <input ref={fileInputRef} onChange={handleChange} className="hidden" type="file" id="file" multiple={false} onInvalid={handleEmptyForm} />
       <label className="relative my-4 p-10 h-32 w-full rounded-xl border-[1px] flex flex-col items-center justify-center" htmlFor="file">
         {fileTitle ? (
           <>

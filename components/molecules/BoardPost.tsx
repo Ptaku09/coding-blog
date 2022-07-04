@@ -13,13 +13,9 @@ import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
 import { materialDark, materialLight } from 'react-syntax-highlighter/dist/cjs/styles/prism';
 import { useTheme } from 'next-themes';
 import { useEffect, useState } from 'react';
+import { Post } from '../../pages/board';
 
-const sampleText = `public static void main(String[] args) {
-  System.out.println("Hello, World!");
-}
-`;
-
-const BoardPost = ({ isFavorite = true }: { isFavorite?: boolean }) => {
+const BoardPost = ({ isFavorite = true, postData }: { isFavorite?: boolean; postData: Post }) => {
   const { theme } = useTheme();
   const [themeMode, setThemeMode] = useState('dark');
 
@@ -33,21 +29,26 @@ const BoardPost = ({ isFavorite = true }: { isFavorite?: boolean }) => {
       <div className="w-full border-b-[1px] dark:border-dark">
         <div className="flex flex-row items-center gap-3 font-raleway font-bold">
           <div className="w-9 h-9 rounded-full border-[1px] border-white overflow-hidden">
-            <Image src={defaultAvatar} width={45} height={45} objectFit="cover" alt="avatar" />
+            <Image src={postData.image || defaultAvatar} width={45} height={45} objectFit="cover" alt="avatar" />
           </div>
-          <p>nickname</p>
+          <p>{postData.username}</p>
         </div>
         <div className="py-2 font-raleway border-b-[1px] dark:border-dark mb-2">
-          <p>This is sample comment in comment section. Here you can describe your code.</p>
+          <p>{postData.comment}</p>
         </div>
-        <SyntaxHighlighter language="java" showLineNumbers={true} wrapLines={true} style={themeMode === 'dark' ? materialDark : materialLight}>
-          {sampleText}
+        <SyntaxHighlighter
+          language={postData.language}
+          showLineNumbers={true}
+          wrapLines={true}
+          style={themeMode === 'dark' ? materialDark : materialLight}
+        >
+          {postData.code}
         </SyntaxHighlighter>
       </div>
       <div className="w-full my-6 grid grid-cols-[1fr_2fr]">
         <div className="flex items-center justify-center gap-2">
           <Image src={Heart} width={20} height={20} className="scale-90 md:hover:scale-100 animate-scale" alt="heart" />
-          <p>23k</p>
+          <p>{postData.likes}</p>
         </div>
         <div className="flex items-center justify-around">
           {theme === 'dark' ? (
