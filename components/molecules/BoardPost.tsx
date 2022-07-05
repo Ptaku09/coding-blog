@@ -14,10 +14,12 @@ import { materialDark, materialLight } from 'react-syntax-highlighter/dist/cjs/s
 import { useTheme } from 'next-themes';
 import { useEffect, useState } from 'react';
 import { Post } from '../../pages/board';
+import StatusMessage, { StatusMessageOrientation, StatusMessageType } from '../atoms/StatusMessage';
 
 const BoardPost = ({ isFavorite = true, postData }: { isFavorite?: boolean; postData: Post }) => {
   const { theme } = useTheme();
   const [themeMode, setThemeMode] = useState('dark');
+  const [isCopied, setIsCopied] = useState(false);
 
   //omit hydration effect
   useEffect(() => {
@@ -32,6 +34,7 @@ const BoardPost = ({ isFavorite = true, postData }: { isFavorite?: boolean; post
             <Image src={postData.image || defaultAvatar} width={45} height={45} objectFit="cover" alt="avatar" />
           </div>
           <p>{postData.username}</p>
+          <p className="bg-purple-300 px-3 py-0.5 rounded-xl shadow-md text-sm dark:text-[#0e172a]">#{postData.language}</p>
         </div>
         <div className="py-2 font-raleway border-b-[1px] dark:border-dark mb-2">
           <p>{postData.comment}</p>
@@ -41,6 +44,7 @@ const BoardPost = ({ isFavorite = true, postData }: { isFavorite?: boolean; post
           showLineNumbers={true}
           wrapLines={true}
           style={themeMode === 'dark' ? materialDark : materialLight}
+          customStyle={{ maxHeight: '500px' }}
         >
           {postData.code}
         </SyntaxHighlighter>
@@ -68,9 +72,43 @@ const BoardPost = ({ isFavorite = true, postData }: { isFavorite?: boolean; post
             <Image src={BookmarkEmptyBlack} width={18} height={18} alt="share" />
           )}
           {theme === 'dark' ? (
-            <Image src={CopyWhite} width={18} height={18} alt="copy" />
+            <>
+              <Image
+                onClick={() => {
+                  navigator.clipboard.writeText(postData.code).then(() => {
+                    setIsCopied(true);
+
+                    setTimeout(() => {
+                      setIsCopied(false);
+                    }, 2000);
+                  });
+                }}
+                src={CopyWhite}
+                width={18}
+                height={18}
+                alt="copy"
+              />
+              <StatusMessage isShown={isCopied} message="Copied" type={StatusMessageType.SUCCESS} orientation={StatusMessageOrientation.VERTICAL} />
+            </>
           ) : (
-            <Image src={CopyBlack} width={18} height={18} alt="copy" />
+            <>
+              <Image
+                onClick={() => {
+                  navigator.clipboard.writeText(postData.code).then(() => {
+                    setIsCopied(true);
+
+                    setTimeout(() => {
+                      setIsCopied(false);
+                    }, 2000);
+                  });
+                }}
+                src={CopyBlack}
+                width={18}
+                height={18}
+                alt="copy"
+              />
+              <StatusMessage isShown={isCopied} message="Copied" type={StatusMessageType.SUCCESS} orientation={StatusMessageOrientation.VERTICAL} />
+            </>
           )}
         </div>
       </div>

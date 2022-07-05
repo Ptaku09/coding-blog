@@ -13,7 +13,7 @@ const AddPostForm = () => {
   const [isDragActive, setIsDragActive] = useState(false);
   const [formattedFile, setFormattedFile] = useState('');
   const [comment, setComment] = useState('');
-  const [wrongFileType, setWrongFileType] = useState(false);
+  const [isWrongExtension, setIsWrongExtension] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
   const [isEmpty, setIsEmpty] = useState(false);
   const [isTooBig, setIsTooBig] = useState(false);
@@ -61,16 +61,6 @@ const AddPostForm = () => {
     readAndFormatFile(file);
   };
 
-  const handleWrongExtension = () => {
-    fileInputRef.current.value = '';
-    setWrongFileType(true);
-    setFileTitle('');
-
-    setTimeout(() => {
-      setWrongFileType(false);
-    }, 2500);
-  };
-
   const handleFileTooBig = () => {
     fileInputRef.current.value = '';
     setIsTooBig(true);
@@ -78,7 +68,17 @@ const AddPostForm = () => {
 
     setTimeout(() => {
       setIsTooBig(false);
-    }, 2500);
+    }, 2000);
+  };
+
+  const handleWrongExtension = () => {
+    fileInputRef.current.value = '';
+    setIsWrongExtension(true);
+    setFileTitle('');
+
+    setTimeout(() => {
+      setIsWrongExtension(false);
+    }, 2000);
   };
 
   const readAndFormatFile = (file: File) => {
@@ -100,14 +100,14 @@ const AddPostForm = () => {
 
     setTimeout(() => {
       setIsEmpty(false);
-    }, 2500);
+    }, 2000);
   };
 
   const handleFormReset = () => {
     setCharsCount(0);
     setFileTitle('');
     setComment('');
-    setWrongFileType(false);
+    setIsWrongExtension(false);
     fileInputRef.current.value = '';
   };
 
@@ -133,14 +133,14 @@ const AddPostForm = () => {
 
         setTimeout(() => {
           setIsSuccess(false);
-        }, 2500);
+        }, 2000);
       });
     } else {
       setIsEmpty(true);
 
       setTimeout(() => {
         setIsEmpty(false);
-      }, 2500);
+      }, 2000);
     }
   };
 
@@ -175,7 +175,7 @@ const AddPostForm = () => {
               <strong className="text-lg">Choose a file</strong>
             </button>
             <span> or drag it here</span>
-            <p className="absolute bottom-1 text-xs text-gray-600">
+            <p className="absolute bottom-1 text-xs text-gray-600 dark:text-gray-400">
               {ACCEPTED_EXTENSIONS.map((ext: string, i: number) => '.' + ext + (i !== ACCEPTED_EXTENSIONS.length - 1 ? ', ' : ''))}
             </p>
           </>
@@ -222,10 +222,10 @@ const AddPostForm = () => {
           Add post
         </button>
       </div>
-      {wrongFileType && <StatusMessage type={StatusMessageType.ERROR} message="Wrong file type" />}
-      {isTooBig && <StatusMessage type={StatusMessageType.ERROR} message="Max file size: 100KB" />}
-      {isSuccess && <StatusMessage type={StatusMessageType.SUCCESS} message="Post added correctly" />}
-      {isEmpty && <StatusMessage type={StatusMessageType.INFORMATION} message="Provide file and comment" />}
+      <StatusMessage isShown={isWrongExtension} type={StatusMessageType.ERROR} message="Wrong file type" />
+      <StatusMessage isShown={isTooBig} type={StatusMessageType.ERROR} message="Max file size: 100KB" />
+      <StatusMessage isShown={isSuccess} type={StatusMessageType.SUCCESS} message="Post added correctly" />
+      <StatusMessage isShown={isEmpty} type={StatusMessageType.INFORMATION} message="Provide file and comment" />
     </form>
   );
 };
