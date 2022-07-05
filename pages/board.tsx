@@ -1,7 +1,7 @@
 import BoardMobileLayout from '../components/templates/BoardMobileLayout';
 import { ReactElement, useEffect, useState } from 'react';
 import { GetServerSideProps } from 'next';
-import { getSession } from 'next-auth/react';
+import { getSession, GetSessionParams } from 'next-auth/react';
 import BoardPost from '../components/molecules/BoardPost';
 
 export type Post = {
@@ -38,7 +38,7 @@ Board.getLayout = (page: ReactElement) => {
 
 export default Board;
 
-export const getServerSideProps: GetServerSideProps = async (context) => {
+export const getServerSideProps: GetServerSideProps = async (context: GetSessionParams) => {
   const session = await getSession(context);
 
   if (!session) {

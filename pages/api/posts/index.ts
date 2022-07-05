@@ -1,6 +1,6 @@
 import { NextApiRequest, NextApiResponse } from 'next';
-import clientPromise from '../../mongodb';
-import { detectLanguage } from '../../lib/extensions';
+import clientPromise from '../../../mongodb';
+import { detectLanguage } from '../../../lib/extensions';
 
 const handler = async (req: NextApiRequest, res: NextApiResponse) => {
   const client = await clientPromise;
@@ -10,7 +10,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
     case 'GET':
       const posts = await db.collection('Posts').find().toArray();
 
-      posts ? res.json({ status: 200, data: posts }) : res.json({ status: 500 });
+      posts ? res.json({ status: 200, data: posts }) : res.json({ status: 204 });
       break;
 
     case 'POST':
@@ -19,7 +19,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
 
       const newPost = await db.collection('Posts').insertOne({ username, image, comment, code, language, likes: 0 });
 
-      newPost ? res.json({ status: 200, data: newPost }) : res.json({ status: 500 });
+      newPost ? res.json({ status: 200, data: newPost }) : res.json({ status: 204 });
       break;
   }
 };

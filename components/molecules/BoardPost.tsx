@@ -1,25 +1,18 @@
 import Image from 'next/image';
-import Heart from '../../public/icons/heart.svg';
-import ShareBlack from '../../public/icons/share-black.svg';
-import CopyBlack from '../../public/icons/copy-black.svg';
-import ShareWhite from '../../public/icons/share-white.svg';
-import CopyWhite from '../../public/icons/copy-white.svg';
-import BookmarkFilledWhite from '../../public/icons/bookmark-filled-white.svg';
-import BookmarkEmptyWhite from '../../public/icons/bookmark-empty-white.svg';
-import BookmarkEmptyBlack from '../../public/icons/bookmark-empty-black.svg';
-import BookmarkFilledBlack from '../../public/icons/bookmark-filled-black.svg';
 import defaultAvatar from '../../public/images/defaultAvatar.jpg';
 import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
 import { materialDark, materialLight } from 'react-syntax-highlighter/dist/cjs/styles/prism';
 import { useTheme } from 'next-themes';
 import { useEffect, useState } from 'react';
 import { Post } from '../../pages/board';
-import StatusMessage, { StatusMessageOrientation, StatusMessageType } from '../atoms/StatusMessage';
+import CopyButton from '../atoms/CopyButton';
+import ShareButton from '../atoms/ShareButton';
+import BookmarkButton from '../atoms/BookmarkButton';
+import HeartButton from '../atoms/HeartButton';
 
 const BoardPost = ({ isFavorite = true, postData }: { isFavorite?: boolean; postData: Post }) => {
   const { theme } = useTheme();
   const [themeMode, setThemeMode] = useState('dark');
-  const [isCopied, setIsCopied] = useState(false);
 
   //omit hydration effect
   useEffect(() => {
@@ -50,66 +43,11 @@ const BoardPost = ({ isFavorite = true, postData }: { isFavorite?: boolean; post
         </SyntaxHighlighter>
       </div>
       <div className="w-full my-6 grid grid-cols-[1fr_2fr]">
-        <div className="flex items-center justify-center gap-2">
-          <Image src={Heart} width={20} height={20} className="scale-90 md:hover:scale-100 animate-scale" alt="heart" />
-          <p>{postData.likes}</p>
-        </div>
+        <HeartButton likes={postData.likes} />
         <div className="flex items-center justify-around">
-          {theme === 'dark' ? (
-            <Image src={ShareWhite} width={18} height={18} alt="share" />
-          ) : (
-            <Image src={ShareBlack} width={18} height={18} alt="share" />
-          )}
-          {theme === 'dark' ? (
-            isFavorite ? (
-              <Image src={BookmarkFilledWhite} width={18} height={18} alt="share" />
-            ) : (
-              <Image src={BookmarkEmptyWhite} width={18} height={18} alt="share" />
-            )
-          ) : isFavorite ? (
-            <Image src={BookmarkFilledBlack} width={18} height={18} alt="share" />
-          ) : (
-            <Image src={BookmarkEmptyBlack} width={18} height={18} alt="share" />
-          )}
-          {theme === 'dark' ? (
-            <>
-              <Image
-                onClick={() => {
-                  navigator.clipboard.writeText(postData.code).then(() => {
-                    setIsCopied(true);
-
-                    setTimeout(() => {
-                      setIsCopied(false);
-                    }, 2000);
-                  });
-                }}
-                src={CopyWhite}
-                width={18}
-                height={18}
-                alt="copy"
-              />
-              <StatusMessage isShown={isCopied} message="Copied" type={StatusMessageType.SUCCESS} orientation={StatusMessageOrientation.VERTICAL} />
-            </>
-          ) : (
-            <>
-              <Image
-                onClick={() => {
-                  navigator.clipboard.writeText(postData.code).then(() => {
-                    setIsCopied(true);
-
-                    setTimeout(() => {
-                      setIsCopied(false);
-                    }, 2000);
-                  });
-                }}
-                src={CopyBlack}
-                width={18}
-                height={18}
-                alt="copy"
-              />
-              <StatusMessage isShown={isCopied} message="Copied" type={StatusMessageType.SUCCESS} orientation={StatusMessageOrientation.VERTICAL} />
-            </>
-          )}
+          <ShareButton />
+          <BookmarkButton isBookmarked={isFavorite} onClick={() => null} />
+          <CopyButton text={postData.code} />
         </div>
       </div>
     </div>
