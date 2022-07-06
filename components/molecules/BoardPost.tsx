@@ -5,10 +5,10 @@ import { materialDark, materialLight } from 'react-syntax-highlighter/dist/cjs/s
 import { useTheme } from 'next-themes';
 import { useEffect, useState } from 'react';
 import { Post } from '../../pages/board';
-import CopyButton from '../atoms/CopyButton';
-import ShareButton from '../atoms/ShareButton';
-import BookmarkButton from '../atoms/BookmarkButton';
-import HeartButton from '../atoms/HeartButton';
+import CopyButton from '../atoms/postButtons/CopyButton';
+import ShareButton from '../atoms/postButtons/ShareButton';
+import BookmarkButton from '../atoms/postButtons/BookmarkButton';
+import HeartButton from '../atoms/postButtons/HeartButton';
 import Link from 'next/link';
 import { useSession } from 'next-auth/react';
 

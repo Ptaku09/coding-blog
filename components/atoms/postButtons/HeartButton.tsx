@@ -1,10 +1,10 @@
 import Image from 'next/image';
-import HeartRed from '../../public/icons/heart-red.svg';
-import HeartGray from '../../public/icons/heart-gray.svg';
+import HeartRed from '../../../public/icons/heart-red.svg';
+import HeartGray from '../../../public/icons/heart-gray.svg';
 import { useEffect, useState } from 'react';
-import StatusMessage, { StatusMessageOrientation, StatusMessageType } from './StatusMessage';
+import StatusMessage, { StatusMessageOrientation, StatusMessageType } from '../StatusMessage';
 import { useSession } from 'next-auth/react';
-import { OperationType } from '../../lib/enums';
+import { OperationType } from '../../../lib/enums';
 
 const HeartButton = ({ postId, postLikes, size = 18 }: { postId: string; postLikes: number; size?: number }) => {
   const { data: session } = useSession({ required: true });

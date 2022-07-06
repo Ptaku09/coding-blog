@@ -1,7 +1,7 @@
 import Image from 'next/image';
-import CopyWhite from '../../public/icons/copy-white.svg';
-import StatusMessage, { StatusMessageOrientation, StatusMessageType } from './StatusMessage';
-import CopyBlack from '../../public/icons/copy-black.svg';
+import CopyWhite from '../../../public/icons/copy-white.svg';
+import StatusMessage, { StatusMessageOrientation, StatusMessageType } from '../StatusMessage';
+import CopyBlack from '../../../public/icons/copy-black.svg';
 import { useTheme } from 'next-themes';
 import { useState } from 'react';
 

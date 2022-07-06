@@ -1,13 +1,13 @@
 import Image from 'next/image';
-import BookmarkFilledWhite from '../../public/icons/bookmark-filled-white.svg';
-import BookmarkEmptyWhite from '../../public/icons/bookmark-empty-white.svg';
-import BookmarkEmptyBlack from '../../public/icons/bookmark-empty-black.svg';
-import BookmarkFilledBlack from '../../public/icons/bookmark-filled-black.svg';
+import BookmarkFilledWhite from '../../../public/icons/bookmark-filled-white.svg';
+import BookmarkEmptyWhite from '../../../public/icons/bookmark-empty-white.svg';
+import BookmarkEmptyBlack from '../../../public/icons/bookmark-empty-black.svg';
+import BookmarkFilledBlack from '../../../public/icons/bookmark-filled-black.svg';
 import { useTheme } from 'next-themes';
 import { useSession } from 'next-auth/react';
 import { useEffect, useState } from 'react';
-import StatusMessage, { StatusMessageOrientation, StatusMessageType } from './StatusMessage';
-import { OperationType } from '../../lib/enums';
+import StatusMessage, { StatusMessageOrientation, StatusMessageType } from '../StatusMessage';
+import { OperationType } from '../../../lib/enums';
 
 const BookmarkButton = ({ postId, size = 18 }: { postId: string; size?: number }) => {
   const { theme } = useTheme();
