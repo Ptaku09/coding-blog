@@ -9,10 +9,13 @@ import CopyButton from '../atoms/CopyButton';
 import ShareButton from '../atoms/ShareButton';
 import BookmarkButton from '../atoms/BookmarkButton';
 import HeartButton from '../atoms/HeartButton';
+import Link from 'next/link';
+import { useSession } from 'next-auth/react';
 
 const BoardPost = ({ isFavorite = true, postData }: { isFavorite?: boolean; postData: Post }) => {
-  const { theme } = useTheme();
   const [themeMode, setThemeMode] = useState('dark');
+  const { theme } = useTheme();
+  const { data: session } = useSession();
 
   //omit hydration effect
   useEffect(() => {
@@ -29,21 +32,25 @@ const BoardPost = ({ isFavorite = true, postData }: { isFavorite?: boolean; post
           <p>{postData.username}</p>
           <p className="bg-purple-300 px-3 py-0.5 rounded-xl shadow-md text-sm dark:text-[#0e172a]">#{postData.language}</p>
         </div>
-        <div className="py-2 font-raleway border-b-[1px] dark:border-dark mb-2">
-          <p>{postData.comment}</p>
-        </div>
-        <SyntaxHighlighter
-          language={postData.language}
-          showLineNumbers={true}
-          wrapLines={true}
-          style={themeMode === 'dark' ? materialDark : materialLight}
-          customStyle={{ maxHeight: '500px' }}
-        >
-          {postData.code}
-        </SyntaxHighlighter>
+        <Link href={`/posts/${postData._id}`}>
+          <a>
+            <div className="py-2 font-raleway border-b-[1px] dark:border-dark mb-2">
+              <p>{postData.comment}</p>
+            </div>
+            <SyntaxHighlighter
+              language={postData.language}
+              showLineNumbers={true}
+              wrapLines={true}
+              style={themeMode === 'dark' ? materialDark : materialLight}
+              customStyle={{ maxHeight: '450px' }}
+            >
+              {postData.code}
+            </SyntaxHighlighter>
+          </a>
+        </Link>
       </div>
       <div className="w-full my-6 grid grid-cols-[1fr_2fr]">
-        <HeartButton likes={postData.likes} />
+        <HeartButton post={postData} />
         <div className="flex items-center justify-around">
           <ShareButton />
           <BookmarkButton isBookmarked={isFavorite} onClick={() => null} />

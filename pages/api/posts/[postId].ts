@@ -17,6 +17,17 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
 
       post ? res.json({ status: 200, data: post }) : res.json({ status: 204 });
       break;
+
+    case 'PATCH':
+      if (postId.length !== 24) {
+        return res.json({ status: 204 });
+      }
+
+      const { likes } = req.body;
+      const updatedPost = await db.collection('Posts').findOneAndUpdate({ _id: new ObjectId(postId as string) }, { $set: { likes } });
+
+      updatedPost ? res.json({ status: 200 }) : res.json({ status: 204 });
+      break;
   }
 };
 

@@ -13,7 +13,7 @@ const Post = () => {
     fetch(`/api/posts/${router.query.id}`)
       .then((r: Response) => r.json())
       .then(({ status, data: post }) => (status === 200 ? setPostData(post) : setIsWrongId(true)));
-  });
+  }, [router.query.id]);
 
   return (
     <div className="w-screen h-screen bg-red-500 flex items-center justify-center">

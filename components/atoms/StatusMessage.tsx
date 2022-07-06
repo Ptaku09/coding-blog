@@ -36,7 +36,7 @@ const StatusMessage = ({
            : '-translate-x-96'
        }`}
     >
-      <p>{message.toLocaleUpperCase()}</p>
+      <p className="text-center">{message.toLocaleUpperCase()}</p>
       {isShown && (
         <span
           className={`absolute left-1/2 right-1/2 -translate-x-1/2 top-1 w-16 h-1 bg-gray-200 rounded-full overflow-hidden before:animate-slidingShort before:absolute before:-translate-x-full before:w-full before:rounded-full before:h-full 

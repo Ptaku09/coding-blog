@@ -36,8 +36,6 @@ Board.getLayout = (page: ReactElement) => {
   return <BoardMobileLayout>{page}</BoardMobileLayout>;
 };
 
-export default Board;
-
 export const getServerSideProps: GetServerSideProps = async (context: GetSessionParams) => {
   const session = await getSession(context);
 
@@ -54,3 +52,5 @@ export const getServerSideProps: GetServerSideProps = async (context: GetSession
     props: {},
   };
 };
+
+export default Board;

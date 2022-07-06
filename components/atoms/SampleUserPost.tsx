@@ -1,5 +1,5 @@
 import Image from 'next/image';
-import Heart from '../../public/icons/heart.svg';
+import Heart from '../../public/icons/heart-red.svg';
 import Share from '../../public/icons/share-black.svg';
 import Copy from '../../public/icons/copy-black.svg';
 

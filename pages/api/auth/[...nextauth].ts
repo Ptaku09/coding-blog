@@ -1,4 +1,4 @@
-import NextAuth, { Session, User } from 'next-auth';
+import NextAuth, { Session, TokenSet, User } from 'next-auth';
 import GitHub from 'next-auth/providers/github';
 import Twitter from 'next-auth/providers/twitter';
 import Google from 'next-auth/providers/google';
@@ -19,6 +19,8 @@ export default NextAuth({
           username: profile.name.split(' ')[0],
           email: profile.email,
           image: profile.picture,
+          likedPosts: [],
+          bookmarkedPosts: [],
         };
       },
     }),
@@ -33,6 +35,8 @@ export default NextAuth({
           username: profile.name.split(' ')[0],
           email: profile.email,
           image: profile.picture,
+          likedPosts: [],
+          bookmarkedPosts: [],
         };
       },
     }),
@@ -46,6 +50,8 @@ export default NextAuth({
           username: profile.name.split(' ')[0],
           email: profile.email,
           image: profile.picture,
+          likedPosts: [],
+          bookmarkedPosts: [],
         };
       },
     }),
@@ -55,8 +61,14 @@ export default NextAuth({
     error: '/signin',
   },
   callbacks: {
-    session: async (params: { session: Session; user: User }) => {
-      if (params.user) params.session.user.username = params.user.username;
+    session: async (params: { session: Session; user: User; token: TokenSet }) => {
+      if (params.user) {
+        params.session.user.id = params.user.id;
+        params.session.user.username = params.user.username;
+        params.session.user.likedPosts = params.user.likedPosts;
+        params.session.user.bookmarkedPosts = params.user.bookmarkedPosts;
+      }
+
       return Promise.resolve(params.session);
     },
   },
