@@ -53,7 +53,7 @@ const BoardPost = ({ isFavorite = true, postData }: { isFavorite?: boolean; post
         <HeartButton postId={postData._id} postLikes={postData.likes} />
         <div className="flex items-center justify-around">
           <ShareButton />
-          <BookmarkButton isBookmarked={isFavorite} onClick={() => null} />
+          <BookmarkButton postId={postData._id} />
           <CopyButton text={postData.code} />
         </div>
       </div>
