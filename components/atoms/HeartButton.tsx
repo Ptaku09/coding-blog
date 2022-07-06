@@ -1,24 +1,23 @@
 import Image from 'next/image';
 import HeartRed from '../../public/icons/heart-red.svg';
 import HeartGray from '../../public/icons/heart-gray.svg';
-import { Post } from '../../pages/board';
 import { useEffect, useState } from 'react';
 import StatusMessage, { StatusMessageOrientation, StatusMessageType } from './StatusMessage';
 import { useSession } from 'next-auth/react';
 import { OperationType } from '../../lib/enums';
 
-const HeartButton = ({ post, size = 18 }: { post: Post; size?: number }) => {
+const HeartButton = ({ postId, postLikes, size = 18 }: { postId: string; postLikes: number; size?: number }) => {
   const { data: session } = useSession({ required: true });
   const [isLiked, setIsLiked] = useState(false);
-  const [likeCount, setLikeCount] = useState(post.likes);
+  const [likeCount, setLikeCount] = useState(postLikes);
   const [isSomethingWrong, setIsSomethingWrong] = useState(false);
 
   useEffect(() => {
-    session && setIsLiked(session?.user.likedPosts.includes(post._id));
-  }, [post._id, session]);
+    session && setIsLiked(session?.user.likedPosts.includes(postId));
+  }, [postId, session]);
 
   const handleAddLike = () => {
-    fetch(`/api/posts/${post._id}`, {
+    fetch(`/api/posts/${postId}`, {
       method: 'PATCH',
       headers: {
         'Content-Type': 'application/json',
@@ -46,7 +45,7 @@ const HeartButton = ({ post, size = 18 }: { post: Post; size?: number }) => {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
-        likedPostId: post._id,
+        likedPostId: postId,
         type: isLiked ? OperationType.REMOVE : OperationType.ADD,
       }),
     })

@@ -50,7 +50,7 @@ const BoardPost = ({ isFavorite = true, postData }: { isFavorite?: boolean; post
         </Link>
       </div>
       <div className="w-full my-6 grid grid-cols-[1fr_2fr]">
-        <HeartButton post={postData} />
+        <HeartButton postId={postData._id} postLikes={postData.likes} />
         <div className="flex items-center justify-around">
           <ShareButton />
           <BookmarkButton isBookmarked={isFavorite} onClick={() => null} />
