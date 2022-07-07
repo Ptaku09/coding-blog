@@ -65,11 +65,13 @@ const HeartButton = ({ postId, postLikes, size = 18 }: { postId: string; postLik
 
   return (
     <div className="flex items-center justify-center gap-2">
-      {isLiked ? (
-        <Image onClick={handleAddLike} src={HeartRed} width={size} height={size} alt="checked heart" />
-      ) : (
-        <Image onClick={handleAddLike} src={HeartGray} width={size} height={size} alt="unchecked heart" />
-      )}
+      <button onClick={handleAddLike} className="flex items-center justify-center">
+        {isLiked ? (
+          <Image src={HeartRed} width={size} height={size} alt="checked heart" />
+        ) : (
+          <Image src={HeartGray} width={size} height={size} alt="unchecked heart" />
+        )}
+      </button>
       <p>{likeCount}</p>
       <StatusMessage
         isShown={isSomethingWrong}

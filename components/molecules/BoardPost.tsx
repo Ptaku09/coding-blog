@@ -10,12 +10,11 @@ import ShareButton from '../atoms/postButtons/ShareButton';
 import BookmarkButton from '../atoms/postButtons/BookmarkButton';
 import HeartButton from '../atoms/postButtons/HeartButton';
 import Link from 'next/link';
-import { useSession } from 'next-auth/react';
 
-const BoardPost = ({ isFavorite = true, postData }: { isFavorite?: boolean; postData: Post }) => {
-  const [themeMode, setThemeMode] = useState('dark');
+const BoardPost = ({ postData }: { postData: Post }) => {
+  const [themeMode, setThemeMode] = useState<string>('dark');
+  const [isShareButtonClicked, setIsShareButtonClicked] = useState<boolean>(false);
   const { theme } = useTheme();
-  const { data: session } = useSession();
 
   //omit hydration effect
   useEffect(() => {
@@ -23,8 +22,8 @@ const BoardPost = ({ isFavorite = true, postData }: { isFavorite?: boolean; post
   }, [theme]);
 
   return (
-    <div className="w-screen h-auto bg-white dark:bg-dark dark:text-white dark:border-dark border-b-[1px] text-black flex flex-col items-start justify-between px-4 pt-4 animate-appearing-short">
-      <div className="w-full border-b-[1px] dark:border-dark">
+    <div className="w-screen h-auto bg-white dark:bg-dark dark:text-white dark:border-dark border-b-[1px] text-black flex flex-col items-start justify-between px-4 pt-4 animate-appearing-short overflow-hidden">
+      <div className="w-full border-b-[1px] dark:border-dark z-[1] bg-inherit outline-none">
         <div className="flex flex-row items-center gap-3 font-raleway font-bold">
           <div className="w-9 h-9 rounded-full border-[1px] border-white overflow-hidden">
             <Image src={postData.image || defaultAvatar} width={45} height={45} objectFit="cover" alt="avatar" />
@@ -51,8 +50,11 @@ const BoardPost = ({ isFavorite = true, postData }: { isFavorite?: boolean; post
       </div>
       <div className="w-full my-6 grid grid-cols-[1fr_2fr]">
         <HeartButton postId={postData._id} postLikes={postData.likes} />
-        <div className="flex items-center justify-around">
-          <ShareButton />
+        <div
+          className={`relative flex items-center justify-around animate-appearing-short duration-500 ease-in-out
+           ${isShareButtonClicked ? 'top-56' : 'top-0'}`}
+        >
+          <ShareButton updateParentState={setIsShareButtonClicked} postId={postData._id} />
           <BookmarkButton postId={postData._id} />
           <CopyButton text={postData.code} />
         </div>

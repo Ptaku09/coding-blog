@@ -1,8 +1,8 @@
 import Image from 'next/image';
-import BookmarkFilledWhite from '../../../public/icons/bookmark-filled-white.svg';
 import BookmarkEmptyWhite from '../../../public/icons/bookmark-empty-white.svg';
 import BookmarkEmptyBlack from '../../../public/icons/bookmark-empty-black.svg';
 import BookmarkFilledBlack from '../../../public/icons/bookmark-filled-black.svg';
+import BookmarkFilledWhite from '../../../public/icons/bookmark-filled-white.svg';
 import { useTheme } from 'next-themes';
 import { useSession } from 'next-auth/react';
 import { useEffect, useState } from 'react';
@@ -46,17 +46,19 @@ const BookmarkButton = ({ postId, size = 18 }: { postId: string; size?: number }
 
   return (
     <>
-      {theme === 'dark' ? (
-        isBookmarked ? (
-          <Image onClick={handleAddBookmark} src={BookmarkFilledWhite} width={size} height={size} alt="share" />
+      <button onClick={handleAddBookmark} className="flex items-center justify-center">
+        {theme === 'dark' ? (
+          isBookmarked ? (
+            <Image src={BookmarkFilledWhite} width={size} height={size} alt="share" />
+          ) : (
+            <Image src={BookmarkEmptyWhite} width={size} height={size} alt="share" />
+          )
+        ) : isBookmarked ? (
+          <Image src={BookmarkFilledBlack} width={size} height={size} alt="share" />
         ) : (
-          <Image onClick={handleAddBookmark} src={BookmarkEmptyWhite} width={size} height={size} alt="share" />
-        )
-      ) : isBookmarked ? (
-        <Image onClick={handleAddBookmark} src={BookmarkFilledBlack} width={size} height={size} alt="share" />
-      ) : (
-        <Image onClick={handleAddBookmark} src={BookmarkEmptyBlack} width={size} height={size} alt="share" />
-      )}
+          <Image src={BookmarkEmptyBlack} width={size} height={size} alt="share" />
+        )}
+      </button>
       <StatusMessage
         isShown={isSomethingWrong}
         orientation={StatusMessageOrientation.VERTICAL}

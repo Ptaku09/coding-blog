@@ -21,17 +21,14 @@ const CopyButton = ({ text, size = 18 }: { text: string; size?: number }) => {
 
   return (
     <>
-      {theme === 'dark' ? (
-        <>
-          <Image onClick={handleCopy} src={CopyWhite} width={size} height={size} alt="copy" />
-          <StatusMessage isShown={isCopied} message="Copied" type={StatusMessageType.SUCCESS} orientation={StatusMessageOrientation.VERTICAL} />
-        </>
-      ) : (
-        <>
-          <Image onClick={handleCopy} src={CopyBlack} width={size} height={size} alt="copy" />
-          <StatusMessage isShown={isCopied} message="Copied" type={StatusMessageType.SUCCESS} orientation={StatusMessageOrientation.VERTICAL} />
-        </>
-      )}
+      <button onClick={handleCopy} className="flex items-center justify-center">
+        {theme === 'dark' ? (
+          <Image src={CopyWhite} width={size} height={size} alt="copy" />
+        ) : (
+          <Image src={CopyBlack} width={size} height={size} alt="copy" />
+        )}
+      </button>
+      <StatusMessage isShown={isCopied} message="Copied" type={StatusMessageType.SUCCESS} orientation={StatusMessageOrientation.VERTICAL} />
     </>
   );
 };

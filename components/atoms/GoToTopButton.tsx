@@ -8,7 +8,7 @@ const GoToTopButton = () => {
   return (
     <button
       onClick={scrollToTop}
-      className={`fixed flex items-center justify-center rounded-lg shadow-xl bottom-16 right-4 w-10 h-10 bg-black dark:border-white dark:border-[1px] transform duration-300 ${
+      className={`fixed z-20 flex items-center justify-center rounded-lg shadow-xl bottom-16 right-4 w-10 h-10 bg-black dark:border-white dark:border-[1px] transform duration-300 ${
         scrollPosition >= 200 ? 'translate-x-0' : 'translate-x-16'
       }`}
     >
