@@ -5,15 +5,11 @@ import { materialDark, materialLight } from 'react-syntax-highlighter/dist/cjs/s
 import { useTheme } from 'next-themes';
 import { useEffect, useState } from 'react';
 import { Post } from '../../pages/board';
-import CopyButton from '../atoms/postButtons/CopyButton';
-import ShareButton from '../atoms/postButtons/ShareButton';
-import BookmarkButton from '../atoms/postButtons/BookmarkButton';
-import HeartButton from '../atoms/postButtons/HeartButton';
 import Link from 'next/link';
+import Buttons from '../atoms/postButtons/Buttons';
 
 const BoardPost = ({ postData }: { postData: Post }) => {
   const [themeMode, setThemeMode] = useState<string>('dark');
-  const [isShareButtonClicked, setIsShareButtonClicked] = useState<boolean>(false);
   const { theme } = useTheme();
 
   //omit hydration effect
@@ -48,17 +44,7 @@ const BoardPost = ({ postData }: { postData: Post }) => {
           </a>
         </Link>
       </div>
-      <div className="w-full my-6 grid grid-cols-[1fr_2fr]">
-        <HeartButton postId={postData._id} postLikes={postData.likes} />
-        <div
-          className={`relative flex items-center justify-around animate-appearing-short duration-500 ease-in-out
-           ${isShareButtonClicked ? 'top-56' : 'top-0'}`}
-        >
-          <ShareButton updateParentState={setIsShareButtonClicked} postId={postData._id} />
-          <BookmarkButton postId={postData._id} />
-          <CopyButton text={postData.code} />
-        </div>
-      </div>
+      <Buttons postData={postData} />
     </div>
   );
 };

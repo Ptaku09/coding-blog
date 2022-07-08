@@ -14,7 +14,8 @@ const HeartButton = ({ postId, postLikes, size = 18 }: { postId: string; postLik
 
   useEffect(() => {
     session && setIsLiked(session?.user.likedPosts.includes(postId));
-  }, [postId, session]);
+    setLikeCount(postLikes);
+  }, [postId, session, postLikes]);
 
   const handleAddLike = () => {
     fetch(`/api/posts/${postId}`, {

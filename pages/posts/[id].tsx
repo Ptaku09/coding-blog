@@ -7,15 +7,24 @@ import AddPostMobileLayout from '../../components/templates/AddPostMobileLayout'
 import { NextPageWithLayout } from '../_app';
 import ErrorBlack from '../../public/icons/error-black.svg';
 import ErrorWhite from '../../public/icons/error-white.svg';
+import defaultAvatar from '../../public/images/defaultAvatar.jpg';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useTheme } from 'next-themes';
+import Buttons from '../../components/atoms/postButtons/Buttons';
+import { materialDark, materialLight } from 'react-syntax-highlighter/dist/cjs/styles/prism';
+import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
 
 const Post: NextPageWithLayout = () => {
   const [postData, setPostData] = useState({} as Post);
   const [isWrongId, setIsWrongId] = useState(false);
+  const [themeMode, setThemeMode] = useState<string>('dark');
   const router = useRouter();
   const { theme } = useTheme();
+
+  useEffect(() => {
+    setThemeMode(theme || 'dark');
+  }, [theme]);
 
   useEffect(() => {
     fetch(`/api/posts/${router.query.id}`)
@@ -24,9 +33,9 @@ const Post: NextPageWithLayout = () => {
   }, [router.query.id]);
 
   return (
-    <div className="w-screen h-screen bg-white dark:bg-dark flex items-center justify-center font-raleway text-xl">
+    <div className="bg-white dark:bg-dark py-12">
       {isWrongId ? (
-        <div className="flex items-center justify-center flex-col gap-4">
+        <div className="w-full h-screen flex items-center justify-center flex-col gap-4 text-xl font-raleway">
           <p className="text-3xl">{'post not found'.toUpperCase()}</p>
           {theme === 'light' ? (
             <Image src={ErrorBlack} width={70} height={70} alt="error" />
@@ -41,7 +50,32 @@ const Post: NextPageWithLayout = () => {
             <a className="bg-purple-600 w-44 text-center py-3 shadow-lg text-white font-bebas rounded-xl">Go to board</a>
           </Link>
         </div>
-      ) : null}
+      ) : (
+        <div className="w-screen min-h-screen h-auto px-4 pt-4">
+          <p className="text-gray-400 text-sm tracking-wide select-all border-b-[1px] border-b-gray-300 font-raleway">{postData._id}</p>
+          <div className="border-b-[1px] border-b-gray-300 flex items-center justify-between font-raleway">
+            <div className="flex flex-row items-center gap-3 font-raleway font-bold my-2">
+              <div className="w-12 h-12 rounded-full border-2 border-white overflow-hidden">
+                <Image src={postData.image || defaultAvatar} width={60} height={60} objectFit="cover" alt="avatar" />
+              </div>
+              <p>{postData.username}</p>
+            </div>
+            <p>date: 08.07.2022</p>
+          </div>
+          <p className="py-12 border-b-[1px] border-b-gray-300 font-raleway">{postData.comment}</p>
+          <div className="border-b-[1px] border-b-gray-300 overflow-hidden">
+            <Buttons postData={postData} />
+          </div>
+          <SyntaxHighlighter
+            language={postData.language}
+            showLineNumbers={true}
+            wrapLines={true}
+            style={themeMode === 'dark' ? materialDark : materialLight}
+          >
+            {postData.code}
+          </SyntaxHighlighter>
+        </div>
+      )}
     </div>
   );
 };
