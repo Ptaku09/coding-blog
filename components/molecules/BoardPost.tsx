@@ -7,6 +7,7 @@ import { useEffect, useState } from 'react';
 import { Post } from '../../pages/board';
 import Link from 'next/link';
 import Buttons from '../atoms/postButtons/Buttons';
+import Hashtag from '../atoms/Hashtag';
 
 const BoardPost = ({ postData }: { postData: Post }) => {
   const [themeMode, setThemeMode] = useState<string>('dark');
@@ -25,7 +26,7 @@ const BoardPost = ({ postData }: { postData: Post }) => {
             <Image src={postData.image || defaultAvatar} width={45} height={45} objectFit="cover" alt="avatar" />
           </div>
           <p>{postData.username}</p>
-          <p className="bg-purple-300 px-3 py-0.5 rounded-xl shadow-md text-sm dark:text-[#0e172a]">#{postData.language}</p>
+          <Hashtag text={postData.language} />
         </div>
         <Link href={`/posts/${postData._id}`}>
           <a>
