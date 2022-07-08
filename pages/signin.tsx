@@ -5,8 +5,9 @@ import Twitter from '../public/icons/twitter-black.svg';
 import Image from 'next/image';
 import { getSession, signIn } from 'next-auth/react';
 import { GetServerSideProps } from 'next';
+import { NextPageWithLayout } from './_app';
 
-const Signin = () => {
+const Signin: NextPageWithLayout = () => {
   return (
     <div className="w-screen h-screen p-10 bg-cover bg-signin-page-mobile md:bg-signin-page-desktop flex flex-col font-raleway text-2xl text-black">
       <TypingAnimation baseText={`Sign in via...`} textsToAnimate={['Google', 'Twitter', 'Github']} />

@@ -14,10 +14,11 @@ import DesktopHowToStartSection from '../components/organisms/DesktopHowToStartS
 import { useSession } from 'next-auth/react';
 import defaultAvatar from '../public/images/defaultAvatar.jpg';
 import Link from 'next/link';
+import { NextPageWithLayout } from './_app';
 
 const AnimatedGlobe = dynamic(() => import('../components/molecules/AnimatedGlobe'), { ssr: false });
 
-const Home = () => {
+const Home: NextPageWithLayout = () => {
   const [isMobile, setIsMobile] = useState(false);
   const { data: session, status } = useSession();
 

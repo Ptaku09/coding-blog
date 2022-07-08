@@ -7,7 +7,7 @@ import { SessionProvider } from 'next-auth/react';
 import NextNProgress from 'nextjs-progressbar';
 import Head from 'next/head';
 
-type NextPageWithLayout = NextPage & { getLayout?: (page: ReactElement) => ReactNode };
+export type NextPageWithLayout = NextPage & { getLayout?: (page: ReactElement) => ReactNode };
 type AppPropsWithLayout = AppProps & { Component: NextPageWithLayout };
 
 function MyApp({ Component, pageProps: { session, ...pageProps } }: AppPropsWithLayout) {

@@ -3,6 +3,7 @@ import { ReactElement, useEffect, useState } from 'react';
 import { GetServerSideProps } from 'next';
 import { getSession, GetSessionParams } from 'next-auth/react';
 import BoardPost from '../components/molecules/BoardPost';
+import { NextPageWithLayout } from './_app';
 
 export type Post = {
   _id: string;
@@ -14,7 +15,7 @@ export type Post = {
   likes: number;
 };
 
-const Board = () => {
+const Board: NextPageWithLayout = () => {
   const [posts, setPosts] = useState([] as Post[]);
 
   useEffect(() => {

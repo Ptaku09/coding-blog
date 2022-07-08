@@ -5,8 +5,9 @@ import AddPostMobileLayout from '../components/templates/AddPostMobileLayout';
 import Image from 'next/image';
 import defaultAvatar from '../public/images/defaultAvatar.jpg';
 import AddPostForm from '../components/organisms/AddPostForm';
+import { NextPageWithLayout } from './_app';
 
-const AddPost = () => {
+const AddPost: NextPageWithLayout = () => {
   const { data: session } = useSession();
 
   return (
