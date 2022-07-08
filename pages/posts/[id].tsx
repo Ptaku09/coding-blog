@@ -69,7 +69,7 @@ const Post: NextPageWithLayout = () => {
               </div>
               <p>{postData.username}</p>
             </div>
-            <p>date: 08.07.2022</p>
+            <p>{postData.date ?? '01.01.1900'}</p>
           </div>
           <div className="relative flex items-start border-b-[1px] border-b-gray-300 font-raleway">
             <p className="mb-20 mt-4">{postData.comment}</p>

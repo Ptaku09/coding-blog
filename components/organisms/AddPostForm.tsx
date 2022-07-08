@@ -126,6 +126,11 @@ const AddPostForm = () => {
           comment,
           code: formattedFile,
           extension: fileTitle.split('.').pop() as string,
+          date: new Date().toLocaleDateString('pl-PL', {
+            year: 'numeric',
+            month: '2-digit',
+            day: '2-digit',
+          }),
         }),
       }).then(() => {
         handleFormReset();

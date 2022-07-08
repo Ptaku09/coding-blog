@@ -14,10 +14,10 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
       break;
 
     case 'POST':
-      const { username, image, comment, code, extension } = req.body;
+      const { username, image, comment, code, extension, date } = req.body;
       const language = detectLanguage(extension);
 
-      const newPost = await db.collection('Posts').insertOne({ username, image, comment, code, language, likes: 0 });
+      const newPost = await db.collection('Posts').insertOne({ username, image, comment, code, language, date, likes: 0 });
 
       newPost ? res.json({ status: 200, data: newPost }) : res.json({ status: 204 });
       break;
