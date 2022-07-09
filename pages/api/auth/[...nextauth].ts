@@ -14,11 +14,11 @@ export default NextAuth({
       clientSecret: process.env.GITHUB_CLIENT_SECRET as string,
       profile(profile) {
         return {
-          id: profile.sub,
+          id: profile.id,
           name: profile.name,
-          username: profile.name.split(' ')[0],
+          username: profile.login,
           email: profile.email,
-          image: profile.picture,
+          image: profile.avatar_url,
           likedPosts: [],
           bookmarkedPosts: [],
         };
@@ -30,11 +30,11 @@ export default NextAuth({
       version: '2.0',
       profile(profile) {
         return {
-          id: profile.sub,
-          name: profile.name,
-          username: profile.name.split(' ')[0],
+          id: profile.data.id,
+          name: profile.data.name,
+          username: profile.data.name.split(' ')[0],
           email: profile.email,
-          image: profile.picture,
+          image: profile.data.profile_image_url,
           likedPosts: [],
           bookmarkedPosts: [],
         };
@@ -70,9 +70,6 @@ export default NextAuth({
       }
 
       return Promise.resolve(params.session);
-    },
-    redirect: async (params: { baseUrl: string }) => {
-      return `${params.baseUrl}/board`;
     },
   },
 });
