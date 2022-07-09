@@ -7,6 +7,8 @@ import { useSession } from 'next-auth/react';
 import StatusMessage, { StatusMessageType } from '../atoms/StatusMessage';
 import { ACCEPTED_EXTENSIONS } from '../../lib/extensions';
 
+const hashtagData = ['Algorithm', 'Data Structures', 'Smart trick', 'Strings', 'Dfs or bfs', 'Searching', 'Creative', 'Other'];
+
 const AddPostForm = () => {
   const [charsCount, setCharsCount] = useState(0);
   const [fileTitle, setFileTitle] = useState('');
@@ -17,6 +19,8 @@ const AddPostForm = () => {
   const [isSuccess, setIsSuccess] = useState(false);
   const [isEmpty, setIsEmpty] = useState(false);
   const [isTooBig, setIsTooBig] = useState(false);
+  const [checkedState, setCheckedState] = useState(new Array(hashtagData.length).fill(false));
+  const [currentlyChecked, setCurrentlyChecked] = useState(0);
   const fileInputRef = useRef() as React.MutableRefObject<HTMLInputElement>;
   const { theme } = useTheme();
   const { data: session } = useSession();
@@ -90,6 +94,23 @@ const AddPostForm = () => {
     };
   };
 
+  const onCheckboxChange = (position: number) => {
+    const updatedCheckedState = checkedState.map((state: boolean, index: number) => {
+      if (index === position && state) {
+        setCurrentlyChecked((prevState: number) => prevState - 1);
+        return false;
+        // 4 is the max number of hashtags
+      } else if (index === position && currentlyChecked < 4) {
+        setCurrentlyChecked((prevState: number) => prevState + 1);
+        return true;
+      }
+
+      return state;
+    });
+
+    setCheckedState(updatedCheckedState);
+  };
+
   const onTextChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     setComment(e.target.value);
     setCharsCount(e.target.value.length);
@@ -106,6 +127,8 @@ const AddPostForm = () => {
   const handleFormReset = () => {
     setCharsCount(0);
     setFileTitle('');
+    setCheckedState(new Array(hashtagData.length).fill(false));
+    setCurrentlyChecked(0);
     setComment('');
     setIsWrongExtension(false);
     fileInputRef.current.value = '';
@@ -126,6 +149,7 @@ const AddPostForm = () => {
           comment,
           code: formattedFile,
           extension: fileTitle.split('.').pop() as string,
+          hashtags: hashtagData.filter((text: string, index: number) => checkedState[index]),
           date: new Date().toLocaleDateString('pl-PL', {
             year: 'numeric',
             month: '2-digit',
@@ -141,11 +165,7 @@ const AddPostForm = () => {
         }, 2000);
       });
     } else {
-      setIsEmpty(true);
-
-      setTimeout(() => {
-        setIsEmpty(false);
-      }, 2000);
+      handleEmptyForm();
     }
   };
 
@@ -205,8 +225,24 @@ const AddPostForm = () => {
           </div>
         </div>
       )}
+
+      <div className="flex flex-row flex-wrap justify-center items-center border-[1px] rounded-xl p-2 mb-4">
+        <p className="text-center text-sm mb-1">Select up to 4 hashtags describing your code</p>
+        {hashtagData.map((category: string, index: number) => (
+          <div key={index} className="w-auto h-auto">
+            <input className="hidden peer" id={category} type="checkbox" checked={checkedState[index]} onChange={() => onCheckboxChange(index)} />
+            <label
+              htmlFor={category}
+              className="w-auto h-full px-5 py-0.5 m-1 rounded-xl shadow-xl flex flex-col items-center justify-center text-sm text-white bg-purple-300 peer-checked:bg-purple-600"
+            >
+              {category}
+            </label>
+          </div>
+        ))}
+      </div>
+
       <textarea
-        className="peer relative dark:bg-dark w-full min-h-56 rounded-xl border-[1px] my-2 dark:text-white font-raleway p-2 outline-purple-600"
+        className="peer relative dark:bg-dark w-full min-h-56 rounded-xl border-[1px] mb-2 dark:text-white font-raleway p-2 outline-purple-600"
         maxLength={250}
         onChange={onTextChange}
         placeholder="Add comment..."

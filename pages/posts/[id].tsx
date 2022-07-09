@@ -54,10 +54,10 @@ const Post: NextPageWithLayout = () => {
         </div>
       ) : (
         <div className="w-screen min-h-screen h-auto px-4">
-          <div className="w-full flex items-center justify-between border-b-[1px] border-b-gray-300">
+          <div className="w-full flex items-center justify-between border-b-[1px] border-b-gray-300 pb-2">
             <p className="text-gray-400 text-sm tracking-wide select-all font-raleway">{postData._id}</p>
             <Link href="/board">
-              <a className="bg-purple-600 flex items-center justify-center px-3 py-0.5 mb-2 shadow-lg rounded-xl">
+              <a className="bg-purple-600 flex items-center justify-center px-3 py-0.5 shadow-lg rounded-xl">
                 <Image src={ReturnWhite} width={26} height={26} alt="avatar" />
               </a>
             </Link>

@@ -12,6 +12,7 @@ export type Post = {
   comment: string;
   code: string;
   language: string;
+  hashtags: string[];
   date: string;
   likes: number;
 };
