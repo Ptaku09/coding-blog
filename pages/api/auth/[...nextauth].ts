@@ -71,5 +71,8 @@ export default NextAuth({
 
       return Promise.resolve(params.session);
     },
+    redirect: async (params: { baseUrl: string }) => {
+      return `${params.baseUrl}/board`;
+    },
   },
 });
