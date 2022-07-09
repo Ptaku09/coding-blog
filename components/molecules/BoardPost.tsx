@@ -21,12 +21,15 @@ const BoardPost = ({ postData }: { postData: Post }) => {
   return (
     <div className="w-screen h-auto bg-white dark:bg-dark dark:text-white dark:border-dark border-b-[1px] text-black flex flex-col items-start justify-between px-4 pt-4 animate-appearing-short overflow-hidden">
       <div className="w-full border-b-[1px] dark:border-dark z-[1] bg-inherit outline-none">
-        <div className="flex flex-row items-center gap-3 font-raleway font-bold">
-          <div className="w-9 h-9 rounded-full border-[1px] border-white overflow-hidden">
-            <Image src={postData.image || defaultAvatar} width={45} height={45} objectFit="cover" alt="avatar" />
+        <div className="flex flex-row items-center justify-between font-raleway font-bold">
+          <div className="flex flex-row items-center gap-3">
+            <div className="w-9 h-9 rounded-full border-[1px] border-white overflow-hidden">
+              <Image src={postData.image || defaultAvatar} width={45} height={45} objectFit="cover" alt="avatar" />
+            </div>
+            <p>{postData.username}</p>
+            <Hashtag text={postData.language} />
           </div>
-          <p>{postData.username}</p>
-          <Hashtag text={postData.language} />
+          <p>{postData.date ?? '01.01.1900'}</p>
         </div>
         <Link href={`/posts/${postData._id}`}>
           <a>

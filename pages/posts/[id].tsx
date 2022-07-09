@@ -72,11 +72,10 @@ const Post: NextPageWithLayout = () => {
             <p>{postData.date ?? '01.01.1900'}</p>
           </div>
           <div className="relative flex items-start border-b-[1px] border-b-gray-300 font-raleway">
-            <p className="mb-20 mt-4">{postData.comment}</p>
-            <div className="absolute bottom-2 text-sm flex flex-row gap-3">
-              {['this', 'is', 'hashtag', 'place'].map((text: string) => (
-                <Hashtag key={text} text={text} />
-              ))}
+            <p className="mb-28 mt-4">{postData.comment}</p>
+            <div className="absolute bottom-2 text-sm flex flex-row flex-wrap gap-2">
+              <Hashtag text={postData.language} />
+              {postData.hashtags && postData.hashtags.map((text: string) => <Hashtag key={text} text={text} />)}
             </div>
           </div>
           <div className="border-b-[1px] border-b-gray-300 overflow-hidden">
