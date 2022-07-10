@@ -2,13 +2,26 @@ import { NextApiRequest, NextApiResponse } from 'next';
 import clientPromise from '../../../mongodb';
 import { detectLanguage } from '../../../lib/extensions';
 
+interface Query {
+  iterator?: number;
+}
+
+const DEFAULT_AMOUNT = 10;
+
 const handler = async (req: NextApiRequest, res: NextApiResponse) => {
   const client = await clientPromise;
   const db = client.db(process.env.MONGODB_POST_NAME);
 
   switch (req.method) {
     case 'GET':
-      const posts = await db.collection('Posts').find().sort({ _id: -1 }).toArray();
+      const { iterator } = req.query as Query;
+      const posts = await db
+        .collection('Posts')
+        .find()
+        .skip(DEFAULT_AMOUNT * (iterator || 0))
+        .limit(DEFAULT_AMOUNT)
+        .sort({ _id: -1 })
+        .toArray();
 
       posts ? res.json({ status: 200, data: posts }) : res.json({ status: 204 });
       break;

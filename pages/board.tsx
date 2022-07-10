@@ -4,6 +4,7 @@ import { GetServerSideProps } from 'next';
 import { getSession, GetSessionParams } from 'next-auth/react';
 import BoardPost from '../components/molecules/BoardPost';
 import { NextPageWithLayout } from './_app';
+import InfiniteScroll from 'react-infinite-scroll-component';
 
 export type Post = {
   _id: string;
@@ -19,6 +20,8 @@ export type Post = {
 
 const Board: NextPageWithLayout = () => {
   const [posts, setPosts] = useState([] as Post[]);
+  const [iterator, setIterator] = useState(1);
+  const [isEverythingLoaded, setIsEverythingLoaded] = useState(false);
 
   useEffect(() => {
     fetch('/api/posts')
@@ -26,11 +29,30 @@ const Board: NextPageWithLayout = () => {
       .then(({ status, data: posts }) => status === 200 && setPosts(posts));
   }, []);
 
+  const fetchMorePosts = () => {
+    !isEverythingLoaded &&
+      fetch(`/api/posts?iterator=${iterator}`)
+        .then((r: Response) => r.json())
+        .then(({ status, data: posts }) => {
+          if (status === 200) {
+            setPosts((prevState: Post[]) => [...prevState, ...posts]);
+            setIterator((prevState: number) => prevState + 1);
+            posts.length < 10 && setIsEverythingLoaded(true);
+          }
+        });
+  };
+
   return (
     <div className="w-screen h-auto min-h-screen py-12 bg-white dark:bg-dark bg-fixed text-white overflow-y-scroll scroll-smooth flex items-center justify-start flex-col">
-      {posts.map((post: Post) => (
-        <BoardPost key={post._id} postData={post} />
-      ))}
+      <InfiniteScroll
+        next={fetchMorePosts}
+        hasMore={!isEverythingLoaded}
+        loader={<h4>loading...</h4>}
+        dataLength={posts.length}
+        endMessage={<p className="mb-16 text-black">That&apos;s all for now</p>}
+      >
+        {posts.map((post: Post, index: number) => post && <BoardPost key={index} postData={post} />)}
+      </InfiniteScroll>
     </div>
   );
 };
