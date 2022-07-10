@@ -6,8 +6,7 @@ import { useTheme } from 'next-themes';
 import { useSession } from 'next-auth/react';
 import StatusMessage, { StatusMessageType } from '../atoms/StatusMessage';
 import { ACCEPTED_EXTENSIONS } from '../../lib/extensions';
-
-const hashtagData = ['Algorithm', 'Data Structures', 'Smart trick', 'Strings', 'Dfs or bfs', 'Searching', 'Creative', 'Other'];
+import { hashtagData } from '../../lib/hashtags';
 
 const AddPostForm = () => {
   const [charsCount, setCharsCount] = useState(0);
@@ -170,7 +169,11 @@ const AddPostForm = () => {
   };
 
   return (
-    <form onSubmit={handleSubmit} onDragEnter={handleDrag} className="relative w-full flex flex-col items-center font-raleway">
+    <form
+      onSubmit={handleSubmit}
+      onDragEnter={handleDrag}
+      className="relative w-full flex flex-col items-center font-raleway animate-appearing-short"
+    >
       <input ref={fileInputRef} onChange={handleChange} className="hidden" type="file" id="file" multiple={false} onInvalid={handleEmptyForm} />
       <label className="relative my-4 p-10 h-32 w-full rounded-xl border-[1px] flex flex-col items-center justify-center" htmlFor="file">
         {fileTitle ? (
