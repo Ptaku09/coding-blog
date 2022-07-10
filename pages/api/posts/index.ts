@@ -8,7 +8,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
 
   switch (req.method) {
     case 'GET':
-      const posts = await db.collection('Posts').find().toArray();
+      const posts = await db.collection('Posts').find().sort({ _id: -1 }).toArray();
 
       posts ? res.json({ status: 200, data: posts }) : res.json({ status: 204 });
       break;
