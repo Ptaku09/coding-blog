@@ -1,0 +1,1 @@
+export const DEFAULT_AMOUNT_OF_FETCHED_POSTS = 5;

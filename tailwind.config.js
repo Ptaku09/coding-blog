@@ -6,6 +6,9 @@ module.exports = {
       borderColor: {
         dark: '#2e3336',
       },
+      linearGradient: {
+        shine: 'linear-gradient(to right, rgba(255,255,255,0) 0%, rgba(255,255,255,0.8) 50%, rgba(128,186,232,0) 99%, rgba(125,185,232,0) 100%)',
+      },
       backgroundColor: {
         dark: '#0e172a',
       },
@@ -66,6 +69,17 @@ module.exports = {
             transform: 'translateX(0%)',
           },
         },
+        shineSlide: {
+          '0%': {
+            transform: 'translateX(-100%)',
+          },
+          '50%': {
+            transform: 'translateX(100%)',
+          },
+          '100%': {
+            transform: 'translateX(100%)',
+          },
+        },
         myBounce: {
           '0%, 100%': {
             transform: 'translate(-50%, -15%)',
@@ -94,6 +108,7 @@ module.exports = {
         'appearing-opacity': 'appearOpacity 0.35s ease-in-out',
         sliding: 'slide 7s linear',
         slidingShort: 'slide 2s linear',
+        'shine-slide': 'shineSlide 2s infinite ease-in-out',
         myBounce: 'myBounce 1s infinite',
         gradientBackground: 'gradientBackground 7s ease infinite',
         typing: 'typing 5s steps(40, end), blinkCaret 1s step-end infinite',

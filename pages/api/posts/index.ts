@@ -1,12 +1,11 @@
 import { NextApiRequest, NextApiResponse } from 'next';
 import clientPromise from '../../../mongodb';
 import { detectLanguage } from '../../../lib/extensions';
+import { DEFAULT_AMOUNT_OF_FETCHED_POSTS } from '../../../lib/constants';
 
 interface Query {
   iterator?: number;
 }
-
-const DEFAULT_AMOUNT = 10;
 
 const handler = async (req: NextApiRequest, res: NextApiResponse) => {
   const client = await clientPromise;
@@ -18,8 +17,8 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
       const posts = await db
         .collection('Posts')
         .find()
-        .skip(DEFAULT_AMOUNT * (iterator || 0))
-        .limit(DEFAULT_AMOUNT)
+        .skip(DEFAULT_AMOUNT_OF_FETCHED_POSTS * (iterator || 0))
+        .limit(DEFAULT_AMOUNT_OF_FETCHED_POSTS)
         .sort({ _id: -1 })
         .toArray();
 

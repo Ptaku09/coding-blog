@@ -5,6 +5,8 @@ import { getSession, GetSessionParams } from 'next-auth/react';
 import BoardPost from '../components/molecules/BoardPost';
 import { NextPageWithLayout } from './_app';
 import InfiniteScroll from 'react-infinite-scroll-component';
+import { DEFAULT_AMOUNT_OF_FETCHED_POSTS } from '../lib/constants';
+import PostLoading from '../components/atoms/PostLoading';
 
 export type Post = {
   _id: string;
@@ -37,7 +39,7 @@ const Board: NextPageWithLayout = () => {
           if (status === 200) {
             setPosts((prevState: Post[]) => [...prevState, ...posts]);
             setIterator((prevState: number) => prevState + 1);
-            posts.length < 10 && setIsEverythingLoaded(true);
+            posts.length < DEFAULT_AMOUNT_OF_FETCHED_POSTS && setIsEverythingLoaded(true);
           }
         });
   };
@@ -47,7 +49,7 @@ const Board: NextPageWithLayout = () => {
       <InfiniteScroll
         next={fetchMorePosts}
         hasMore={!isEverythingLoaded}
-        loader={<h4>loading...</h4>}
+        loader={<PostLoading />}
         dataLength={posts.length}
         endMessage={<p className="mb-16 text-black">That&apos;s all for now</p>}
       >
