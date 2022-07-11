@@ -7,6 +7,7 @@ import { NextPageWithLayout } from './_app';
 import InfiniteScroll from 'react-infinite-scroll-component';
 import { DEFAULT_AMOUNT_OF_FETCHED_POSTS } from '../lib/constants';
 import PostLoading from '../components/atoms/PostLoading';
+import BoardEndMessage from '../components/atoms/BoardEndMessage';
 
 export type Post = {
   _id: string;
@@ -51,7 +52,7 @@ const Board: NextPageWithLayout = () => {
         hasMore={!isEverythingLoaded}
         loader={<PostLoading />}
         dataLength={posts.length}
-        endMessage={<p className="mb-16 text-black">That&apos;s all for now</p>}
+        endMessage={<BoardEndMessage />}
       >
         {posts.map((post: Post, index: number) => post && <BoardPost key={index} postData={post} />)}
       </InfiniteScroll>
