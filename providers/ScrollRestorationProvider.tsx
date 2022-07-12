@@ -1,13 +1,13 @@
 import { createContext, ReactChild, ReactChildren, ReactNode, RefObject, useRef } from 'react';
 
-interface ScrollRestorationContextProps {
-  scrollRef: RefObject<{ [key: string]: number }>;
-}
+type ScrollRestorationContextProps = {
+  scrollRef: RefObject<{ scrollPosition: number }>;
+};
 
 export const ScrollRestorationContext = createContext<ScrollRestorationContextProps>({} as ScrollRestorationContextProps);
 
 const ScrollRestorationProvider = ({ children }: { children: ReactChild | ReactChildren | ReactNode }) => {
-  const scrollRef = useRef<{ [key: string]: number }>({
+  const scrollRef = useRef<{ scrollPosition: number }>({
     scrollPosition: 0,
   });
 
