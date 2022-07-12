@@ -10,7 +10,7 @@ const MobileHeader = () => {
 
   return (
     <div
-      className={`bg-black bg-opacity-90 fixed z-10 top-0 flex flex-row items-center justify-between px-5 w-screen transform duration-300 h-12 ${
+      className={`bg-black bg-opacity-90 fixed z-20 top-0 flex flex-row items-center justify-between px-5 w-screen transform duration-300 h-12 ${
         scrollDirection === ScrollDirection.UP || scrollPosition <= 20 ? 'translate-y-0' : '-translate-y-12'
       }`}
     >

@@ -69,9 +69,11 @@ const Home: NextPageWithLayout = () => {
           </div>
         </div>
         <div className="w-screen md:-mt-16 relative z-[2] h-auto bg-white rounded-t-[100%80px] rounded-b-[100%80px] flex items-center justify-start flex-col">
-          <a className="mt-3" href="#how-to-start">
-            <FontAwesomeIcon className="animate-myBounce" icon={faArrowDown} />
-          </a>
+          <Link href="#how-to-start" scroll={false}>
+            <a className="mt-3">
+              <FontAwesomeIcon className="animate-myBounce" icon={faArrowDown} />
+            </a>
+          </Link>
           <h3 className="relative text-black text-3xl font-raleway mt-16 mb-3 px-8 pb-2 border-b-[1px] border-gray-200">
             <span id="how-to-start" className="absolute -top-5" />
             HOW TO START?

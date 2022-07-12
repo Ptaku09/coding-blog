@@ -6,6 +6,7 @@ import { ThemeProvider } from 'next-themes';
 import { SessionProvider } from 'next-auth/react';
 import NextNProgress from 'nextjs-progressbar';
 import Head from 'next/head';
+import ScrollRestorationProvider from '../providers/ScrollRestorationProvider';
 
 export type NextPageWithLayout = NextPage & { getLayout?: (page: ReactElement) => ReactNode };
 type AppPropsWithLayout = AppProps & { Component: NextPageWithLayout };
@@ -30,16 +31,20 @@ function MyApp({ Component, pageProps: { session, ...pageProps } }: AppPropsWith
       </Head>
       <ThemeProvider attribute="class">
         <SessionProvider session={session} refetchInterval={0}>
-          <NextNProgress
-            color="#9333ea"
-            startPosition={0.2}
-            stopDelayMs={200}
-            height={5}
-            showOnShallow={false}
-            options={{ showSpinner: false }}
-            nonce={undefined}
-          />
-          {getLayout(<Component {...pageProps} />)}
+          <ScrollRestorationProvider>
+            <>
+              <NextNProgress
+                color="#9333ea"
+                startPosition={0.2}
+                stopDelayMs={200}
+                height={5}
+                showOnShallow={false}
+                options={{ showSpinner: false }}
+                nonce={undefined}
+              />
+              {getLayout(<Component {...pageProps} />)}
+            </>
+          </ScrollRestorationProvider>
         </SessionProvider>
       </ThemeProvider>
     </>

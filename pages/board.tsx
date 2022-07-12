@@ -1,5 +1,5 @@
 import BoardMobileLayout from '../components/templates/BoardMobileLayout';
-import { ReactElement, useEffect, useState } from 'react';
+import { ReactElement, useContext, useEffect, useState } from 'react';
 import { GetServerSideProps } from 'next';
 import { getSession, GetSessionParams } from 'next-auth/react';
 import BoardPost from '../components/molecules/BoardPost';
@@ -8,6 +8,7 @@ import InfiniteScroll from 'react-infinite-scroll-component';
 import { DEFAULT_AMOUNT_OF_FETCHED_POSTS } from '../lib/constants';
 import PostLoading from '../components/atoms/PostLoading';
 import BoardEndMessage from '../components/atoms/BoardEndMessage';
+import { ScrollRestorationContext } from '../providers/ScrollRestorationProvider';
 
 export type Post = {
   _id: string;
@@ -25,12 +26,42 @@ const Board: NextPageWithLayout = () => {
   const [posts, setPosts] = useState([] as Post[]);
   const [iterator, setIterator] = useState(1);
   const [isEverythingLoaded, setIsEverythingLoaded] = useState(false);
+  const { scrollRef } = useContext(ScrollRestorationContext);
 
   useEffect(() => {
-    fetch('/api/posts')
-      .then((r: Response) => r.json())
-      .then(({ status, data: posts }) => status === 200 && setPosts(posts));
+    const storedPosts = sessionStorage.getItem('posts');
+
+    if (storedPosts) {
+      setPosts(JSON.parse(storedPosts));
+      setIterator(JSON.parse(sessionStorage.getItem('iterator') || '1'));
+    } else {
+      fetch('/api/posts')
+        .then((r: Response) => r.json())
+        .then(({ status, data: posts }) => status === 200 && setPosts(posts));
+    }
   }, []);
+
+  useEffect(() => {
+    sessionStorage.setItem('posts', JSON.stringify(posts));
+    sessionStorage.setItem('iterator', (Math.floor(posts.length / DEFAULT_AMOUNT_OF_FETCHED_POSTS) + 1).toString());
+  }, [posts, iterator]);
+
+  useEffect(() => {
+    // scroll to the last post without animation
+    document.documentElement.style.scrollBehavior = 'auto';
+    setTimeout(() => window.scrollTo(0, scrollRef?.current?.scrollPosition || 0), 5);
+    setTimeout(() => (document.documentElement.style.scrollBehavior = 'smooth'), 5);
+
+    const handleScrollPosition = () => {
+      if (scrollRef.current) scrollRef.current.scrollPosition = window.scrollY;
+    };
+
+    window.addEventListener('scroll', handleScrollPosition);
+
+    return () => {
+      window.removeEventListener('scroll', handleScrollPosition);
+    };
+  });
 
   const fetchMorePosts = () => {
     !isEverythingLoaded &&
@@ -46,7 +77,8 @@ const Board: NextPageWithLayout = () => {
   };
 
   return (
-    <div className="w-screen h-auto min-h-screen py-12 bg-white dark:bg-dark bg-fixed text-white overflow-y-scroll scroll-smooth flex items-center justify-start flex-col">
+    <div className="relative w-screen h-auto min-h-screen py-12 bg-white dark:bg-dark bg-fixed text-white overflow-y-scroll scroll-smooth flex items-center justify-start flex-col">
+      <div className="absolute z-10 top-0 right-0 w-16 h-full bg-transparent" />
       <InfiniteScroll
         next={fetchMorePosts}
         hasMore={!isEverythingLoaded}
