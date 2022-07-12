@@ -89,7 +89,7 @@ const Post: NextPageWithLayout = () => {
           >
             {postData.code}
           </SyntaxHighlighter>
-          <Link href="/board">
+          <Link href="/board" scroll={false}>
             <a className="bg-purple-600 flex items-center justify-center gap-2 px-3 py-2 mt-4 shadow-lg rounded-xl text-white text-xl font-raleway">
               Return to board
             </a>

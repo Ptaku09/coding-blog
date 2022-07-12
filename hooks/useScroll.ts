@@ -9,6 +9,8 @@ type UseScrollReturnType = {
   scrollPosition: number;
   scrollDirection: ScrollDirection;
   scrollToTop: () => void;
+  lockScroll: () => void;
+  unlockScroll: () => void;
 };
 
 const useScroll = (): UseScrollReturnType => {
@@ -36,10 +38,20 @@ const useScroll = (): UseScrollReturnType => {
     });
   };
 
+  const lockScroll = useCallback(() => {
+    document.body.style.overflow = 'hidden';
+  }, []);
+
+  const unlockScroll = useCallback(() => {
+    document.body.style.overflow = 'auto';
+  }, []);
+
   return {
     scrollPosition,
     scrollDirection,
     scrollToTop,
+    lockScroll,
+    unlockScroll,
   };
 };
 

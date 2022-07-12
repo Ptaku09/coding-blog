@@ -78,7 +78,7 @@ const Board: NextPageWithLayout = () => {
 
   return (
     <div className="relative w-screen h-auto min-h-screen py-12 bg-white dark:bg-dark bg-fixed text-white overflow-y-scroll scroll-smooth flex items-center justify-start flex-col">
-      <div className="absolute z-10 top-0 right-0 w-16 h-full bg-transparent" />
+      <div className="absolute z-10 top-0 right-0 w-16 h-full" />
       <InfiniteScroll
         next={fetchMorePosts}
         hasMore={!isEverythingLoaded}
