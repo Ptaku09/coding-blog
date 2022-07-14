@@ -7,35 +7,27 @@ import { Post } from './board';
 import { OperationType } from '../lib/enums';
 import StatusMessage, { StatusMessageOrientation, StatusMessageType } from '../components/atoms/StatusMessage';
 import BookmarkPost from '../components/molecules/BookmarkPost';
+import Image from 'next/image';
+import ReturnWhite from '../public/icons/return-white.svg';
+import { useRouter } from 'next/router';
+import GoToTopLayout from '../components/templates/GoToTopLayout';
 import { NextPageWithLayout } from './_app';
 
-const Bookmarks: NextPageWithLayout = () => {
+const Bookmarks: ({ bookmarkedPosts }: { bookmarkedPosts: string[] }) => JSX.Element = ({ bookmarkedPosts }: { bookmarkedPosts: string[] }) => {
   const [posts, setPosts] = useState<Post[]>([]);
   const [isSomethingWrong, setIsSomethingWrong] = useState<boolean>(false);
   const { data: session } = useSession();
+  const router = useRouter();
 
   useEffect(() => {
-    session?.user.bookmarkedPosts.forEach((postId: string) => {
+    bookmarkedPosts.forEach((postId: string) => {
       fetch(`/api/posts/${postId}`)
         .then((r: Response) => r.json())
         .then(({ data: post }) => {
           setPosts((prevState: Post[]) => [post, ...prevState]);
         });
     });
-  }, [session?.user.bookmarkedPosts]);
-
-  useEffect(() => {
-    if (sessionStorage.getItem('bookmarkUpdate')) {
-      reloadSession();
-      sessionStorage.removeItem('bookmarkUpdate');
-    }
-  }, []);
-
-  // Reload session to update data
-  const reloadSession = () => {
-    const event = new Event('visibilitychange');
-    document.dispatchEvent(event);
-  };
+  }, [bookmarkedPosts]);
 
   const handleRemoveBookmark = (postId: string) => {
     fetch(`/api/users/${session?.user.id}`, {
@@ -81,6 +73,9 @@ const Bookmarks: NextPageWithLayout = () => {
     <div className="w-screen min-h-screen h-auto py-12 bg-white dark:bg-dark font-raleway flex items-center justify-start flex-col gap-2">
       <h1 className="text-4xl font-edu-sa mt-6 underline">Your bookmarks</h1>
       <p>Total: {posts.length}</p>
+      <a onClick={() => router.back()} className="bg-purple-600 flex items-center justify-center px-6 py-0.5 shadow-lg rounded-xl">
+        <Image src={ReturnWhite} width={26} height={26} alt="avatar" />
+      </a>
       <div className="w-11/12">
         {posts.map((post: Post) => (
           <BookmarkPost key={post._id} post={post} handleRemoveBookmark={handleRemoveBookmark} />
@@ -96,8 +91,12 @@ const Bookmarks: NextPageWithLayout = () => {
   );
 };
 
-Bookmarks.getLayout = (page: ReactElement) => {
-  return <DefaultMobileLayout>{page}</DefaultMobileLayout>;
+(Bookmarks as NextPageWithLayout).getLayout = (page: ReactElement) => {
+  return (
+    <DefaultMobileLayout>
+      <GoToTopLayout>{page}</GoToTopLayout>
+    </DefaultMobileLayout>
+  );
 };
 
 export const getServerSideProps: GetServerSideProps = async (context: GetSessionParams) => {
@@ -113,7 +112,9 @@ export const getServerSideProps: GetServerSideProps = async (context: GetSession
   }
 
   return {
-    props: {},
+    props: {
+      bookmarkedPosts: session.user.bookmarkedPosts,
+    },
   };
 };
 

@@ -9,6 +9,7 @@ import { DEFAULT_AMOUNT_OF_FETCHED_POSTS } from '../lib/constants';
 import PostLoading from '../components/atoms/PostLoading';
 import BoardEndMessage from '../components/atoms/BoardEndMessage';
 import { ScrollRestorationContext } from '../providers/ScrollRestorationProvider';
+import GoToTopLayout from '../components/templates/GoToTopLayout';
 
 export type Post = {
   _id: string;
@@ -44,7 +45,7 @@ const Board: NextPageWithLayout = () => {
   // save posts to session storage to avoid refetching
   useEffect(() => {
     sessionStorage.setItem('posts', JSON.stringify(posts));
-    sessionStorage.setItem('iterator', (Math.floor(posts.length / DEFAULT_AMOUNT_OF_FETCHED_POSTS) + 1).toString());
+    sessionStorage.setItem('iterator', Math.floor(posts.length / DEFAULT_AMOUNT_OF_FETCHED_POSTS).toString());
   }, [posts, iterator]);
 
   useEffect(() => {
@@ -94,7 +95,11 @@ const Board: NextPageWithLayout = () => {
 };
 
 Board.getLayout = (page: ReactElement) => {
-  return <BoardMobileLayout>{page}</BoardMobileLayout>;
+  return (
+    <BoardMobileLayout>
+      <GoToTopLayout>{page}</GoToTopLayout>
+    </BoardMobileLayout>
+  );
 };
 
 export const getServerSideProps: GetServerSideProps = async (context: GetSessionParams) => {
