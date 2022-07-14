@@ -45,7 +45,7 @@ const BookmarkButton = ({ postId, size = 18 }: { postId: string; size?: number }
   };
 
   return (
-    <>
+    <div className="flex items-center justify-center relative z-10">
       <button onClick={handleAddBookmark} className="flex items-center justify-center">
         {theme === 'dark' ? (
           isBookmarked ? (
@@ -65,7 +65,7 @@ const BookmarkButton = ({ postId, size = 18 }: { postId: string; size?: number }
         type={StatusMessageType.ERROR}
         message="Something went wrong"
       />
-    </>
+    </div>
   );
 };
 

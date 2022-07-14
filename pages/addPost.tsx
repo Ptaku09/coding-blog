@@ -22,7 +22,7 @@ const AddPost: NextPageWithLayout = () => {
             </div>
             <p className="text-lg">{session?.user?.username}</p>
           </div>
-          <Link href="/board">
+          <Link href="/board" scroll={false}>
             <a className="bg-purple-600 flex items-center justify-center px-3 py-0.5 shadow-lg rounded-xl">
               <Image src={ReturnWhite} width={26} height={26} alt="avatar" />
             </a>

@@ -30,7 +30,7 @@ const StatusMessage = ({
          orientation === StatusMessageOrientation.VERTICAL
            ? isShown
              ? 'left-1/2 -translate-x-1/2 translate-y-0'
-             : 'left-1/2 -translate-x-1/2 translate-y-44'
+             : 'left-1/2 -translate-x-1/2 translate-y-64'
            : isShown
            ? 'translate-x-0'
            : '-translate-x-96'

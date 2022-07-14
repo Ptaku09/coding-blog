@@ -20,7 +20,7 @@ const CopyButton = ({ text, size = 18 }: { text: string; size?: number }) => {
   };
 
   return (
-    <>
+    <div className="flex items-center justify-center relative z-10">
       <button onClick={handleCopy} className="flex items-center justify-center">
         {theme === 'dark' ? (
           <Image src={CopyWhite} width={size} height={size} alt="copy" />
@@ -29,7 +29,7 @@ const CopyButton = ({ text, size = 18 }: { text: string; size?: number }) => {
         )}
       </button>
       <StatusMessage isShown={isCopied} message="Copied" type={StatusMessageType.SUCCESS} orientation={StatusMessageOrientation.VERTICAL} />
-    </>
+    </div>
   );
 };
 

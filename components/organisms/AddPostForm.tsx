@@ -258,7 +258,7 @@ const AddPostForm = () => {
       >
         {charsCount} / 250
       </p>
-      <div className="w-full flex items-center justify-center gap-8">
+      <div className="w-full flex items-center justify-center gap-8 font-edu-sa text-xl">
         <button className="bg-gray-500 px-5 py-2 rounded-xl shadow-xl border-white border-[1px] text-white" onClick={handleFormReset} type="reset">
           Reset
         </button>

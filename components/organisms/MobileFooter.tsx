@@ -9,7 +9,7 @@ const MobileFooter = () => {
   const { data: session } = useSession();
 
   return (
-    <div className="fixed z-20 bottom-0 w-screen h-12 flex flex-row items-center justify-around bg-black bg-opacity-90">
+    <div className="fixed z-20 bottom-0 w-screen h-12 pb-2 flex flex-row items-center justify-around bg-black bg-opacity-90">
       <div className="w-7 h-7 rounded-full border-[1px] border-white overflow-hidden">
         <Image src={session?.user?.image || defaultAvatar} height={45} width={45} objectFit="contain" alt={session?.user?.image || 'default photo'} />
       </div>
