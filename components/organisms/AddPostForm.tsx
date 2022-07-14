@@ -157,8 +157,12 @@ const AddPostForm = () => {
         }),
       }).then(() => {
         handleFormReset();
-        setIsSuccess(true);
 
+        // clear session storage to fetch new posts
+        sessionStorage.removeItem('iterator');
+        sessionStorage.removeItem('posts');
+
+        setIsSuccess(true);
         setTimeout(() => {
           setIsSuccess(false);
         }, 2000);
@@ -258,7 +262,7 @@ const AddPostForm = () => {
       >
         {charsCount} / 250
       </p>
-      <div className="w-full flex items-center justify-center gap-8 font-edu-sa text-xl">
+      <div className="w-full flex items-center justify-center gap-8 font-bebas text-xl">
         <button className="bg-gray-500 px-5 py-2 rounded-xl shadow-xl border-white border-[1px] text-white" onClick={handleFormReset} type="reset">
           Reset
         </button>

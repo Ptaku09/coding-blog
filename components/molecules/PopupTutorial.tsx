@@ -1,13 +1,13 @@
 import SwipeBlack from '../../public/icons/swipe-black.svg';
 import Image from 'next/image';
-import { useLayoutEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import useScroll from '../../hooks/useScroll';
 
 const PopupTutorial = () => {
   const [isShown, setIsShown] = useState(false);
   const { lockScroll, unlockScroll } = useScroll();
 
-  useLayoutEffect(() => {
+  useEffect(() => {
     if (!localStorage.getItem('popup-tutorial')) {
       lockScroll();
       setIsShown(true);
