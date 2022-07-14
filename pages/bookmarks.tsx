@@ -1,44 +1,97 @@
 import { getSession, GetSessionParams, useSession } from 'next-auth/react';
 import { GetServerSideProps } from 'next';
-import { NextPageWithLayout } from './_app';
-import React, { ReactElement, useLayoutEffect } from 'react';
+import React, { ReactElement, useEffect, useState } from 'react';
 import DefaultMobileLayout from '../components/templates/DefaultMobileLayout';
 import Link from 'next/link';
+import { Post } from './board';
+import { OperationType } from '../lib/enums';
+import StatusMessage, { StatusMessageOrientation, StatusMessageType } from '../components/atoms/StatusMessage';
+import BookmarkPost from '../components/molecules/BookmarkPost';
+import { NextPageWithLayout } from './_app';
 
 const Bookmarks: NextPageWithLayout = () => {
+  const [posts, setPosts] = useState<Post[]>([]);
+  const [isSomethingWrong, setIsSomethingWrong] = useState<boolean>(false);
   const { data: session } = useSession();
 
-  // Reload session to update data
-  useLayoutEffect(() => {
-    reloadSession();
+  useEffect(() => {
+    session?.user.bookmarkedPosts.forEach((postId: string) => {
+      fetch(`/api/posts/${postId}`)
+        .then((r: Response) => r.json())
+        .then(({ data: post }) => {
+          setPosts((prevState: Post[]) => [post, ...prevState]);
+        });
+    });
+  }, [session?.user.bookmarkedPosts]);
+
+  useEffect(() => {
+    if (sessionStorage.getItem('bookmarkUpdate')) {
+      reloadSession();
+      sessionStorage.removeItem('bookmarkUpdate');
+    }
   }, []);
 
+  // Reload session to update data
   const reloadSession = () => {
     const event = new Event('visibilitychange');
     document.dispatchEvent(event);
   };
 
-  return (
+  const handleRemoveBookmark = (postId: string) => {
+    fetch(`/api/users/${session?.user.id}`, {
+      method: 'PATCH',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        bookmarkedPostId: postId,
+        type: OperationType.REMOVE,
+      }),
+    })
+      .then((r: Response) => r.json())
+      .then(({ status }) => {
+        if (status === 204) {
+          setIsSomethingWrong(true);
+
+          setTimeout(() => {
+            setIsSomethingWrong(false);
+          }, 2000);
+        } else {
+          setPosts((prevState: Post[]) => prevState.filter((post: Post) => post._id !== postId));
+        }
+      });
+  };
+
+  return posts.length === 0 ? (
     <div className="w-screen min-h-screen h-auto py-12 bg-white dark:bg-dark font-raleway flex items-center justify-center flex-col">
-      {session?.user.bookmarkedPosts.length === 0 ? (
-        <div className="w-full flex items-center justify-center flex-col gap-1">
-          <p className="text-xl font-raleway">You have no bookmarked posts</p>
-          <p>
-            go to{' '}
-            <span>
-              <Link href="/board">
-                <a className="text-purple-600 dark:text-purple-500">board</a>
-              </Link>
-            </span>{' '}
-            and find some
-          </p>
-        </div>
-      ) : (
-        <>
-          <h1 className="text-4xl font-edu-sa mt-6 underline">Your bookmarks</h1>
-          <p>Total: {session?.user.bookmarkedPosts.length}</p>
-        </>
-      )}
+      <div className="w-full flex items-center justify-center flex-col gap-1">
+        <p className="text-xl font-raleway">You have no bookmarked posts</p>
+        <p>
+          go to{' '}
+          <span>
+            <Link href="/board">
+              <a className="text-purple-600 dark:text-purple-500">board</a>
+            </Link>
+          </span>{' '}
+          and find some
+        </p>
+      </div>
+    </div>
+  ) : (
+    <div className="w-screen min-h-screen h-auto py-12 bg-white dark:bg-dark font-raleway flex items-center justify-start flex-col gap-2">
+      <h1 className="text-4xl font-edu-sa mt-6 underline">Your bookmarks</h1>
+      <p>Total: {posts.length}</p>
+      <div className="w-11/12">
+        {posts.map((post: Post) => (
+          <BookmarkPost key={post._id} post={post} handleRemoveBookmark={handleRemoveBookmark} />
+        ))}
+      </div>
+      <StatusMessage
+        isShown={isSomethingWrong}
+        orientation={StatusMessageOrientation.VERTICAL}
+        type={StatusMessageType.ERROR}
+        message="Something went wrong"
+      />
     </div>
   );
 };

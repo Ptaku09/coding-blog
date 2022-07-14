@@ -50,6 +50,7 @@ const BookmarkButton = ({ postId, size = 18 }: { postId: string; size?: number }
           }, 2000);
         } else {
           setIsBookmarked((prevState) => !prevState);
+          sessionStorage.setItem('bookmarkUpdate', 'true');
         }
       });
   };
