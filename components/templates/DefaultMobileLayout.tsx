@@ -2,7 +2,7 @@ import MobileHeader from '../organisms/MobileHeader';
 import MobileFooter from '../organisms/MobileFooter';
 import { ReactNode } from 'react';
 
-const AddPostMobileLayout = ({ children }: { children: ReactNode }) => {
+const DefaultMobileLayout = ({ children }: { children: ReactNode }) => {
   return (
     <>
       <MobileHeader />
@@ -12,4 +12,4 @@ const AddPostMobileLayout = ({ children }: { children: ReactNode }) => {
   );
 };
 
-export default AddPostMobileLayout;
+export default DefaultMobileLayout;

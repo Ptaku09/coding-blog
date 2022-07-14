@@ -1,7 +1,7 @@
 import Image from 'next/image';
 import HeartRed from '../../../public/icons/heart-red.svg';
 import HeartGray from '../../../public/icons/heart-gray.svg';
-import { useEffect, useState } from 'react';
+import { useEffect, useLayoutEffect, useState } from 'react';
 import StatusMessage, { StatusMessageOrientation, StatusMessageType } from '../StatusMessage';
 import { useSession } from 'next-auth/react';
 import { OperationType } from '../../../lib/enums';
@@ -16,6 +16,16 @@ const HeartButton = ({ postId, postLikes, size = 18 }: { postId: string; postLik
     session && setIsLiked(session?.user.likedPosts.includes(postId));
     setLikeCount(postLikes);
   }, [postId, session, postLikes]);
+
+  // Reload session to update data
+  useLayoutEffect(() => {
+    reloadSession();
+  }, []);
+
+  const reloadSession = () => {
+    const event = new Event('visibilitychange');
+    document.dispatchEvent(event);
+  };
 
   const handleAddLike = () => {
     fetch(`/api/posts/${postId}`, {
@@ -36,7 +46,10 @@ const HeartButton = ({ postId, postLikes, size = 18 }: { postId: string; postLik
             setIsSomethingWrong(false);
           }, 2000);
         } else {
-          setLikeCount((prevState) => (isLiked ? prevState - 1 : prevState + 1));
+          setLikeCount((prevState: number) => (isLiked ? prevState - 1 : prevState + 1));
+
+          // save current likes count to session storage to avoid data mismatch
+          sessionStorage.setItem(`${postId}`, JSON.stringify(isLiked ? likeCount - 1 : likeCount + 1));
         }
       });
 

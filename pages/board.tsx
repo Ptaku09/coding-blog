@@ -41,6 +41,7 @@ const Board: NextPageWithLayout = () => {
     }
   }, []);
 
+  // save posts to session storage to avoid refetching
   useEffect(() => {
     sessionStorage.setItem('posts', JSON.stringify(posts));
     sessionStorage.setItem('iterator', (Math.floor(posts.length / DEFAULT_AMOUNT_OF_FETCHED_POSTS) + 1).toString());

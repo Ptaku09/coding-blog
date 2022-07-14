@@ -3,7 +3,7 @@ import { getSession, GetSessionParams } from 'next-auth/react';
 import { ReactElement, useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
 import { GetServerSideProps } from 'next';
-import AddPostMobileLayout from '../../components/templates/AddPostMobileLayout';
+import DefaultMobileLayout from '../../components/templates/DefaultMobileLayout';
 import { NextPageWithLayout } from '../_app';
 import ErrorBlack from '../../public/icons/error-black.svg';
 import ErrorWhite from '../../public/icons/error-white.svg';
@@ -101,7 +101,7 @@ const Post: NextPageWithLayout = () => {
 };
 
 Post.getLayout = (page: ReactElement) => {
-  return <AddPostMobileLayout>{page}</AddPostMobileLayout>;
+  return <DefaultMobileLayout>{page}</DefaultMobileLayout>;
 };
 
 export const getServerSideProps: GetServerSideProps = async (context: GetSessionParams) => {

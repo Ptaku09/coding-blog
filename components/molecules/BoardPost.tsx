@@ -11,12 +11,20 @@ import Hashtag from '../atoms/Hashtag';
 
 const BoardPost = ({ postData }: { postData: Post }) => {
   const [themeMode, setThemeMode] = useState<string>('dark');
+  const [likes, setLikes] = useState<number>(0);
   const { theme } = useTheme();
 
-  //omit hydration effect
+  // omit hydration effect
   useEffect(() => {
     setThemeMode(theme || 'dark');
   }, [theme]);
+
+  // display correct likes count depending on user interaction
+  useEffect(() => {
+    const likeCount = sessionStorage.getItem(postData._id);
+    if (likeCount) setLikes(parseInt(likeCount));
+    else setLikes(postData.likes);
+  }, [postData._id, postData.likes]);
 
   return (
     <div className="w-screen h-auto bg-white dark:bg-dark dark:text-white dark:border-dark border-b-[1px] text-black flex flex-col items-start justify-between px-4 pt-4 animate-appearing-short overflow-hidden">
@@ -48,7 +56,7 @@ const BoardPost = ({ postData }: { postData: Post }) => {
           </a>
         </Link>
       </div>
-      <Buttons postData={postData} />
+      <Buttons postData={{ ...postData, likes }} />
     </div>
   );
 };

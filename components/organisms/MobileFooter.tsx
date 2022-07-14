@@ -4,6 +4,7 @@ import { useSession } from 'next-auth/react';
 import ColorModeToggle from '../atoms/ColorModeToggle';
 import Search from '../../public/icons/search.svg';
 import Bookmarks from '../../public/icons/bookmarks.svg';
+import Link from 'next/link';
 
 const MobileFooter = () => {
   const { data: session } = useSession();
@@ -14,7 +15,11 @@ const MobileFooter = () => {
         <Image src={session?.user?.image || defaultAvatar} height={45} width={45} objectFit="contain" alt={session?.user?.image || 'default photo'} />
       </div>
       <Image src={Search} width={25} height={25} alt="search" />
-      <Image src={Bookmarks} width={25} height={25} alt="bookmarks" />
+      <Link href="/bookmarks">
+        <a className="flex items-center justify-center">
+          <Image src={Bookmarks} width={25} height={25} alt="bookmarks" />
+        </a>
+      </Link>
       <ColorModeToggle />
     </div>
   );
