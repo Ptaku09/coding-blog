@@ -19,7 +19,7 @@ export type Post = {
   code: string;
   language: string;
   hashtags: string[];
-  date: string;
+  createdAt: string;
   likes: number;
 };
 

@@ -16,7 +16,7 @@ const BookmarkPost = ({ post, handleRemoveBookmark }: { post: Post; handleRemove
           <p>{post.username}</p>
           <Hashtag text={post.language} />
         </div>
-        <p className="py-4">{post.date ?? '01.01.1900'}</p>
+        <p className="py-4">{new Date(post.createdAt).toLocaleDateString('pl-PL', { year: 'numeric', month: '2-digit', day: '2-digit' })}</p>
       </div>
       <div className="py-4 border-b-[1px] relative z-10">
         <Link href={`/posts/${post._id}`}>

@@ -67,7 +67,11 @@ const Post: NextPageWithLayout = () => {
               </div>
               <p>{postData.username}</p>
             </div>
-            <p>{postData.date ?? '01.01.1900'}</p>
+            <div className="flex flex-row justify-center gap-2">
+              <p>{new Date(postData.createdAt).toLocaleTimeString().slice(0, 5)}</p>
+              <span>|</span>
+              <p>{new Date(postData.createdAt).toLocaleDateString('pl-PL', { year: 'numeric', month: '2-digit', day: '2-digit' })}</p>
+            </div>
           </div>
           <div className="relative flex items-start border-b-[1px] border-b-gray-300 font-raleway">
             <p className="mb-28 mt-4">{postData.comment}</p>

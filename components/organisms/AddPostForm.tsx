@@ -149,11 +149,7 @@ const AddPostForm = () => {
           code: formattedFile,
           extension: fileTitle.split('.').pop() as string,
           hashtags: hashtagData.filter((text: string, index: number) => checkedState[index]),
-          date: new Date().toLocaleDateString('pl-PL', {
-            year: 'numeric',
-            month: '2-digit',
-            day: '2-digit',
-          }),
+          createdAt: new Date().toUTCString(),
         }),
       }).then(() => {
         handleFormReset();

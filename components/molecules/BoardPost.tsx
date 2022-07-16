@@ -37,7 +37,7 @@ const BoardPost = ({ postData }: { postData: Post }) => {
             <p>{postData.username}</p>
             <Hashtag text={postData.language} />
           </div>
-          <p>{postData.date ?? '01.01.1900'}</p>
+          <p>{new Date(postData.createdAt).toLocaleDateString('pl-PL', { year: 'numeric', month: '2-digit', day: '2-digit' })}</p>
         </div>
         <Link href={`/posts/${postData._id}`}>
           <a>
