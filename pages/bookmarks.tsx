@@ -13,14 +13,28 @@ import { useRouter } from 'next/router';
 import GoToTopLayout from '../components/templates/GoToTopLayout';
 import { NextPageWithLayout } from './_app';
 
-const Bookmarks: ({ bookmarkedPosts }: { bookmarkedPosts: string[] }) => JSX.Element = ({ bookmarkedPosts }: { bookmarkedPosts: string[] }) => {
+type BookmarkedPostData = {
+  bookmarkedPostId: string;
+  addedAt: string;
+};
+
+const Bookmarks: ({ bookmarkedPosts }: { bookmarkedPosts: BookmarkedPostData[] }) => JSX.Element = ({
+  bookmarkedPosts,
+}: {
+  bookmarkedPosts: BookmarkedPostData[];
+}) => {
   const [posts, setPosts] = useState<Post[]>([]);
   const [isSomethingWrong, setIsSomethingWrong] = useState<boolean>(false);
   const { data: session } = useSession();
   const router = useRouter();
 
   useEffect(() => {
-    bookmarkedPosts.forEach((postId: string) => {
+    // sort posts by adding time
+    bookmarkedPosts.sort((a: BookmarkedPostData, b: BookmarkedPostData) => {
+      return new Date(a.addedAt).getTime() - new Date(b.addedAt).getTime();
+    });
+
+    bookmarkedPosts.forEach(({ bookmarkedPostId: postId }: { bookmarkedPostId: string }) => {
       fetch(`/api/posts/${postId}`)
         .then((r: Response) => r.json())
         .then(({ data: post }) => {

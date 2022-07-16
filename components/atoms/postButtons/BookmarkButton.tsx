@@ -16,7 +16,8 @@ const BookmarkButton = ({ postId, size = 18 }: { postId: string; size?: number }
   const [isSomethingWrong, setIsSomethingWrong] = useState(false);
 
   useEffect(() => {
-    session && setIsBookmarked(session?.user.bookmarkedPosts.includes(postId));
+    session &&
+      setIsBookmarked(session?.user.bookmarkedPosts.some(({ bookmarkedPostId }: { bookmarkedPostId: string }) => bookmarkedPostId === postId));
   }, [postId, session]);
 
   // Reload session to update data

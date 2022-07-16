@@ -6,7 +6,7 @@ declare module 'next-auth' {
       id: string;
       username: string;
       likedPosts: string[];
-      bookmarkedPosts: string[];
+      bookmarkedPosts: { [key in 'bookmarkedPostId' | 'addedAt']: string }[];
     } & DefaultSession['user'];
   }
 
@@ -14,6 +14,6 @@ declare module 'next-auth' {
     id: string;
     username: string;
     likedPosts: string[];
-    bookmarkedPosts: string[];
+    bookmarkedPosts: { [key in 'bookmarkedPostId' | 'addedAt']: string }[];
   }
 }

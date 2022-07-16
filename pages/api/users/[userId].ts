@@ -34,30 +34,21 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
           case OperationType.ADD:
             updatedUser = await updatedUser.findOneAndUpdate(
               { _id: new ObjectId(userId as string) },
-              { $addToSet: { bookmarkedPosts: bookmarkedPostId } }
+              {
+                $addToSet: {
+                  bookmarkedPosts: {
+                    bookmarkedPostId: bookmarkedPostId,
+                    addedAt: new Date().toUTCString(),
+                  } as any,
+                },
+              }
             );
             break;
 
           case OperationType.REMOVE:
             updatedUser = await updatedUser.findOneAndUpdate(
               { _id: new ObjectId(userId as string) },
-              { $pull: { bookmarkedPosts: bookmarkedPostId } }
-            );
-            break;
-        }
-      } else {
-        switch (type) {
-          case OperationType.ADD:
-            updatedUser = await updatedUser.findOneAndUpdate(
-              { _id: new ObjectId(userId as string) },
-              { $addToSet: { likedPosts: likedPostId, bookmarkedPosts: bookmarkedPostId } }
-            );
-            break;
-
-          case OperationType.REMOVE:
-            updatedUser = await updatedUser.findOneAndUpdate(
-              { _id: new ObjectId(userId as string) },
-              { $pull: { likedPosts: likedPostId, bookmarkedPosts: bookmarkedPostId } }
+              { $pull: { bookmarkedPosts: { bookmarkedPostId: bookmarkedPostId } as any } }
             );
             break;
         }
