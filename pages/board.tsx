@@ -4,12 +4,12 @@ import { GetServerSideProps } from 'next';
 import { getSession, GetSessionParams } from 'next-auth/react';
 import BoardPost from '../components/molecules/BoardPost';
 import { NextPageWithLayout } from './_app';
-import InfiniteScroll from 'react-infinite-scroll-component';
 import { DEFAULT_AMOUNT_OF_FETCHED_POSTS } from '../lib/constants';
-import PostLoading from '../components/atoms/PostLoading';
-import BoardEndMessage from '../components/atoms/BoardEndMessage';
 import { ScrollRestorationContext } from '../providers/ScrollRestorationProvider';
 import GoToTopLayout from '../components/templates/GoToTopLayout';
+import InfiniteScroll from 'react-infinite-scroll-component';
+import PostLoading from '../components/atoms/PostLoading';
+import BoardEndMessage from '../components/atoms/BoardEndMessage';
 
 export type Post = {
   _id: string;
@@ -24,13 +24,15 @@ export type Post = {
 };
 
 const Board: NextPageWithLayout = () => {
-  const [posts, setPosts] = useState([] as Post[]);
-  const [iterator, setIterator] = useState(1);
-  const [isEverythingLoaded, setIsEverythingLoaded] = useState(false);
+  const [posts, setPosts] = useState<Post[]>([]);
+  const [iterator, setIterator] = useState<number>(1);
+  const [isEverythingLoaded, setIsEverythingLoaded] = useState<boolean>(false);
+  const [isMobile, setIsMobile] = useState<boolean>(false);
   const { scrollRef } = useContext(ScrollRestorationContext);
 
   useEffect(() => {
     const storedPosts = sessionStorage.getItem('posts');
+    window.innerWidth < 768 && setIsMobile(true);
 
     if (storedPosts) {
       setPosts(JSON.parse(storedPosts));
@@ -84,12 +86,14 @@ const Board: NextPageWithLayout = () => {
       <InfiniteScroll
         next={fetchMorePosts}
         hasMore={!isEverythingLoaded}
-        loader={<PostLoading />}
+        loader={null}
+        scrollThreshold={isMobile ? `150px` : 0.5}
         dataLength={posts.length}
         endMessage={<BoardEndMessage />}
       >
         {posts.map((post: Post, index: number) => post && <BoardPost key={index} postData={post} />)}
       </InfiniteScroll>
+      {!isEverythingLoaded && <PostLoading />}
     </div>
   );
 };

@@ -5,7 +5,7 @@ import BookmarkFilledBlack from '../../../public/icons/bookmark-filled-black.svg
 import BookmarkFilledWhite from '../../../public/icons/bookmark-filled-white.svg';
 import { useTheme } from 'next-themes';
 import { useSession } from 'next-auth/react';
-import { useEffect, useLayoutEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import StatusMessage, { StatusMessageOrientation, StatusMessageType } from '../StatusMessage';
 import { OperationType } from '../../../lib/enums';
 
@@ -20,7 +20,7 @@ const BookmarkButton = ({ postId, size = 18 }: { postId: string; size?: number }
   }, [postId, session]);
 
   // Reload session to update data
-  useLayoutEffect(() => {
+  useEffect(() => {
     reloadSession();
   }, []);
 
