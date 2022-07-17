@@ -4,7 +4,7 @@ import React, { ReactElement, useEffect, useState } from 'react';
 import DefaultMobileLayout from '../components/templates/DefaultMobileLayout';
 import Link from 'next/link';
 import { Post } from './board';
-import { OperationType } from '../lib/enums';
+import { OperationType, SortDirection, SortOptions } from '../lib/enums';
 import StatusMessage, { StatusMessageOrientation, StatusMessageType } from '../components/atoms/StatusMessage';
 import BookmarkPost from '../components/molecules/BookmarkPost';
 import Image from 'next/image';
@@ -13,35 +13,23 @@ import { useRouter } from 'next/router';
 import GoToTopLayout from '../components/templates/GoToTopLayout';
 import { NextPageWithLayout } from './_app';
 
-type BookmarkedPostData = {
+export type BookmarkedPostData = {
   bookmarkedPostId: string;
   addedAt: string;
 };
 
-const Bookmarks: ({ bookmarkedPosts }: { bookmarkedPosts: BookmarkedPostData[] }) => JSX.Element = ({
-  bookmarkedPosts,
-}: {
-  bookmarkedPosts: BookmarkedPostData[];
-}) => {
+const Bookmarks: NextPageWithLayout = () => {
   const [posts, setPosts] = useState<Post[]>([]);
   const [isSomethingWrong, setIsSomethingWrong] = useState<boolean>(false);
   const { data: session } = useSession();
   const router = useRouter();
 
   useEffect(() => {
-    // sort posts by adding time
-    bookmarkedPosts.sort((a: BookmarkedPostData, b: BookmarkedPostData) => {
-      return new Date(a.addedAt).getTime() - new Date(b.addedAt).getTime();
-    });
-
-    bookmarkedPosts.forEach(({ bookmarkedPostId: postId }: { bookmarkedPostId: string }) => {
-      fetch(`/api/posts/${postId}`)
+    session?.user.id &&
+      fetch(`/api/bookmarks/${session?.user.id}?direction=${SortDirection.desc}&sort=${SortOptions.addedAt}`)
         .then((r: Response) => r.json())
-        .then(({ data: post }) => {
-          setPosts((prevState: Post[]) => [post, ...prevState]);
-        });
-    });
-  }, [bookmarkedPosts]);
+        .then(({ data: posts }) => setPosts(posts));
+  }, [session?.user.id]);
 
   const handleRemoveBookmark = (postId: string) => {
     fetch(`/api/users/${session?.user.id}`, {
@@ -105,7 +93,7 @@ const Bookmarks: ({ bookmarkedPosts }: { bookmarkedPosts: BookmarkedPostData[] }
   );
 };
 
-(Bookmarks as NextPageWithLayout).getLayout = (page: ReactElement) => {
+Bookmarks.getLayout = (page: ReactElement) => {
   return (
     <DefaultMobileLayout>
       <GoToTopLayout>{page}</GoToTopLayout>
@@ -126,9 +114,7 @@ export const getServerSideProps: GetServerSideProps = async (context: GetSession
   }
 
   return {
-    props: {
-      bookmarkedPosts: session.user.bookmarkedPosts,
-    },
+    props: {},
   };
 };
 
