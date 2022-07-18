@@ -24,21 +24,13 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
 
   // Deal with default sort - cannot access added time via post object
   if (!sort || sort === SortOptions.addedAt) {
-    switch (direction) {
-      case SortDirection.desc:
-        user.bookmarkedPosts.sort((a: BookmarkedPostData, b: BookmarkedPostData) => {
-          return new Date(b.addedAt).getTime() - new Date(a.addedAt).getTime();
-        });
-
-        break;
-
-      case SortDirection.asc:
-        user.bookmarkedPosts.sort((a: BookmarkedPostData, b: BookmarkedPostData) => {
-          return new Date(a.addedAt).getTime() - new Date(b.addedAt).getTime();
-        });
-
-        break;
-    }
+    user.bookmarkedPosts.sort((a: BookmarkedPostData, b: BookmarkedPostData) => {
+      if (direction === SortDirection.asc) {
+        return new Date(a.addedAt).getTime() - new Date(b.addedAt).getTime();
+      } else {
+        return new Date(b.addedAt).getTime() - new Date(a.addedAt).getTime();
+      }
+    });
   }
 
   // Fetch posts from db

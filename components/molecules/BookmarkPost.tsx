@@ -26,9 +26,9 @@ const BookmarkPost = ({ post, handleRemoveBookmark }: { post: Post; handleRemove
           </a>
         </Link>
         <div className="w-full flex justify-center gap-4 font-bebas text-xl">
-          <button className="flex items-center justify-center font-raleway text-lg px-4 py-2 bg-purple-300 rounded-xl shadow-xl text-black dark:text-dark">
-            <HeartButton postId={post._id} postLikes={post.likes} size={20} />
-          </button>
+          <div className="flex items-center justify-center font-raleway text-base w-24 py-2 bg-purple-300 rounded-xl shadow-xl text-black dark:text-dark">
+            <HeartButton postId={post._id} postLikes={post.likes} />
+          </div>
           <Link href={`/posts/${post._id}`}>
             <a className="px-6 py-2 bg-purple-600 rounded-xl shadow-xl text-white">Read more</a>
           </Link>
