@@ -28,6 +28,9 @@ module.exports = {
         'signin-page-mobile': 'url(/backgrounds/signin-page-mobile.svg)',
         curiosity: 'url(/backgrounds/curiosity.svg)',
       },
+      textColor: {
+        dark: '#0e172a',
+      },
       keyframes: {
         appear: {
           '0%': {
