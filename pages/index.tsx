@@ -5,7 +5,7 @@ import MobileHowToStartSection from '../components/organisms/MobileHowToStartSec
 import MyLink from '../components/atoms/MyLink';
 import LogoAndName from '../components/atoms/LogoAndName';
 import HomePageLayout from '../components/templates/HomePageLayout';
-import { ReactElement, useEffect, useState } from 'react';
+import { ReactElement } from 'react';
 import Curiosity from '../components/atoms/Curiosity';
 import Carousel from '../components/organisms/Carousel';
 import MainViewPicture from '../public/images/main-view-pictrue-desktop.svg';
@@ -15,24 +15,21 @@ import { useSession } from 'next-auth/react';
 import defaultAvatar from '../public/images/defaultAvatar.jpg';
 import Link from 'next/link';
 import { NextPageWithLayout } from './_app';
+import { useResizeDetector } from 'react-resize-detector';
 
 const AnimatedGlobe = dynamic(() => import('../components/molecules/AnimatedGlobe'), { ssr: false });
 
 const Home: NextPageWithLayout = () => {
-  const [isMobile, setIsMobile] = useState(false);
   const { data: session, status } = useSession();
-
-  useEffect(() => {
-    setIsMobile(window.innerWidth < 768);
-  }, []);
+  const { width, ref } = useResizeDetector();
 
   return (
-    <div className="w-screen bg-home-page-mobile md:bg-home-page-desktop h-auto flex items-center justify-start flex-col text-black">
+    <div ref={ref} className="w-screen bg-home-page-mobile md:bg-home-page-desktop h-auto flex items-center justify-start flex-col text-black">
       <div className="absolute z-10 w-screen p-4 pr-8 text-2xl text-white flex items-center justify-between">
         <LogoAndName />
         {status === 'authenticated' ? (
           <div className="flex flex-row items-center gap-3">
-            <p className="font-thin text-xl">{session?.user?.name?.split(' ')[0].substring(0, isMobile ? 7 : 30)}</p>
+            <p className="font-thin text-xl">{session?.user?.name?.split(' ')[0].substring(0, (width || 0) < 768 ? 7 : 30)}</p>
             <div className="w-12 h-12 rounded-full border-[1px] border-white overflow-hidden">
               <Image
                 src={session?.user?.image || defaultAvatar}
@@ -78,10 +75,10 @@ const Home: NextPageWithLayout = () => {
             <span id="how-to-start" className="absolute -top-5" />
             HOW TO START?
           </h3>
-          {isMobile ? <MobileHowToStartSection /> : <DesktopHowToStartSection />}
+          {(width || 0) < 768 ? <MobileHowToStartSection /> : <DesktopHowToStartSection />}
         </div>
         <div className="w-screen h-auto relative -mt-16 pt-16 md:pb-12 bg-user-opinions-mobile md:bg-user-opinions-desktop flex flex-col items-center overflow-x-hidden">
-          {isMobile ? <Curiosity /> : null}
+          {(width || 0) < 768 ? <Curiosity /> : null}
           <h3 className="font-bebas text-5xl md:text-7xl text-white -mb-12 md:mb-5 mt-16">Hear the crowd!</h3>
           <Carousel />
         </div>
