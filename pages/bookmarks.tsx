@@ -1,6 +1,6 @@
 import { getSession, GetSessionParams, useSession } from 'next-auth/react';
 import { GetServerSideProps } from 'next';
-import React, { FormEvent, ReactElement, useEffect, useRef, useState } from 'react';
+import React, { FormEvent, ReactElement, useEffect, useState } from 'react';
 import DefaultMobileLayout from '../components/templates/DefaultMobileLayout';
 import Link from 'next/link';
 import { Post } from './board';
@@ -52,18 +52,8 @@ const Bookmarks: NextPageWithLayout = () => {
     sort: SortOptions.addedAt,
     direction: SortDirection.desc,
   });
-  const scrollRef = useRef<HTMLDivElement>(null);
   const { data: session } = useSession();
   const router = useRouter();
-
-  useEffect(() => {
-    if (scrollRef.current) {
-      scrollRef.current.className = !isSortMenuOpen
-        ? 'w-screen min-h-screen h-auto py-12 bg-white dark:bg-dark font-raleway flex items-center justify-start' + ' flex-col gap-2'
-        : 'w-screen min-h-screen h-auto py-12 bg-white dark:bg-dark font-raleway flex items-center' +
-          ' justify-start flex-col gap-2 h-screen overflow-hidden';
-    }
-  }, [isSortMenuOpen]);
 
   useEffect(() => {
     session?.user.id &&
@@ -145,8 +135,8 @@ const Bookmarks: NextPageWithLayout = () => {
     </div>
   ) : (
     <div
-      ref={scrollRef}
-      className="w-screen min-h-screen h-auto py-12 bg-white dark:bg-dark font-raleway flex items-center justify-start flex-col gap-2"
+      className={`w-screen min-h-screen h-auto py-12 bg-white dark:bg-dark font-raleway flex items-center justify-start flex-col gap-2 
+      ${isSortMenuOpen && 'h-screen overflow-hidden fixed z-30'}`}
     >
       <h1 className="text-4xl font-edu-sa mt-6 underline">Your bookmarks</h1>
       <p>Total: {posts.length}</p>
@@ -164,8 +154,8 @@ const Bookmarks: NextPageWithLayout = () => {
         </p>
       </button>
       {isSortMenuOpen && (
-        <div className="w-screen h-screen pt-14 pb-20 fixed top-0 z-30 bg-white bg-opacity-95 dark:bg-gray-500 dark:bg-opacity-95 animate-appearing overflow-y-scroll">
-          <form className="flex items-center justify-start flex-col font-bebas">
+        <div className="w-screen h-screen pt-14 fixed top-0 z-30 bg-white bg-opacity-95 dark:bg-gray-500 dark:bg-opacity-95 animate-appearing overflow-y-scroll">
+          <form className="flex items-center justify-start flex-col font-bebas pb-20">
             <fieldset className="flex items-center justify-center flex-col gap-5 pb-8">
               <legend className="mb-4 text-center text-3xl font-edu-sa">Sort by:</legend>
               {sortOptionMenuData.map(({ label, value }: { label: string; value: SortOptions }) => (
