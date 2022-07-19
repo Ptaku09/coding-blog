@@ -12,7 +12,6 @@ import ReturnWhite from '../public/icons/return-white.svg';
 import { useRouter } from 'next/router';
 import GoToTopLayout from '../components/templates/GoToTopLayout';
 import { NextPageWithLayout } from './_app';
-import useScroll from '../hooks/useScroll';
 
 export type BookmarkedPostData = {
   bookmarkedPostId: string;
@@ -53,7 +52,6 @@ const Bookmarks: NextPageWithLayout = () => {
     sort: SortOptions.addedAt,
     direction: SortDirection.desc,
   });
-  const { lockScroll, unlockScroll } = useScroll();
   const { data: session } = useSession();
   const router = useRouter();
 
@@ -100,7 +98,6 @@ const Bookmarks: NextPageWithLayout = () => {
       direction: (router.query.direction as SortDirection) || SortDirection.desc,
     });
     setIsSortMenuOpen(true);
-    lockScroll();
   };
 
   const handleCloseSortMenu = () => {
@@ -110,7 +107,6 @@ const Bookmarks: NextPageWithLayout = () => {
       direction: (router.query.direction as SortDirection) || SortDirection.desc,
     });
     setIsSortMenuOpen(false);
-    unlockScroll();
   };
 
   const handleSubmit = (e: FormEvent<HTMLButtonElement>) => {
@@ -119,7 +115,6 @@ const Bookmarks: NextPageWithLayout = () => {
     // Update query params with form values
     router.push(`bookmarks/?sort=${formValues.sort}&direction=${formValues.direction}`, undefined, { shallow: true }).then(() => {
       setIsSortMenuOpen(false);
-      unlockScroll();
     });
   };
 
@@ -139,7 +134,10 @@ const Bookmarks: NextPageWithLayout = () => {
       </div>
     </div>
   ) : (
-    <div className="w-screen min-h-screen h-auto py-12 bg-white dark:bg-dark font-raleway flex items-center justify-start flex-col gap-2">
+    <div
+      className={`w-screen min-h-screen h-auto py-12 bg-white dark:bg-dark font-raleway flex items-center justify-start flex-col gap-2 
+      ${isSortMenuOpen && 'h-screen overflow-hidden'}`}
+    >
       <h1 className="text-4xl font-edu-sa mt-6 underline">Your bookmarks</h1>
       <p>Total: {posts.length}</p>
       <a onClick={() => router.back()} className="bg-purple-600 flex items-center justify-center px-6 py-0.5 shadow-lg rounded-xl">
@@ -154,9 +152,9 @@ const Bookmarks: NextPageWithLayout = () => {
         </p>
       </button>
       {isSortMenuOpen && (
-        <div className="w-screen h-screen absolute top-0 z-20 bg-white bg-opacity-95 dark:bg-gray-500 dark:bg-opacity-95 animate-appearing">
-          <form className="w-full h-full flex items-center justify-center flex-col font-bebas">
-            <fieldset className="w-auto h-auto flex items-center justify-center flex-col gap-5 pb-8 px-8 mb-4 border-b-[1px]">
+        <div className="w-screen h-screen py-20 fixed top-0 z-30 bg-white bg-opacity-95 dark:bg-gray-500 dark:bg-opacity-95 animate-appearing overflow-y-scroll">
+          <form className="flex items-center justify-start flex-col font-bebas">
+            <fieldset className="flex items-center justify-center flex-col gap-5 pb-8">
               <legend className="mb-4 text-center text-3xl font-edu-sa">Sort by:</legend>
               {sortOptionMenuData.map(({ label, value }: { label: string; value: SortOptions }) => (
                 <div key={value} className="w-auto h-auto">
@@ -177,7 +175,7 @@ const Bookmarks: NextPageWithLayout = () => {
                 </div>
               ))}
             </fieldset>
-            <fieldset className="flex flex-row gap-4 pb-4 border-b-[1px]">
+            <fieldset className="flex flex-row gap-4 py-4 px-4 border-y-[1px]">
               {sortDirectionMenuData.map(({ label, value }: { label: string; value: SortDirection }) => (
                 <div key={value}>
                   <input
