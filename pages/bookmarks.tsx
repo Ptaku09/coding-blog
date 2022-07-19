@@ -140,9 +140,11 @@ const Bookmarks: NextPageWithLayout = () => {
     >
       <h1 className="text-4xl font-edu-sa mt-6 underline">Your bookmarks</h1>
       <p>Total: {posts.length}</p>
-      <a onClick={() => router.back()} className="bg-purple-600 flex items-center justify-center px-6 py-0.5 shadow-lg rounded-xl">
-        <Image src={ReturnWhite} width={26} height={26} alt="avatar" />
-      </a>
+      <Link href="/board">
+        <a className="bg-purple-600 flex items-center justify-center px-6 py-0.5 shadow-lg rounded-xl">
+          <Image src={ReturnWhite} width={26} height={26} alt="avatar" />
+        </a>
+      </Link>
       <button onClick={handleOpenSortMenu} className="font-bebas text-xl border-[1px] dark:border-dark w-48 py-3 rounded-lg mt-2">
         <p>
           sort by: <span className="text-purple-600">{sortOptions[(router.query.sort as SortOptions) || SortOptions.addedAt]}</span>
