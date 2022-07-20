@@ -25,21 +25,23 @@ const Home: NextPageWithLayout = () => {
 
   return (
     <div ref={ref} className="w-screen bg-home-page-mobile md:bg-home-page-desktop h-auto flex items-center justify-start flex-col text-black">
-      <div className="absolute z-10 w-screen p-4 pr-8 text-2xl text-white flex items-center justify-between">
+      <div className="absolute z-10 w-screen p-4 text-2xl text-white flex items-center justify-between">
         <LogoAndName />
         {status === 'authenticated' ? (
-          <div className="flex flex-row items-center gap-3">
-            <p className="font-thin text-xl">{session?.user?.name?.split(' ')[0].substring(0, (width as number) < 768 ? 7 : 30)}</p>
-            <div className="w-12 h-12 rounded-full border-[1px] border-white overflow-hidden">
-              <Image
-                src={session?.user?.image || defaultAvatar}
-                height={45}
-                width={45}
-                objectFit="contain"
-                alt={session?.user?.image || 'default photo'}
-              />
-            </div>
-          </div>
+          <Link href={`/users/${session?.user.id}`}>
+            <a className="flex flex-row items-center gap-3">
+              <p className="font-thin text-xl">{session?.user?.name?.split(' ')[0].substring(0, (width as number) < 768 ? 7 : 30)}</p>
+              <div className="w-12 h-12 rounded-full border-[1px] border-white overflow-hidden">
+                <Image
+                  src={session?.user?.image || defaultAvatar}
+                  height={45}
+                  width={45}
+                  objectFit="contain"
+                  alt={session?.user?.image || 'default photo'}
+                />
+              </div>
+            </a>
+          </Link>
         ) : (
           <Link href="/signin">
             <a>

@@ -210,7 +210,7 @@ const Bookmarks: NextPageWithLayout = () => {
       )}
       <div className="w-11/12">
         {posts.map((post: Post) => (
-          <BookmarkPost key={post._id} post={post} handleRemoveBookmark={handleRemoveBookmark} />
+          <BookmarkPost key={post._id} postData={post} handleRemoveBookmark={handleRemoveBookmark} />
         ))}
       </div>
       <StatusMessage

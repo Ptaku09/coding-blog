@@ -144,6 +144,7 @@ const AddPostForm = () => {
         },
         body: JSON.stringify({
           username: session?.user?.username,
+          userId: session?.user?.id,
           image: session?.user?.image,
           comment,
           code: formattedFile,

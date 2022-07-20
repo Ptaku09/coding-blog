@@ -31,10 +31,14 @@ const BoardPost = ({ postData }: { postData: Post }) => {
       <div className="w-full border-b-[1px] dark:border-dark z-[1] bg-inherit outline-none">
         <div className="flex flex-row items-center justify-between font-raleway font-bold">
           <div className="flex flex-row items-center gap-3">
-            <div className="w-9 h-9 rounded-full border-[1px] border-white dark:border-dark overflow-hidden">
-              <Image src={postData.image || defaultAvatar} width={45} height={45} objectFit="cover" alt="avatar" />
-            </div>
-            <p>{postData.username}</p>
+            <Link href={`/users/${postData.userId}`}>
+              <a className="flex flex-row items-center gap-3">
+                <div className="w-9 h-9 rounded-full border-[1px] border-white dark:border-dark overflow-hidden">
+                  <Image src={postData.image || defaultAvatar} width={45} height={45} objectFit="cover" alt="avatar" />
+                </div>
+                <p>{postData.username}</p>
+              </a>
+            </Link>
             <Hashtag text={postData.language} />
           </div>
           <p>{new Date(postData.createdAt).toLocaleDateString('pl-PL', { year: 'numeric', month: '2-digit', day: '2-digit' })}</p>

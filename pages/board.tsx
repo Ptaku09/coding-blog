@@ -15,6 +15,7 @@ import { useResizeDetector } from 'react-resize-detector';
 export type Post = {
   _id: string;
   username: string;
+  userId: string;
   image: string;
   comment: string;
   code: string;
