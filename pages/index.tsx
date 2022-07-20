@@ -29,7 +29,7 @@ const Home: NextPageWithLayout = () => {
         <LogoAndName />
         {status === 'authenticated' ? (
           <div className="flex flex-row items-center gap-3">
-            <p className="font-thin text-xl">{session?.user?.name?.split(' ')[0].substring(0, (width || 0) < 768 ? 7 : 30)}</p>
+            <p className="font-thin text-xl">{session?.user?.name?.split(' ')[0].substring(0, (width as number) < 768 ? 7 : 30)}</p>
             <div className="w-12 h-12 rounded-full border-[1px] border-white overflow-hidden">
               <Image
                 src={session?.user?.image || defaultAvatar}
@@ -75,10 +75,10 @@ const Home: NextPageWithLayout = () => {
             <span id="how-to-start" className="absolute -top-5" />
             HOW TO START?
           </h3>
-          {(width || 0) < 768 ? <MobileHowToStartSection /> : <DesktopHowToStartSection />}
+          {(width as number) < 768 ? <MobileHowToStartSection /> : <DesktopHowToStartSection />}
         </div>
         <div className="w-screen h-auto relative -mt-16 pt-16 md:pb-12 bg-user-opinions-mobile md:bg-user-opinions-desktop flex flex-col items-center overflow-x-hidden">
-          {(width || 0) < 768 ? <Curiosity /> : null}
+          {(width as number) < 768 ? <Curiosity /> : null}
           <h3 className="font-bebas text-5xl md:text-7xl text-white -mb-12 md:mb-5 mt-16">Hear the crowd!</h3>
           <Carousel />
         </div>

@@ -1,6 +1,6 @@
 import { createContext, ReactChild, ReactChildren, ReactNode, RefObject, useRef } from 'react';
 
-type ScrollRestorationContextProps = {
+export type ScrollRestorationContextProps = {
   scrollRef: RefObject<{ scrollPosition: number }>;
 };
 

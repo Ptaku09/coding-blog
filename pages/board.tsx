@@ -5,11 +5,12 @@ import { getSession, GetSessionParams } from 'next-auth/react';
 import BoardPost from '../components/molecules/BoardPost';
 import { NextPageWithLayout } from './_app';
 import { DEFAULT_AMOUNT_OF_FETCHED_POSTS } from '../lib/constants';
-import { ScrollRestorationContext } from '../providers/ScrollRestorationProvider';
+import { ScrollRestorationContext, ScrollRestorationContextProps } from '../providers/ScrollRestorationProvider';
 import GoToTopLayout from '../components/templates/GoToTopLayout';
 import InfiniteScroll from 'react-infinite-scroll-component';
 import PostLoading from '../components/atoms/PostLoading';
 import BoardEndMessage from '../components/atoms/BoardEndMessage';
+import { useResizeDetector } from 'react-resize-detector';
 
 export type Post = {
   _id: string;
@@ -27,12 +28,11 @@ const Board: NextPageWithLayout = () => {
   const [posts, setPosts] = useState<Post[]>([]);
   const [iterator, setIterator] = useState<number>(1);
   const [isEverythingLoaded, setIsEverythingLoaded] = useState<boolean>(false);
-  const [isMobile, setIsMobile] = useState<boolean>(false);
-  const { scrollRef } = useContext(ScrollRestorationContext);
+  const { scrollRef } = useContext<ScrollRestorationContextProps>(ScrollRestorationContext);
+  const { width, ref } = useResizeDetector();
 
   useEffect(() => {
     const storedPosts = sessionStorage.getItem('posts');
-    window.innerWidth < 768 && setIsMobile(true);
 
     if (storedPosts) {
       setPosts(JSON.parse(storedPosts));
@@ -43,12 +43,6 @@ const Board: NextPageWithLayout = () => {
         .then(({ status, data: posts }) => status === 200 && setPosts(posts));
     }
   }, []);
-
-  // save posts to session storage to avoid refetching
-  useEffect(() => {
-    sessionStorage.setItem('posts', JSON.stringify(posts));
-    sessionStorage.setItem('iterator', Math.floor(posts.length / DEFAULT_AMOUNT_OF_FETCHED_POSTS).toString());
-  }, [posts, iterator]);
 
   useEffect(() => {
     // scroll to the last post without animation
@@ -72,22 +66,37 @@ const Board: NextPageWithLayout = () => {
       fetch(`/api/posts?iterator=${iterator}`)
         .then((r: Response) => r.json())
         .then(({ status, data: posts }) => {
-          if (status === 200) {
-            setPosts((prevState: Post[]) => [...prevState, ...posts]);
-            setIterator((prevState: number) => prevState + 1);
-            posts.length < DEFAULT_AMOUNT_OF_FETCHED_POSTS && setIsEverythingLoaded(true);
+          if (status === 200 && posts.length > 0) {
+            setPosts((prevState: Post[]) => {
+              // save posts to session storage to avoid refetching
+              sessionStorage.setItem('posts', JSON.stringify([...prevState, ...posts]));
+              return [...prevState, ...posts];
+            });
+
+            setIterator((prevState: number) => {
+              // save iterator to session storage to avoid refetching
+              sessionStorage.setItem('iterator', (prevState + 1).toString());
+              return prevState + 1;
+            });
+          }
+
+          if (status === 200 && posts.length < DEFAULT_AMOUNT_OF_FETCHED_POSTS) {
+            setIsEverythingLoaded(true);
           }
         });
   };
 
   return (
-    <div className="relative w-screen h-auto min-h-screen py-12 bg-white dark:bg-dark bg-fixed text-white overflow-y-scroll scroll-smooth flex items-center justify-start flex-col">
+    <div
+      ref={ref}
+      className="relative w-screen h-auto min-h-screen py-12 bg-white dark:bg-dark bg-fixed text-white overflow-y-scroll scroll-smooth flex items-center justify-start flex-col"
+    >
       <div className="absolute z-10 top-0 right-0 w-16 h-full" />
       <InfiniteScroll
         next={fetchMorePosts}
         hasMore={!isEverythingLoaded}
         loader={null}
-        scrollThreshold={isMobile ? `150px` : 0.5}
+        scrollThreshold={(width as number) < 768 ? `150px` : 0.5}
         dataLength={posts.length}
         endMessage={<BoardEndMessage />}
       >
