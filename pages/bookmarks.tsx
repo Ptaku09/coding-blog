@@ -154,7 +154,7 @@ const Bookmarks: NextPageWithLayout = () => {
         </p>
       </button>
       {isSortMenuOpen && (
-        <div className="w-screen h-screen pt-6 fixed top-0 z-30 bg-white bg-opacity-95 dark:bg-gray-500 dark:bg-opacity-95 animate-appearing overflow-y-scroll">
+        <div className="w-screen h-full pt-6 fixed top-0 z-30 bg-white bg-opacity-95 dark:bg-gray-500 dark:bg-opacity-95 animate-appearing overflow-y-scroll">
           <form className="flex items-center justify-start flex-col font-bebas pb-20">
             <fieldset className="flex items-center justify-center flex-col gap-5 pb-8">
               <legend className="mb-4 text-center text-3xl font-edu-sa">Sort by:</legend>
