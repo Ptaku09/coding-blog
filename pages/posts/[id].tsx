@@ -1,8 +1,8 @@
 import { Post } from '../board';
-import { getSession, GetSessionParams } from 'next-auth/react';
+import { getSession } from 'next-auth/react';
 import { ReactElement, useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
-import { GetServerSideProps } from 'next';
+import { GetServerSideProps, GetServerSidePropsContext } from 'next';
 import DefaultMobileLayout from '../../components/templates/DefaultMobileLayout';
 import { NextPageWithLayout } from '../_app';
 import ErrorBlack from '../../public/icons/error-black.svg';
@@ -106,7 +106,7 @@ Post.getLayout = (page: ReactElement) => {
   return <DefaultMobileLayout>{page}</DefaultMobileLayout>;
 };
 
-export const getServerSideProps: GetServerSideProps = async (context: GetSessionParams) => {
+export const getServerSideProps: GetServerSideProps = async (context: GetServerSidePropsContext) => {
   const session = await getSession(context);
 
   if (!session) {

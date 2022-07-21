@@ -4,7 +4,7 @@ import GithubBlack from '../public/icons/github-black.svg';
 import Twitter from '../public/icons/twitter-black.svg';
 import Image from 'next/image';
 import { getSession, signIn } from 'next-auth/react';
-import { GetServerSideProps } from 'next';
+import { GetServerSideProps, GetServerSidePropsContext } from 'next';
 import { NextPageWithLayout } from './_app';
 
 const Signin: NextPageWithLayout = () => {
@@ -40,7 +40,7 @@ const Signin: NextPageWithLayout = () => {
 
 export default Signin;
 
-export const getServerSideProps: GetServerSideProps = async (context) => {
+export const getServerSideProps: GetServerSideProps = async (context: GetServerSidePropsContext) => {
   const session = await getSession(context);
 
   if (session) {

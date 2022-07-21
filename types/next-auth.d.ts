@@ -13,7 +13,10 @@ declare module 'next-auth' {
   interface User extends DefaultUser {
     id: string;
     username: string;
+    createdAt: string;
+    bio: string;
     likedPosts: string[];
     bookmarkedPosts: { [key in 'bookmarkedPostId' | 'addedAt']: string }[];
+    createdPosts: string[];
   }
 }

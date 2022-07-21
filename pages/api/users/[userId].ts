@@ -9,6 +9,16 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
   const db = client.db(process.env.MONGODB_USER_NAME);
 
   switch (req.method) {
+    case 'GET':
+      if (userId.length !== 24) {
+        return res.json({ status: 204, data: null });
+      }
+
+      const user = await db.collection('users').findOne({ _id: new ObjectId(userId as string) });
+
+      user ? res.json({ status: 200, data: user }) : res.json({ status: 204, data: null });
+      break;
+
     case 'PATCH':
       const { likedPostId, bookmarkedPostId, type } = req.body;
       let updatedUser;

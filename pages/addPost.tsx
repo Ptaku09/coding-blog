@@ -1,4 +1,4 @@
-import { GetServerSideProps } from 'next';
+import { GetServerSideProps, GetServerSidePropsContext } from 'next';
 import { getSession, useSession } from 'next-auth/react';
 import React, { ReactElement } from 'react';
 import DefaultMobileLayout from '../components/templates/DefaultMobileLayout';
@@ -40,7 +40,7 @@ AddPost.getLayout = (page: ReactElement) => {
 
 export default AddPost;
 
-export const getServerSideProps: GetServerSideProps = async (context) => {
+export const getServerSideProps: GetServerSideProps = async (context: GetServerSidePropsContext) => {
   const session = await getSession(context);
 
   if (!session) {

@@ -1,5 +1,5 @@
-import { getSession, GetSessionParams, useSession } from 'next-auth/react';
-import { GetServerSideProps } from 'next';
+import { getSession, useSession } from 'next-auth/react';
+import { GetServerSideProps, GetServerSidePropsContext } from 'next';
 import React, { FormEvent, ReactElement, useEffect, useState } from 'react';
 import DefaultMobileLayout from '../components/templates/DefaultMobileLayout';
 import Link from 'next/link';
@@ -231,7 +231,7 @@ Bookmarks.getLayout = (page: ReactElement) => {
   );
 };
 
-export const getServerSideProps: GetServerSideProps = async (context: GetSessionParams) => {
+export const getServerSideProps: GetServerSideProps = async (context: GetServerSidePropsContext) => {
   const session = await getSession(context);
 
   if (!session) {

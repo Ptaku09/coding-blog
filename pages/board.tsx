@@ -1,7 +1,7 @@
 import BoardMobileLayout from '../components/templates/BoardMobileLayout';
 import { ReactElement, useContext, useEffect, useState } from 'react';
-import { GetServerSideProps } from 'next';
-import { getSession, GetSessionParams } from 'next-auth/react';
+import { GetServerSideProps, GetServerSidePropsContext } from 'next';
+import { getSession } from 'next-auth/react';
 import BoardPost from '../components/molecules/BoardPost';
 import { NextPageWithLayout } from './_app';
 import { DEFAULT_AMOUNT_OF_FETCHED_POSTS } from '../lib/constants';
@@ -116,13 +116,13 @@ Board.getLayout = (page: ReactElement) => {
   );
 };
 
-export const getServerSideProps: GetServerSideProps = async (context: GetSessionParams) => {
+export const getServerSideProps: GetServerSideProps = async (context: GetServerSidePropsContext) => {
   const session = await getSession(context);
 
   if (!session) {
     return {
       redirect: {
-        destination: '/',
+        destination: '/signin',
         permanent: false,
       },
     };
