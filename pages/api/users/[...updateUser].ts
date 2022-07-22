@@ -4,7 +4,6 @@ import { ObjectId } from 'bson';
 import { RequestOperationType, UpdateUserEndpoint } from '../../../lib/enums';
 
 const handler = async (req: NextApiRequest, res: NextApiResponse) => {
-  const { userId } = req.query;
   const client = await clientPromise;
   const db = client.db(process.env.MONGODB_USER_NAME);
   const { updateUser: query } = req.query;

@@ -1,12 +1,10 @@
 import { Post } from '../board';
 import { getSession } from 'next-auth/react';
-import { ReactElement, useEffect, useState } from 'react';
+import React, { ReactElement, useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
 import { GetServerSideProps, GetServerSidePropsContext } from 'next';
 import DefaultMobileLayout from '../../components/templates/DefaultMobileLayout';
 import { NextPageWithLayout } from '../_app';
-import ErrorBlack from '../../public/icons/error-black.svg';
-import ErrorWhite from '../../public/icons/error-white.svg';
 import ReturnWhite from '../../public/icons/return-white.svg';
 import defaultAvatar from '../../public/images/defaultAvatar.jpg';
 import Image from 'next/image';
@@ -16,6 +14,7 @@ import Buttons from '../../components/atoms/postButtons/Buttons';
 import { materialDark, materialLight } from 'react-syntax-highlighter/dist/cjs/styles/prism';
 import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
 import Hashtag from '../../components/atoms/Hashtag';
+import NotFoundPage from '../../components/organisms/NotFoundPage';
 
 const Post: NextPageWithLayout = () => {
   const [postData, setPostData] = useState({} as Post);
@@ -36,23 +35,7 @@ const Post: NextPageWithLayout = () => {
 
   return (
     <div className="bg-white dark:bg-dark py-16">
-      {isWrongId ? (
-        <div className="w-full h-screen flex items-center justify-center flex-col gap-4 text-xl font-raleway">
-          <p className="text-3xl">{'post not found'.toUpperCase()}</p>
-          {theme === 'light' ? (
-            <Image src={ErrorBlack} width={70} height={70} alt="error" />
-          ) : (
-            <Image src={ErrorWhite} width={70} height={70} alt="error" />
-          )}
-          <p className="text-lg">Check post id or...</p>
-          <Link href="/">
-            <a className="bg-purple-600 w-44 text-center py-3 shadow-lg text-white font-bebas rounded-xl">Go to main page</a>
-          </Link>
-          <Link href="/board">
-            <a className="bg-purple-600 w-44 text-center py-3 shadow-lg text-white font-bebas rounded-xl">Go to board</a>
-          </Link>
-        </div>
-      ) : (
+      {!isWrongId ? (
         <div className="w-screen min-h-screen h-auto px-4">
           <div className="w-full flex items-center justify-between border-b-[1px] border-b-gray-300 pb-2">
             <p className="text-gray-400 text-sm tracking-wide select-all font-raleway">{postData._id}</p>
@@ -97,6 +80,8 @@ const Post: NextPageWithLayout = () => {
             </a>
           </Link>
         </div>
+      ) : (
+        <NotFoundPage title="Post not found" subtitle="Check post id" />
       )}
     </div>
   );
