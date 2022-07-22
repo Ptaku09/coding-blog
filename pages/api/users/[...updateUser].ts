@@ -1,14 +1,23 @@
 import { NextApiRequest, NextApiResponse } from 'next';
 import clientPromise from '../../../mongodb';
 import { ObjectId } from 'bson';
-import { OperationType, UpdateUserEndpoint } from '../../../lib/enums';
+import { RequestOperationType, UpdateUserEndpoint } from '../../../lib/enums';
 
 const handler = async (req: NextApiRequest, res: NextApiResponse) => {
   const { userId } = req.query;
   const client = await clientPromise;
   const db = client.db(process.env.MONGODB_USER_NAME);
+  const { updateUser: query } = req.query;
 
-  if (userId.length !== 24) {
+  // api/users/[query[0]]/[query[1]]
+  // query[0] - userId
+  // query[1] - endpoint
+
+  if (query.length > 2) {
+    return res.json({ status: 414, data: `Too long URI. Expected: 2, provided: ${query.length}.` });
+  }
+
+  if (query[0].length !== 24) {
     return res.json({ status: 404 });
   }
 
@@ -16,17 +25,17 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
   let updatedUser;
   updatedUser = await db.collection('users');
 
-  switch (req.query[1] as UpdateUserEndpoint) {
+  switch (query[1] as UpdateUserEndpoint) {
     case UpdateUserEndpoint.likedPosts:
       const { likedPostId } = req.body;
 
       switch (type) {
-        case OperationType.ADD:
-          updatedUser = await updatedUser.findOneAndUpdate({ _id: new ObjectId(userId as string) }, { $addToSet: { likedPosts: likedPostId } });
+        case RequestOperationType.ADD:
+          updatedUser = await updatedUser.findOneAndUpdate({ _id: new ObjectId(query[0] as string) }, { $addToSet: { likedPosts: likedPostId } });
           break;
 
-        case OperationType.REMOVE:
-          updatedUser = await updatedUser.findOneAndUpdate({ _id: new ObjectId(userId as string) }, { $pull: { likedPosts: likedPostId } });
+        case RequestOperationType.REMOVE:
+          updatedUser = await updatedUser.findOneAndUpdate({ _id: new ObjectId(query[0] as string) }, { $pull: { likedPosts: likedPostId } });
           break;
       }
 
@@ -36,9 +45,9 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
       const { bookmarkedPostId } = req.body;
 
       switch (type) {
-        case OperationType.ADD:
+        case RequestOperationType.ADD:
           updatedUser = await updatedUser.findOneAndUpdate(
-            { _id: new ObjectId(userId as string) },
+            { _id: new ObjectId(query[0] as string) },
             {
               $addToSet: {
                 bookmarkedPosts: {
@@ -50,9 +59,9 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
           );
           break;
 
-        case OperationType.REMOVE:
+        case RequestOperationType.REMOVE:
           updatedUser = await updatedUser.findOneAndUpdate(
-            { _id: new ObjectId(userId as string) },
+            { _id: new ObjectId(query[0] as string) },
             { $pull: { bookmarkedPosts: { bookmarkedPostId: bookmarkedPostId } as any } }
           );
           break;
@@ -64,19 +73,19 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
       const { createdPostId } = req.body;
 
       switch (type) {
-        case OperationType.ADD:
-          updatedUser = await updatedUser.findOneAndUpdate({ _id: new ObjectId(userId as string) }, { $addToSet: { createdPosts: createdPostId } });
+        case RequestOperationType.ADD:
+          updatedUser = await updatedUser.findOneAndUpdate({ _id: new ObjectId(query[0] as string) }, { $addToSet: { createdPosts: createdPostId } });
           break;
 
-        case OperationType.REMOVE:
-          updatedUser = await updatedUser.findOneAndUpdate({ _id: new ObjectId(userId as string) }, { $pull: { createdPosts: createdPostId } });
+        case RequestOperationType.REMOVE:
+          updatedUser = await updatedUser.findOneAndUpdate({ _id: new ObjectId(query[0] as string) }, { $pull: { createdPosts: createdPostId } });
           break;
       }
 
       break;
 
     default:
-      return res.json({ status: 400, data: `Endpoint not found: /${req.query[1]}` });
+      return res.json({ status: 400, data: `Endpoint not found: /${query[1]}` });
   }
 
   updatedUser ? res.json({ status: 200 }) : res.json({ status: 404 });

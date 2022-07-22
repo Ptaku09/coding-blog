@@ -2,6 +2,8 @@ import { NextApiRequest, NextApiResponse } from 'next';
 import clientPromise from '../../../mongodb';
 import { detectLanguage } from '../../../lib/extensions';
 import { DEFAULT_AMOUNT_OF_FETCHED_POSTS } from '../../../lib/constants';
+import { RequestOperationType, UpdateUserEndpoint } from '../../../lib/enums';
+import { server } from '../../../config';
 
 interface Query {
   iterator?: number;
@@ -30,6 +32,18 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
       const language = detectLanguage(extension);
 
       const newPost = await db.collection('Posts').insertOne({ username, userId, image, comment, code, language, hashtags, createdAt, likes: 0 });
+
+      // Assign the post to the user
+      await fetch(`${server}/api/users/${userId}/${UpdateUserEndpoint.createdPosts}`, {
+        method: 'PATCH',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          createdPostId: newPost.insertedId,
+          type: RequestOperationType.ADD,
+        }),
+      });
 
       newPost ? res.json({ status: 200, data: newPost }) : res.json({ status: 404 });
       break;

@@ -1,6 +1,6 @@
 // ----------------------------------------------------------
 // Operation type for handling bookmarks' PATCH requests
-export enum OperationType {
+export enum RequestOperationType {
   ADD = 'add',
   REMOVE = 'remove',
 }

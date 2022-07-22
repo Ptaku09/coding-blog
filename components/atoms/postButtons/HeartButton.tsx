@@ -4,7 +4,7 @@ import HeartGray from '../../../public/icons/heart-gray.svg';
 import { useEffect, useState } from 'react';
 import StatusMessage, { StatusMessageOrientation, StatusMessageType } from '../StatusMessage';
 import { useSession } from 'next-auth/react';
-import { OperationType, UpdateUserEndpoint } from '../../../lib/enums';
+import { RequestOperationType, UpdateUserEndpoint } from '../../../lib/enums';
 
 const HeartButton = ({ postId, postLikes, size = 18 }: { postId: string; postLikes: number; size?: number }) => {
   const { data: session } = useSession({ required: true });
@@ -60,7 +60,7 @@ const HeartButton = ({ postId, postLikes, size = 18 }: { postId: string; postLik
       },
       body: JSON.stringify({
         likedPostId: postId,
-        type: isLiked ? OperationType.REMOVE : OperationType.ADD,
+        type: isLiked ? RequestOperationType.REMOVE : RequestOperationType.ADD,
       }),
     })
       .then((r: Response) => r.json())

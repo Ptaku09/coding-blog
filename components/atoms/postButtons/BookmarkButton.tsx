@@ -7,7 +7,7 @@ import { useTheme } from 'next-themes';
 import { useSession } from 'next-auth/react';
 import { useEffect, useState } from 'react';
 import StatusMessage, { StatusMessageOrientation, StatusMessageType } from '../StatusMessage';
-import { OperationType, UpdateUserEndpoint } from '../../../lib/enums';
+import { RequestOperationType, UpdateUserEndpoint } from '../../../lib/enums';
 
 const BookmarkButton = ({ postId, size = 18 }: { postId: string; size?: number }) => {
   const { theme } = useTheme();
@@ -38,7 +38,7 @@ const BookmarkButton = ({ postId, size = 18 }: { postId: string; size?: number }
       },
       body: JSON.stringify({
         bookmarkedPostId: postId,
-        type: isBookmarked ? OperationType.REMOVE : OperationType.ADD,
+        type: isBookmarked ? RequestOperationType.REMOVE : RequestOperationType.ADD,
       }),
     })
       .then((r: Response) => r.json())

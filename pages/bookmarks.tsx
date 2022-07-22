@@ -4,7 +4,7 @@ import React, { FormEvent, ReactElement, useEffect, useState } from 'react';
 import DefaultMobileLayout from '../components/templates/DefaultMobileLayout';
 import Link from 'next/link';
 import { Post } from './board';
-import { OperationType, SortDirection, SortOptions } from '../lib/enums';
+import { RequestOperationType, SortDirection, SortOptions, UpdateUserEndpoint } from '../lib/enums';
 import StatusMessage, { StatusMessageOrientation, StatusMessageType } from '../components/atoms/StatusMessage';
 import BookmarkPost from '../components/molecules/BookmarkPost';
 import Image from 'next/image';
@@ -67,14 +67,14 @@ const Bookmarks: NextPageWithLayout = () => {
   }, [router.query.direction, router.query.sort, session?.user.id]);
 
   const handleRemoveBookmark = (postId: string) => {
-    fetch(`/api/users/${session?.user.id}`, {
+    fetch(`/api/users/${session?.user.id}/${UpdateUserEndpoint.bookmarkedPosts}`, {
       method: 'PATCH',
       headers: {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
         bookmarkedPostId: postId,
-        type: OperationType.REMOVE,
+        type: RequestOperationType.REMOVE,
       }),
     })
       .then((r: Response) => r.json())
