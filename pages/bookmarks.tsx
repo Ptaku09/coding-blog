@@ -79,7 +79,7 @@ const Bookmarks: NextPageWithLayout = () => {
     })
       .then((r: Response) => r.json())
       .then(({ status }) => {
-        if (status === 204) {
+        if (status === 404) {
           setIsSomethingWrong(true);
 
           setTimeout(() => {

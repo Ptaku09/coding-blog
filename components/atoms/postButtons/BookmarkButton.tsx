@@ -7,7 +7,7 @@ import { useTheme } from 'next-themes';
 import { useSession } from 'next-auth/react';
 import { useEffect, useState } from 'react';
 import StatusMessage, { StatusMessageOrientation, StatusMessageType } from '../StatusMessage';
-import { OperationType } from '../../../lib/enums';
+import { OperationType, UpdateUserEndpoint } from '../../../lib/enums';
 
 const BookmarkButton = ({ postId, size = 18 }: { postId: string; size?: number }) => {
   const { theme } = useTheme();
@@ -31,7 +31,7 @@ const BookmarkButton = ({ postId, size = 18 }: { postId: string; size?: number }
   };
 
   const handleAddBookmark = () => {
-    fetch(`/api/users/${session?.user.id}`, {
+    fetch(`/api/users/${session?.user.id}/${UpdateUserEndpoint.bookmarkedPosts}`, {
       method: 'PATCH',
       headers: {
         'Content-Type': 'application/json',
@@ -43,7 +43,7 @@ const BookmarkButton = ({ postId, size = 18 }: { postId: string; size?: number }
     })
       .then((r: Response) => r.json())
       .then(({ status }) => {
-        if (status === 204) {
+        if (status === 404) {
           setIsSomethingWrong(true);
 
           setTimeout(() => {

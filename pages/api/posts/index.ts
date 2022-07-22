@@ -22,7 +22,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
         .sort({ _id: -1 })
         .toArray();
 
-      posts ? res.json({ status: 200, data: posts }) : res.json({ status: 204 });
+      posts ? res.json({ status: 200, data: posts }) : res.json({ status: 404 });
       break;
 
     case 'POST':
@@ -31,7 +31,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
 
       const newPost = await db.collection('Posts').insertOne({ username, userId, image, comment, code, language, hashtags, createdAt, likes: 0 });
 
-      newPost ? res.json({ status: 200, data: newPost }) : res.json({ status: 204 });
+      newPost ? res.json({ status: 200, data: newPost }) : res.json({ status: 404 });
       break;
   }
 };

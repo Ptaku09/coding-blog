@@ -4,7 +4,7 @@ import HeartGray from '../../../public/icons/heart-gray.svg';
 import { useEffect, useState } from 'react';
 import StatusMessage, { StatusMessageOrientation, StatusMessageType } from '../StatusMessage';
 import { useSession } from 'next-auth/react';
-import { OperationType } from '../../../lib/enums';
+import { OperationType, UpdateUserEndpoint } from '../../../lib/enums';
 
 const HeartButton = ({ postId, postLikes, size = 18 }: { postId: string; postLikes: number; size?: number }) => {
   const { data: session } = useSession({ required: true });
@@ -39,7 +39,7 @@ const HeartButton = ({ postId, postLikes, size = 18 }: { postId: string; postLik
     })
       .then((r: Response) => r.json())
       .then(({ status }) => {
-        if (status === 204) {
+        if (status === 404) {
           setIsSomethingWrong(true);
 
           setTimeout(() => {
@@ -53,7 +53,7 @@ const HeartButton = ({ postId, postLikes, size = 18 }: { postId: string; postLik
         }
       });
 
-    fetch(`/api/users/${session?.user.id}`, {
+    fetch(`/api/users/${session?.user.id}/${UpdateUserEndpoint.likedPosts}`, {
       method: 'PATCH',
       headers: {
         'Content-Type': 'application/json',
@@ -65,7 +65,7 @@ const HeartButton = ({ postId, postLikes, size = 18 }: { postId: string; postLik
     })
       .then((r: Response) => r.json())
       .then(({ status }) => {
-        if (status === 204) {
+        if (status === 404) {
           setIsSomethingWrong(true);
 
           setTimeout(() => {

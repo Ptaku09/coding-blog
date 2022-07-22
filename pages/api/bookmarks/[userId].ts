@@ -20,7 +20,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
   const user = await dbUsers.collection('users').findOne({ _id: new ObjectId(userId as string) });
   const posts: any[] = [];
 
-  if (!user) return res.json({ status: 204 });
+  if (!user) return res.json({ status: 404 });
 
   // Deal with default sort - cannot access added time via post object
   if (!sort || sort === SortOptions.addedAt) {
