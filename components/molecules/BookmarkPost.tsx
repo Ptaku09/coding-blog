@@ -9,7 +9,7 @@ import HeartButton from '../atoms/postButtons/HeartButton';
 const BookmarkPost = ({ postData, handleRemoveBookmark }: { postData: Post; handleRemoveBookmark: (id: string) => void }) => {
   return (
     <div key={postData._id} className="my-4">
-      <div className="flex flex-row items-center justify-between font-raleway font-bold border-y-[1px] dark:border-dark">
+      <div className="flex flex-row items-center justify-between font-raleway border-y-[1px] dark:border-dark">
         <div className="w-full flex flex-row items-center gap-3 py-4">
           <Link href={`/users/${postData.userId}`}>
             <a className="flex flex-row items-center gap-3">

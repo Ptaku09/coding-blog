@@ -5,12 +5,14 @@ module.exports = {
     extend: {
       borderColor: {
         dark: '#2e3336',
+        'dark-user': '#262b2c',
       },
       linearGradient: {
         shine: 'linear-gradient(to right, rgba(255,255,255,0) 0%, rgba(255,255,255,0.8) 50%, rgba(128,186,232,0) 99%, rgba(125,185,232,0) 100%)',
       },
       backgroundColor: {
         dark: '#0e172a',
+        'dark-user': '#262b2c',
       },
       backgroundImage: {
         'hero-pattern':
@@ -135,6 +137,7 @@ module.exports = {
         raleway: ['Raleway', 'sans-serif'],
         'edu-sa': ['Edu SA Beginner', 'sans-serif'],
         mukta: ['Mukta', 'sans-serif'],
+        albert: ['Albert Sans', 'sans-serif'],
       },
       height: {
         'mobile-screen': 'calc(100vh - 64px)',

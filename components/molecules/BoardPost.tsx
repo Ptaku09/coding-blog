@@ -29,7 +29,7 @@ const BoardPost = ({ postData }: { postData: Post }) => {
   return (
     <div className="w-screen h-auto bg-white dark:bg-dark dark:text-white dark:border-dark border-b-[1px] text-black flex flex-col items-start justify-between px-4 pt-4 animate-appearing-short overflow-hidden">
       <div className="w-full border-b-[1px] dark:border-dark z-[1] bg-inherit outline-none">
-        <div className="flex flex-row items-center justify-between font-raleway font-bold">
+        <div className="flex flex-row items-center justify-between font-raleway">
           <div className="flex flex-row items-center gap-3">
             <Link href={`/users/${postData.userId}`}>
               <a className="flex flex-row items-center gap-3">
