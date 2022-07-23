@@ -134,6 +134,7 @@ module.exports = {
         jakarta: ['Plus Jakarta Sans', 'sans-serif'],
         raleway: ['Raleway', 'sans-serif'],
         'edu-sa': ['Edu SA Beginner', 'sans-serif'],
+        mukta: ['Mukta', 'sans-serif'],
       },
       height: {
         'mobile-screen': 'calc(100vh - 64px)',
