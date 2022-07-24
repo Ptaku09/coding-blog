@@ -25,6 +25,34 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
   updatedUser = await db.collection('users');
 
   switch (query[1] as UpdateUserEndpoint) {
+    case UpdateUserEndpoint.username:
+      const { username } = req.body;
+
+      updatedUser = await updatedUser.findOneAndUpdate({ _id: new ObjectId(query[0] as string) }, { $set: { username } });
+
+      break;
+
+    case UpdateUserEndpoint.backgroundImage:
+      const { backgroundImage } = req.body;
+
+      updatedUser = await updatedUser.findOneAndUpdate({ _id: new ObjectId(query[0] as string) }, { $set: { backgroundImage } });
+
+      break;
+
+    case UpdateUserEndpoint.motto:
+      const { motto } = req.body;
+
+      updatedUser = await updatedUser.findOneAndUpdate({ _id: new ObjectId(query[0] as string) }, { $set: { motto } });
+
+      break;
+
+    case UpdateUserEndpoint.bio:
+      const { bio } = req.body;
+
+      updatedUser = await updatedUser.findOneAndUpdate({ _id: new ObjectId(query[0] as string) }, { $set: { bio } });
+
+      break;
+
     case UpdateUserEndpoint.likedPosts:
       const { likedPostId } = req.body;
 

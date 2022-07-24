@@ -23,6 +23,10 @@ export enum SortDirection {
 // ----------------------------------------------------------
 // Update user data endpoints
 export enum UpdateUserEndpoint {
+  username = 'username',
+  backgroundImage = 'backgroundImage',
+  motto = 'motto',
+  bio = 'bio',
   likedPosts = 'likedPosts',
   bookmarkedPosts = 'bookmarkedPosts',
   createdPosts = 'createdPosts',

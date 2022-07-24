@@ -9,9 +9,10 @@ import Image from 'next/image';
 import { Post } from '../board';
 import GoToTopLayout from '../../components/templates/GoToTopLayout';
 import ArrowLeftBlack from '../../public/icons/arrow-left-black.svg';
-import EditBlack from '../../public/icons/edit-black.svg';
 import { useRouter } from 'next/router';
 import UserPost from '../../components/molecules/UserPost';
+import EditProfile from '../../components/organisms/EditProfile';
+import Link from 'next/link';
 
 type User = {
   _id: string;
@@ -19,6 +20,7 @@ type User = {
   username: string;
   email: string;
   image: string;
+  backgroundImage: number;
   motto: string;
   bio: string;
   createdAt: string;
@@ -29,6 +31,7 @@ type User = {
 
 const User: ({ userData }: { userData: User }) => JSX.Element = ({ userData }: { userData: User }) => {
   const [posts, setPosts] = useState<Post[]>([]);
+  const [isEditMenuOpen, setIsEditMenuOpen] = useState<boolean>(false);
   const { data: session } = useSession();
   const router = useRouter();
 
@@ -40,23 +43,18 @@ const User: ({ userData }: { userData: User }) => JSX.Element = ({ userData }: {
   }, [userData]);
 
   return (
-    <div className="w-screen h-auto min-h-screen pb-12 bg-white dark:bg-dark-user">
+    <div className={`w-screen h-auto min-h-screen pb-12 bg-white dark:bg-dark-user ${isEditMenuOpen && 'h-screen' + ' overflow-hidden fixed z-30'}`}>
       {userData ? (
         <>
           <section className="flex flex-col items-start justify-start">
             <div className="w-screen h-56 relative">
-              <a
-                onClick={() => router.back()}
-                className="absolute z-[1] left-2 top-14 w-8 h-8 bg-white flex items-center justify-center shadow-lg rounded-xl"
-              >
-                <Image src={ArrowLeftBlack} width={19} height={19} alt="go back" />
-              </a>
-              {session?.user.id === userData._id && (
-                <button className="absolute z-[1] right-2 top-14 w-8 h-8 bg-white flex items-center justify-center shadow-lg rounded-xl">
-                  <Image src={EditBlack} width={19} height={19} alt="edit" />
-                </button>
-              )}
-              <Image src="/images/background2.jpg" layout="fill" objectFit="cover" alt="background" priority />
+              <Link href="/board" scroll={false}>
+                <a className="absolute z-[1] left-2 top-14 w-8 h-8 bg-white flex items-center justify-center shadow-lg rounded-xl">
+                  <Image src={ArrowLeftBlack} width={19} height={19} alt="go back" />
+                </a>
+              </Link>
+              {session?.user.id === userData._id && <EditProfile isOpen={isEditMenuOpen} toggleState={setIsEditMenuOpen} userData={userData} />}
+              <Image src={`/images/background${userData.backgroundImage}.jpg`} layout="fill" objectFit="cover" alt="background" priority />
             </div>
             <div className="w-screen h-auto px-5 bg-white dark:bg-dark-user -translate-y-4 rounded-t-xl">
               <div className="w-32 h-32 relative -translate-y-16 rounded-full border-4 border-white dark:border-dark-user overflow-hidden">

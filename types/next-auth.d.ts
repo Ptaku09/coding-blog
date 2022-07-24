@@ -14,6 +14,7 @@ declare module 'next-auth' {
     id: string;
     username: string;
     createdAt: string;
+    backgroundImage: number;
     motto: string;
     bio: string;
     likedPosts: string[];
