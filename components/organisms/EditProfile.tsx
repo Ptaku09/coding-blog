@@ -1,9 +1,10 @@
 import Image from 'next/image';
 import EditBlack from '../../public/icons/edit-black.svg';
-import React, { ChangeEvent, Dispatch, FormEvent, SetStateAction, useEffect, useRef, useState } from 'react';
+import React, { ChangeEvent, Dispatch, FormEvent, SetStateAction, useRef, useState } from 'react';
 import User from '../../pages/users/[id]';
 import { UpdateUserEndpoint } from '../../lib/enums';
 import { useRouter } from 'next/router';
+import useOnClickOutside from '../../hooks/useOnClickOutside';
 
 type Props = {
   isOpen: boolean;
@@ -20,24 +21,12 @@ const EditProfile = ({ isOpen, toggleState, userData }: Props) => {
   const ref = useRef<HTMLFormElement>(null);
   const router = useRouter();
 
-  useEffect(() => {
-    const handleClickOutside = (event: MouseEvent | TouchEvent) => {
-      if (ref.current && !ref.current.contains(event.target as Node)) {
-        toggleState(false);
-        setFormValuesBackground(userData.backgroundImage);
-        setFormValuesUsername(userData.username);
-        setFormValuesMotto(userData.motto);
-        setFormValuesBio(userData.bio);
-      }
-    };
-
-    document.addEventListener('click', handleClickOutside, true);
-    document.addEventListener('touchstart', handleClickOutside, true);
-
-    return () => {
-      document.removeEventListener('click', handleClickOutside, true);
-      document.removeEventListener('touchstart', handleClickOutside, true);
-    };
+  useOnClickOutside(ref, () => {
+    setTimeout(() => toggleState(false), 100); // wait to prevent miss click
+    setFormValuesBackground(userData.backgroundImage);
+    setFormValuesUsername(userData.username);
+    setFormValuesMotto(userData.motto);
+    setFormValuesBio(userData.bio);
   });
 
   const handleUsernameChange = (e: ChangeEvent<HTMLInputElement>) => {
