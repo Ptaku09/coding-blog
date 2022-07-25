@@ -14,11 +14,7 @@ const UserPost = ({ postData }: { postData: Post }) => {
           <span className="text-2xl">&#183;</span>
           <p>{postData.language.toUpperCase()}</p>
         </div>
-        <Link href={`/posts/${postData._id}`}>
-          <a>
-            <p>{new Date(postData.createdAt).toLocaleDateString('pl-PL', { year: 'numeric', month: '2-digit', day: '2-digit' })}</p>
-          </a>
-        </Link>
+        <p>{new Date(postData.createdAt).toLocaleDateString('pl-PL', { year: 'numeric', month: '2-digit', day: '2-digit' })}</p>
       </div>
       <div className="flex flex-col gap-1 mt-1">
         <p className="font-bold">{postData.comment}</p>

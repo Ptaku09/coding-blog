@@ -12,7 +12,7 @@ type Props = {
   userData: User;
 };
 
-const EditProfile = ({ isOpen, toggleState, userData }: Props) => {
+const EditUserMenu = ({ isOpen, toggleState, userData }: Props) => {
   const [formValuesBackground, setFormValuesBackground] = useState<number>(userData.backgroundImage);
   const [formValuesUsername, setFormValuesUsername] = useState<string>(userData.username);
   const [formValuesMotto, setFormValuesMotto] = useState<string>(userData.motto);
@@ -181,4 +181,4 @@ const EditProfile = ({ isOpen, toggleState, userData }: Props) => {
   );
 };
 
-export default EditProfile;
+export default EditUserMenu;

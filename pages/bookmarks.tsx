@@ -1,6 +1,6 @@
 import { getSession, useSession } from 'next-auth/react';
 import { GetServerSideProps, GetServerSidePropsContext } from 'next';
-import React, { FormEvent, ReactElement, useEffect, useState } from 'react';
+import React, { FormEvent, ReactElement, useEffect, useRef, useState } from 'react';
 import DefaultMobileLayout from '../components/templates/DefaultMobileLayout';
 import Link from 'next/link';
 import { Post } from './board';
@@ -12,6 +12,7 @@ import ReturnWhite from '../public/icons/return-white.svg';
 import { useRouter } from 'next/router';
 import GoToTopLayout from '../components/templates/GoToTopLayout';
 import { NextPageWithLayout } from './_app';
+import useOnClickOutside from '../hooks/useOnClickOutside';
 
 export type BookmarkedPostData = {
   bookmarkedPostId: string;
@@ -52,6 +53,7 @@ const Bookmarks: NextPageWithLayout = () => {
     sort: SortOptions.addedAt,
     direction: SortDirection.desc,
   });
+  const ref = useRef<HTMLFormElement>(null);
   const { data: session } = useSession();
   const router = useRouter();
 
@@ -101,12 +103,13 @@ const Bookmarks: NextPageWithLayout = () => {
   };
 
   const handleCloseSortMenu = () => {
+    setTimeout(() => setIsSortMenuOpen(false), 100); // wait to prevent miss click
+
     // Reset form values, when user cancels sorting
     setFormValues({
       sort: (router.query.sort as SortOptions) || SortOptions.addedAt,
       direction: (router.query.direction as SortDirection) || SortDirection.desc,
     });
-    setIsSortMenuOpen(false);
   };
 
   const handleSubmit = (e: FormEvent<HTMLButtonElement>) => {
@@ -118,10 +121,12 @@ const Bookmarks: NextPageWithLayout = () => {
     });
   };
 
+  useOnClickOutside(ref, handleCloseSortMenu);
+
   return posts.length === 0 ? (
-    <div className="w-screen min-h-screen h-auto py-12 bg-white dark:bg-dark font-raleway flex items-center justify-center flex-col">
+    <div className="w-screen min-h-screen h-auto py-12 bg-white dark:bg-dark-user font-raleway flex items-center justify-center flex-col">
       <div className="w-full flex items-center justify-center flex-col gap-1">
-        <p className="text-xl font-raleway">You have no bookmarked posts</p>
+        <p className="text-xl font-raleway font-[500]">You have no bookmarked posts</p>
         <p>
           go to{' '}
           <span>
@@ -135,17 +140,17 @@ const Bookmarks: NextPageWithLayout = () => {
     </div>
   ) : (
     <div
-      className={`w-screen min-h-screen h-auto py-12 bg-white dark:bg-dark font-raleway flex items-center justify-start flex-col gap-2 
+      className={`w-screen min-h-screen h-auto py-12 bg-white dark:bg-dark-user font-raleway flex items-center justify-start flex-col gap-2 
       ${isSortMenuOpen && 'h-screen overflow-hidden fixed z-30'}`}
     >
-      <h1 className="text-4xl font-edu-sa mt-6 underline">Your bookmarks</h1>
+      <h1 className="text-4xl font-bold mt-6">Your bookmarks</h1>
       <p>Total: {posts.length}</p>
       <Link href="/board">
         <a className="bg-purple-600 flex items-center justify-center px-6 py-0.5 shadow-lg rounded-xl">
           <Image src={ReturnWhite} width={26} height={26} alt="avatar" />
         </a>
       </Link>
-      <button onClick={handleOpenSortMenu} className="font-bebas text-xl border-[1px] dark:border-dark w-48 py-3 rounded-lg mt-2">
+      <button onClick={handleOpenSortMenu} className="font-bebas text-xl border-[1px] dark:border-gray-600 w-48 py-3 rounded-lg mt-2 mb-6">
         <p>
           sort by: <span className="text-purple-600">{sortOptions[(router.query.sort as SortOptions) || SortOptions.addedAt]}</span>
         </p>
@@ -154,10 +159,13 @@ const Bookmarks: NextPageWithLayout = () => {
         </p>
       </button>
       {isSortMenuOpen && (
-        <div className="w-screen h-full pt-6 fixed top-0 z-30 bg-white bg-opacity-95 dark:bg-gray-500 dark:bg-opacity-95 animate-appearing overflow-y-scroll">
-          <form className="flex items-center justify-start flex-col font-bebas pb-20">
-            <fieldset className="flex items-center justify-center flex-col gap-5 pb-8">
-              <legend className="mb-4 text-center text-3xl font-edu-sa">Sort by:</legend>
+        <div className="fixed top-0 z-30 w-full h-full bg-white dark:bg-dark-user bg-opacity-90 dark:bg-opacity-80 flex items-center justify-center animate-appearing-short">
+          <form
+            ref={ref}
+            className="w-11/12 h-5/6 px-3 py-5 bg-white dark:bg-dark-user rounded-xl shadow-round overflow-y-scroll font-raleway font-[500] border-4 border-gray-200 dark:border-gray-700"
+          >
+            <fieldset className="flex items-center justify-center flex-col gap-5 pb-8 border-t-[1px] dark:border-gray-500">
+              <legend className="mb-6 px-4 text-center text-xl font-raleway font-bold">Sort by</legend>
               {sortOptionMenuData.map(({ label, value }: { label: string; value: SortOptions }) => (
                 <div key={value} className="w-auto h-auto">
                   <input
@@ -170,14 +178,15 @@ const Bookmarks: NextPageWithLayout = () => {
                   />
                   <label
                     htmlFor={value}
-                    className="w-52 py-4 rounded-xl shadow-xl flex flex-col items-center justify-center text-xl text-white bg-purple-300 peer-checked:bg-purple-600"
+                    className="w-52 py-4 rounded-xl shadow-xl flex flex-col items-center justify-center text-base font-[500] text-white bg-purple-300 dark:bg-gray-500 peer-checked:bg-purple-600"
                   >
                     {label}
                   </label>
                 </div>
               ))}
             </fieldset>
-            <fieldset className="flex flex-row gap-4 py-4 px-4 border-y-[1px]">
+            <fieldset className="flex justify-center flex-row gap-4 pb-6 px-4 border-y-[1px] dark:border-gray-500">
+              <legend className="mb-6 px-4 text-center text-xl font-raleway font-bold">Direction</legend>
               {sortDirectionMenuData.map(({ label, value }: { label: string; value: SortDirection }) => (
                 <div key={value}>
                   <input
@@ -190,7 +199,7 @@ const Bookmarks: NextPageWithLayout = () => {
                   />
                   <label
                     htmlFor={value}
-                    className="w-28 py-2 rounded-xl shadow-xl flex flex-col items-center justify-center text-white bg-purple-300 peer-checked:bg-purple-600"
+                    className="w-28 py-2 rounded-xl shadow-xl flex flex-col items-center justify-center text-base font-[500] text-white bg-purple-300 dark:bg-gray-500 peer-checked:bg-purple-600"
                   >
                     {label}
                   </label>
@@ -198,10 +207,10 @@ const Bookmarks: NextPageWithLayout = () => {
               ))}
             </fieldset>
             <div className="flex items-center justify-center gap-4">
-              <button type="button" onClick={handleCloseSortMenu} className="mt-8 w-28 py-2 bg-red-400 text-white shadow-xl font-edu-sa">
+              <button type="button" onClick={handleCloseSortMenu} className="mt-8 w-28 py-2 bg-red-400 text-white shadow-xl font-bold">
                 Cancel
               </button>
-              <button type="submit" onClick={handleSubmit} className="mt-8 w-28 py-2 bg-black text-white shadow-xl font-edu-sa">
+              <button type="submit" onClick={handleSubmit} className="mt-8 w-28 py-2 bg-black text-white shadow-xl font-bold">
                 Sort
               </button>
             </div>

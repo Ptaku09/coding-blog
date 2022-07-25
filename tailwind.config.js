@@ -7,6 +7,9 @@ module.exports = {
         dark: '#2e3336',
         'dark-user': '#262b2c',
       },
+      boxShadow: {
+        round: '0 0 60px -15px rgba(0, 0, 0, 0.3)',
+      },
       linearGradient: {
         shine: 'linear-gradient(to right, rgba(255,255,255,0) 0%, rgba(255,255,255,0.8) 50%, rgba(128,186,232,0) 99%, rgba(125,185,232,0) 100%)',
       },

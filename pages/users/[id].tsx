@@ -9,9 +9,8 @@ import Image from 'next/image';
 import { Post } from '../board';
 import GoToTopLayout from '../../components/templates/GoToTopLayout';
 import ArrowLeftBlack from '../../public/icons/arrow-left-black.svg';
-import { useRouter } from 'next/router';
 import UserPost from '../../components/molecules/UserPost';
-import EditProfile from '../../components/organisms/EditProfile';
+import EditUserMenu from '../../components/organisms/EditUserMenu';
 import Link from 'next/link';
 
 type User = {
@@ -33,7 +32,6 @@ const User: ({ userData }: { userData: User }) => JSX.Element = ({ userData }: {
   const [posts, setPosts] = useState<Post[]>([]);
   const [isEditMenuOpen, setIsEditMenuOpen] = useState<boolean>(false);
   const { data: session } = useSession();
-  const router = useRouter();
 
   useEffect(() => {
     userData &&
@@ -53,7 +51,7 @@ const User: ({ userData }: { userData: User }) => JSX.Element = ({ userData }: {
                   <Image src={ArrowLeftBlack} width={19} height={19} alt="go back" />
                 </a>
               </Link>
-              {session?.user.id === userData._id && <EditProfile isOpen={isEditMenuOpen} toggleState={setIsEditMenuOpen} userData={userData} />}
+              {session?.user.id === userData._id && <EditUserMenu isOpen={isEditMenuOpen} toggleState={setIsEditMenuOpen} userData={userData} />}
               <Image src={`/images/background${userData.backgroundImage}.jpg`} layout="fill" objectFit="cover" alt="background" priority />
             </div>
             <div className="w-screen h-auto px-5 bg-white dark:bg-dark-user -translate-y-4 rounded-t-xl">
