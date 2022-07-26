@@ -110,8 +110,8 @@ const EditUserMenu = ({ isOpen, toggleState, userData }: Props) => {
             onSubmit={handleSubmit}
             className="w-11/12 h-5/6 px-3 py-5 bg-white dark:bg-dark-user rounded-xl shadow-xl overflow-y-scroll font-raleway font-[500] border-4 border-white dark:border-gray-700"
           >
-            <fieldset className="flex items-start justify-center h-auto gap-3 flex-wrap">
-              <legend className="text-xl mb-2">Choose background</legend>
+            <fieldset className="flex items-start justify-center h-auto gap-3 flex-wrap border-t-[1px] dark:border-gray-500">
+              <legend className="text-xl mb-2 px-4 text-center font-mukta">Choose background</legend>
               {new Array(9).fill(false).map((_, index: number) => (
                 <div key={index} className="w-auto h-auto">
                   <input
@@ -133,8 +133,8 @@ const EditUserMenu = ({ isOpen, toggleState, userData }: Props) => {
                 </div>
               ))}
             </fieldset>
-            <fieldset className="my-8">
-              <legend className="text-xl mb-2">Change username</legend>
+            <fieldset className="my-8 border-t-[1px] dark:border-gray-500">
+              <legend className="text-xl mb-2 px-4 text-center font-mukta">Change username</legend>
               <input
                 type="text"
                 className="w-full h-12 border-2 dark:border-gray-700 px-2 text-xl font-raleway font-thin rounded-lg focus:outline-purple-600"
@@ -145,8 +145,8 @@ const EditUserMenu = ({ isOpen, toggleState, userData }: Props) => {
                 required
               />
             </fieldset>
-            <fieldset className="mb-8">
-              <legend className="text-xl mb-2">Change motto</legend>
+            <fieldset className="mb-8 border-t-[1px] dark:border-gray-500">
+              <legend className="text-xl mb-2 px-4 text-center font-mukta">Change motto</legend>
               <textarea
                 className="w-full h-32 border-2 dark:border-gray-700 p-2 text-xl font-raleway font-thin overflow-y-scroll rounded-lg focus:outline-purple-600"
                 placeholder={formValuesMotto || 'Write your motto here'}
@@ -155,8 +155,8 @@ const EditUserMenu = ({ isOpen, toggleState, userData }: Props) => {
                 maxLength={60}
               />
             </fieldset>
-            <fieldset>
-              <legend className="text-xl mb-2">Change bio</legend>
+            <fieldset className="border-t-[1px] dark:border-gray-500">
+              <legend className="text-xl mb-2 px-4 text-center font-mukta">Change bio</legend>
               <textarea
                 className="w-full h-44 border-2 dark:border-gray-700 p-2 text-xl font-raleway font-thin overflow-y-scroll rounded-lg focus:outline-purple-600"
                 placeholder={formValuesBio || 'Tell us about yourself'}

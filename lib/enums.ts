@@ -31,3 +31,11 @@ export enum UpdateUserEndpoint {
   bookmarkedPosts = 'bookmarkedPosts',
   createdPosts = 'createdPosts',
 }
+
+// ----------------------------------------------------------
+// Update post data endpoints
+export enum UpdatePostEndpoint {
+  backgroundImage = 'backgroundImage',
+  comment = 'comment',
+  hashtags = 'hashtags',
+}

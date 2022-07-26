@@ -14,11 +14,12 @@ import NotFoundPage from '../../components/organisms/NotFoundPage';
 import ArrowLeftBlack from '../../public/icons/arrow-left-black.svg';
 import GoToTopLayout from '../../components/templates/GoToTopLayout';
 import { server } from '../../config';
-import EditBlack from '../../public/icons/edit-black.svg';
+import EditPostMenu from '../../components/organisms/EditPostMenu';
 
 const Post: ({ postData }: { postData: Post }) => JSX.Element = ({ postData }: { postData: Post }) => {
-  const { data: session } = useSession();
+  const [isEditMenuOpen, setIsEditMenuOpen] = useState<boolean>(false);
   const [themeMode, setThemeMode] = useState<string>('dark');
+  const { data: session } = useSession();
   const { theme } = useTheme();
 
   useEffect(() => {
@@ -26,7 +27,7 @@ const Post: ({ postData }: { postData: Post }) => JSX.Element = ({ postData }: {
   }, [theme]);
 
   return (
-    <div className="bg-white dark:bg-dark-user pb-12">
+    <div className={`bg-white dark:bg-dark-user pb-12 ${isEditMenuOpen && 'h-screen' + 'overflow-hidden fixed z-30'}`}>
       {postData ? (
         <>
           <div className="w-screen h-56 relative shadow-inner">
@@ -35,11 +36,7 @@ const Post: ({ postData }: { postData: Post }) => JSX.Element = ({ postData }: {
                 <Image src={ArrowLeftBlack} width={19} height={19} alt="go back" />
               </a>
             </Link>
-            {session?.user.id === postData.userId && (
-              <a className="absolute z-[1] right-2 top-14 w-8 h-8 bg-white flex items-center justify-center shadow-lg rounded-xl">
-                <Image src={EditBlack} width={19} height={19} alt="edit" />
-              </a>
-            )}
+            {session?.user.id === postData.userId && <EditPostMenu isOpen={isEditMenuOpen} toggleState={setIsEditMenuOpen} postData={postData} />}
             <div className="absolute bottom-7 z-[1] w-full px-5 py-2 flex items-center justify-between bg-white bg-opacity-80 dark:bg-dark-user dark:bg-opacity-80 shadow-round">
               <div className="flex flex-row items-center gap-3 font-albert font-bold my-2">
                 <div className="relative w-14 h-14 rounded-full border-2 border-white dark:border-gray-500 overflow-hidden">

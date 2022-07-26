@@ -7,6 +7,7 @@ import { useSession } from 'next-auth/react';
 import StatusMessage, { StatusMessageType } from '../atoms/StatusMessage';
 import { ACCEPTED_EXTENSIONS } from '../../lib/extensions';
 import { hashtagData } from '../../lib/hashtags';
+import useLimitedCheckboxes from '../../hooks/useLimitedCheckboxes';
 
 const AddPostForm = () => {
   const [charsCount, setCharsCount] = useState(0);
@@ -18,8 +19,7 @@ const AddPostForm = () => {
   const [isSuccess, setIsSuccess] = useState(false);
   const [isEmpty, setIsEmpty] = useState(false);
   const [isTooBig, setIsTooBig] = useState(false);
-  const [checkedState, setCheckedState] = useState(new Array(hashtagData.length).fill(false));
-  const [currentlyChecked, setCurrentlyChecked] = useState(0);
+  const { checkedState, setCheckedState, setCurrentlyChecked, onCheckboxChange } = useLimitedCheckboxes(hashtagData.length, 4);
   const fileInputRef = useRef() as React.MutableRefObject<HTMLInputElement>;
   const { theme } = useTheme();
   const { data: session } = useSession();
@@ -91,23 +91,6 @@ const AddPostForm = () => {
     reader.onload = (event: any) => {
       setFormattedFile(event.target.result);
     };
-  };
-
-  const onCheckboxChange = (position: number) => {
-    const updatedCheckedState = checkedState.map((state: boolean, index: number) => {
-      if (index === position && state) {
-        setCurrentlyChecked((prevState: number) => prevState - 1);
-        return false;
-        // 4 is the max number of hashtags
-      } else if (index === position && currentlyChecked < 4) {
-        setCurrentlyChecked((prevState: number) => prevState + 1);
-        return true;
-      }
-
-      return state;
-    });
-
-    setCheckedState(updatedCheckedState);
   };
 
   const onTextChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
