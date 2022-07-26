@@ -145,7 +145,7 @@ const Bookmarks: NextPageWithLayout = () => {
     >
       <h1 className="text-4xl font-bold mt-6">Your bookmarks</h1>
       <p>Total: {posts.length}</p>
-      <Link href="/board">
+      <Link href="/board" scroll={false}>
         <a className="bg-purple-600 flex items-center justify-center px-6 py-0.5 shadow-lg rounded-xl">
           <Image src={ReturnWhite} width={26} height={26} alt="avatar" />
         </a>

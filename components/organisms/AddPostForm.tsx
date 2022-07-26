@@ -143,6 +143,7 @@ const AddPostForm = () => {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
+          backgroundImage: Math.floor(Math.random() * 9 + 1),
           username: session?.user?.username,
           userId: session?.user?.id,
           image: session?.user?.image,

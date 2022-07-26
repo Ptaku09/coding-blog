@@ -1,85 +1,88 @@
 import { Post } from '../board';
-import { getSession } from 'next-auth/react';
+import { getSession, useSession } from 'next-auth/react';
 import React, { ReactElement, useEffect, useState } from 'react';
-import { useRouter } from 'next/router';
 import { GetServerSideProps, GetServerSidePropsContext } from 'next';
 import DefaultMobileLayout from '../../components/templates/DefaultMobileLayout';
 import { NextPageWithLayout } from '../_app';
-import ReturnWhite from '../../public/icons/return-white.svg';
-import defaultAvatar from '../../public/images/defaultAvatar.jpg';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useTheme } from 'next-themes';
 import Buttons from '../../components/atoms/postButtons/Buttons';
 import { materialDark, materialLight } from 'react-syntax-highlighter/dist/cjs/styles/prism';
 import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
-import Hashtag from '../../components/atoms/Hashtag';
 import NotFoundPage from '../../components/organisms/NotFoundPage';
+import ArrowLeftBlack from '../../public/icons/arrow-left-black.svg';
+import GoToTopLayout from '../../components/templates/GoToTopLayout';
+import { server } from '../../config';
+import EditBlack from '../../public/icons/edit-black.svg';
 
-const Post: NextPageWithLayout = () => {
-  const [postData, setPostData] = useState({} as Post);
-  const [isWrongId, setIsWrongId] = useState(false);
+const Post: ({ postData }: { postData: Post }) => JSX.Element = ({ postData }: { postData: Post }) => {
+  const { data: session } = useSession();
   const [themeMode, setThemeMode] = useState<string>('dark');
-  const router = useRouter();
   const { theme } = useTheme();
 
   useEffect(() => {
     setThemeMode(theme || 'dark');
   }, [theme]);
 
-  useEffect(() => {
-    fetch(`/api/posts/${router.query.id}`)
-      .then((r: Response) => r.json())
-      .then(({ status, data: post }) => (status === 200 ? setPostData(post) : setIsWrongId(true)));
-  }, [router.query.id]);
-
   return (
-    <div className="bg-white dark:bg-dark py-16">
-      {!isWrongId ? (
-        <div className="w-screen min-h-screen h-auto px-4">
-          <div className="w-full flex items-center justify-between border-b-[1px] border-b-gray-300 pb-2">
-            <p className="text-gray-400 text-sm tracking-wide select-all font-raleway">{postData._id}</p>
-            <a onClick={() => router.back()} className="bg-purple-600 flex items-center justify-center px-3 py-0.5 shadow-lg rounded-xl">
-              <Image src={ReturnWhite} width={26} height={26} alt="avatar" />
-            </a>
-          </div>
-          <div className="border-b-[1px] border-b-gray-300 flex items-center justify-between font-raleway">
-            <div className="flex flex-row items-center gap-3 font-raleway font-bold my-2">
-              <div className="w-12 h-12 rounded-full border-2 border-white overflow-hidden">
-                <Image src={postData.image || defaultAvatar} width={60} height={60} objectFit="cover" alt="avatar" />
+    <div className="bg-white dark:bg-dark-user pb-12">
+      {postData ? (
+        <>
+          <div className="w-screen h-56 relative shadow-inner">
+            <Link href="/board" scroll={false}>
+              <a className="absolute z-[1] left-2 top-14 w-8 h-8 bg-white flex items-center justify-center shadow-lg rounded-xl">
+                <Image src={ArrowLeftBlack} width={19} height={19} alt="go back" />
+              </a>
+            </Link>
+            {session?.user.id === postData.userId && (
+              <a className="absolute z-[1] right-2 top-14 w-8 h-8 bg-white flex items-center justify-center shadow-lg rounded-xl">
+                <Image src={EditBlack} width={19} height={19} alt="edit" />
+              </a>
+            )}
+            <div className="absolute bottom-7 z-[1] w-full px-5 py-2 flex items-center justify-between bg-white bg-opacity-80 dark:bg-dark-user dark:bg-opacity-80 shadow-round">
+              <div className="flex flex-row items-center gap-3 font-albert font-bold my-2">
+                <div className="relative w-14 h-14 rounded-full border-2 border-white dark:border-gray-500 overflow-hidden">
+                  <Image src={postData.image} layout="fill" objectFit="cover" alt="avatar" />
+                </div>
+                <div className="flex items-start justify-center flex-col font-albert">
+                  <p className="font-bold text-xl">{postData.username}</p>
+                  <div className="flex items-center justify-center flex-row gap-1.5 font-thin text-xs">
+                    <p>{new Date(postData.createdAt).toLocaleTimeString('pl-PL', { hour: 'numeric', minute: '2-digit' })}</p>
+                    <span className="text-2xl">&#183;</span>
+                    <p>{new Date(postData.createdAt).toLocaleDateString('pl-PL', { year: 'numeric', month: '2-digit', day: '2-digit' })}</p>
+                  </div>
+                </div>
               </div>
-              <p>{postData.username}</p>
             </div>
-            <div className="flex flex-row justify-center gap-2">
-              <p>{new Date(postData.createdAt).toLocaleTimeString().slice(0, 5)}</p>
-              <span>|</span>
-              <p>{new Date(postData.createdAt).toLocaleDateString('pl-PL', { year: 'numeric', month: '2-digit', day: '2-digit' })}</p>
+            <Image src={`/images/background${postData.backgroundImage || 1}.jpg`} layout="fill" objectFit="cover" alt="background" priority />
+          </div>
+          <div className="relative -top-4 w-screen min-h-screen h-auto px-4 bg-white dark:bg-dark-user rounded-t-xl">
+            <div className="relative flex items-start flex-col border-b-[1px] dark:border-gray-500 font-raleway">
+              <p className="min-h-[11rem] h-auto py-4 font-bold">{postData.comment}</p>
+              <div className="w-full mb-2 text-sm flex items-center justify-center flex-row flex-wrap gap-2">
+                <p className="text-gray-500 font-albert text-sm">{postData.language.charAt(0).toUpperCase() + postData.language.slice(1)}</p>
+                {postData.hashtags?.map((text: string) => (
+                  <div key={text} className="text-gray-500 font-albert text-sm flex items-center justify-center gap-2">
+                    <span className="text-2xl">&#183;</span>
+                    <p>{text}</p>
+                  </div>
+                ))}
+              </div>
             </div>
-          </div>
-          <div className="relative flex items-start border-b-[1px] border-b-gray-300 font-raleway">
-            <p className="mb-28 mt-4">{postData.comment}</p>
-            <div className="absolute bottom-2 text-sm flex flex-row flex-wrap gap-2">
-              <Hashtag text={postData.language} />
-              {postData.hashtags && postData.hashtags.map((text: string) => <Hashtag key={text} text={text} />)}
+            <div className="border-b-[1px] dark:border-gray-500 overflow-hidden">
+              <Buttons postData={postData} />
             </div>
+            <SyntaxHighlighter
+              language={postData.language}
+              showLineNumbers={true}
+              wrapLines={true}
+              style={themeMode === 'dark' ? materialDark : materialLight}
+            >
+              {postData.code}
+            </SyntaxHighlighter>
           </div>
-          <div className="border-b-[1px] border-b-gray-300 overflow-hidden">
-            <Buttons postData={postData} />
-          </div>
-          <SyntaxHighlighter
-            language={postData.language}
-            showLineNumbers={true}
-            wrapLines={true}
-            style={themeMode === 'dark' ? materialDark : materialLight}
-          >
-            {postData.code}
-          </SyntaxHighlighter>
-          <Link href="/board" scroll={false}>
-            <a className="bg-purple-600 flex items-center justify-center gap-2 px-3 py-2 mt-4 shadow-lg rounded-xl text-white text-xl font-edu-sa">
-              Return to board
-            </a>
-          </Link>
-        </div>
+        </>
       ) : (
         <NotFoundPage title="Post not found" subtitle="Check post id" />
       )}
@@ -87,8 +90,12 @@ const Post: NextPageWithLayout = () => {
   );
 };
 
-Post.getLayout = (page: ReactElement) => {
-  return <DefaultMobileLayout>{page}</DefaultMobileLayout>;
+(Post as NextPageWithLayout).getLayout = (page: ReactElement) => {
+  return (
+    <DefaultMobileLayout>
+      <GoToTopLayout>{page}</GoToTopLayout>
+    </DefaultMobileLayout>
+  );
 };
 
 export const getServerSideProps: GetServerSideProps = async (context: GetServerSidePropsContext) => {
@@ -103,8 +110,13 @@ export const getServerSideProps: GetServerSideProps = async (context: GetServerS
     };
   }
 
+  const postRequest = await fetch(`${server}/api/posts/${context.query.id}`);
+  const { data: postData } = await postRequest.json();
+
   return {
-    props: {},
+    props: {
+      postData,
+    },
   };
 };
 

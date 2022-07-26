@@ -16,12 +16,12 @@ const UserPost = ({ postData }: { postData: Post }) => {
         </div>
         <p>{new Date(postData.createdAt).toLocaleDateString('pl-PL', { year: 'numeric', month: '2-digit', day: '2-digit' })}</p>
       </div>
-      <div className="flex flex-col gap-1 mt-1">
-        <p className="font-bold">{postData.comment}</p>
-        <Link href={`/posts/${postData._id}`}>
-          <a className="flex items-center gap-1 text-sm font-albert text-purple-600">Read more</a>
-        </Link>
-      </div>
+      <Link href={`/posts/${postData._id}`}>
+        <a className="flex flex-col gap-1 mt-1">
+          <p className="font-bold">{postData.comment}</p>
+          <p className="flex items-center gap-1 text-sm font-albert text-purple-600">Read more</p>
+        </a>
+      </Link>
     </div>
   );
 };
