@@ -57,7 +57,7 @@ const BookmarkButton = ({ postId, size = 18 }: { postId: string; size?: number }
   };
 
   return (
-    <div className="flex items-center justify-center relative z-10">
+    <div className="flex items-center justify-center">
       <button onClick={handleAddBookmark} className="flex items-center justify-center">
         {theme === 'dark' ? (
           isBookmarked ? (

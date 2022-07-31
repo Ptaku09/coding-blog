@@ -28,6 +28,16 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
 
       updatedPost ? res.json({ status: 200 }) : res.json({ status: 404 });
       break;
+
+    case 'DELETE':
+      if (postId.length !== 24) {
+        return res.json({ status: 404 });
+      }
+
+      const deletedPost = await db.collection('Posts').findOneAndDelete({ _id: new ObjectId(postId as string) });
+
+      deletedPost ? res.json({ status: 200 }) : res.json({ status: 404 });
+      break;
   }
 };
 

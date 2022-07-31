@@ -41,7 +41,7 @@ const User: ({ userData }: { userData: User }) => JSX.Element = ({ userData }: {
   }, [userData]);
 
   return (
-    <div className={`w-screen h-auto min-h-screen pb-12 bg-white dark:bg-dark-user ${isEditMenuOpen && 'h-screen' + 'overflow-hidden fixed z-30'}`}>
+    <div className={`w-screen h-auto min-h-screen pb-12 bg-white dark:bg-dark-user ${isEditMenuOpen && 'h-screen' + 'overflow-hidden fixed'}`}>
       {userData ? (
         <>
           <section className="flex flex-col items-start justify-start">

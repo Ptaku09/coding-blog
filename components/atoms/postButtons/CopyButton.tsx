@@ -20,7 +20,7 @@ const CopyButton = ({ text, size = 18 }: { text: string; size?: number }) => {
   };
 
   return (
-    <div className="flex items-center justify-center relative z-10">
+    <div className="flex items-center justify-center">
       <button onClick={handleCopy} className="flex items-center justify-center">
         {theme === 'dark' ? (
           <Image src={CopyWhite} width={size} height={size} alt="copy" />

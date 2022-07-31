@@ -140,8 +140,8 @@ const Bookmarks: NextPageWithLayout = () => {
     </div>
   ) : (
     <div
-      className={`w-screen min-h-screen h-auto py-12 bg-white dark:bg-dark-user font-raleway flex items-center justify-start flex-col gap-2 
-      ${isSortMenuOpen && 'h-screen overflow-hidden fixed z-30'}`}
+      className={`w-screen min-h-screen z-20 h-auto py-12 bg-white dark:bg-dark-user font-raleway flex items-center justify-start flex-col gap-2 
+      ${isSortMenuOpen && 'h-screen overflow-hidden fixed'}`}
     >
       <h1 className="text-4xl font-bold mt-6">Your bookmarks</h1>
       <p>Total: {posts.length}</p>

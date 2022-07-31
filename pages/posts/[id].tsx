@@ -1,6 +1,6 @@
 import { Post } from '../board';
 import { getSession, useSession } from 'next-auth/react';
-import React, { ReactElement, useEffect, useState } from 'react';
+import React, { ReactElement, useContext, useEffect, useState } from 'react';
 import { GetServerSideProps, GetServerSidePropsContext } from 'next';
 import DefaultMobileLayout from '../../components/templates/DefaultMobileLayout';
 import { NextPageWithLayout } from '../_app';
@@ -14,11 +14,12 @@ import NotFoundPage from '../../components/organisms/NotFoundPage';
 import ArrowLeftBlack from '../../public/icons/arrow-left-black.svg';
 import GoToTopLayout from '../../components/templates/GoToTopLayout';
 import { server } from '../../config';
-import EditPostMenu from '../../components/organisms/EditPostMenu';
+import PostMenu from '../../components/organisms/postMenu/PostMenu';
+import { PostMenuContext, PostMenuContextProps } from '../../providers/PostMenuProvider';
 
 const Post: ({ postData }: { postData: Post }) => JSX.Element = ({ postData }: { postData: Post }) => {
-  const [isEditMenuOpen, setIsEditMenuOpen] = useState<boolean>(false);
   const [themeMode, setThemeMode] = useState<string>('dark');
+  const { isEditOpen, isDeleteOpen } = useContext<PostMenuContextProps>(PostMenuContext);
   const { data: session } = useSession();
   const { theme } = useTheme();
 
@@ -27,7 +28,7 @@ const Post: ({ postData }: { postData: Post }) => JSX.Element = ({ postData }: {
   }, [theme]);
 
   return (
-    <div className={`bg-white dark:bg-dark-user pb-12 ${isEditMenuOpen && 'h-screen' + 'overflow-hidden fixed z-30'}`}>
+    <div className={`bg-white dark:bg-dark-user pb-12 ${(isEditOpen || isDeleteOpen) && 'h-screen' + 'overflow-hidden fixed z-30'}`}>
       {postData ? (
         <>
           <div className="w-screen h-56 relative shadow-inner">
@@ -36,7 +37,7 @@ const Post: ({ postData }: { postData: Post }) => JSX.Element = ({ postData }: {
                 <Image src={ArrowLeftBlack} width={19} height={19} alt="go back" />
               </a>
             </Link>
-            {session?.user.id === postData.userId && <EditPostMenu isOpen={isEditMenuOpen} toggleState={setIsEditMenuOpen} postData={postData} />}
+            {session?.user.id === postData.userId && <PostMenu postData={postData} />}
             <div className="absolute bottom-7 z-[1] w-full px-5 py-2 flex items-center justify-between bg-white bg-opacity-80 dark:bg-dark-user dark:bg-opacity-80 shadow-round">
               <div className="flex flex-row items-center gap-3 font-albert font-bold my-2">
                 <div className="relative w-14 h-14 rounded-full border-2 border-white dark:border-gray-500 overflow-hidden">

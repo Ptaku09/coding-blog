@@ -91,6 +91,14 @@ module.exports = {
             transform: 'translateX(100%)',
           },
         },
+        'slide-down': {
+          '0%': {
+            transform: 'scaleY(0)',
+          },
+          '100%': {
+            transform: 'scaleY(1)',
+          },
+        },
         myBounce: {
           '0%, 100%': {
             transform: 'translate(-50%, -15%)',
@@ -125,6 +133,7 @@ module.exports = {
         appearing: 'appear 0.5s ease-in-out',
         'appearing-short': 'appear 0.35s ease-in-out',
         'appearing-opacity': 'appearOpacity 0.35s ease-in-out',
+        'slide-down': 'slide-down 0.35s ease-in-out',
         sliding: 'slide 7s linear',
         slidingShort: 'slide 2s linear',
         'shine-slide': 'shineSlide 2s infinite ease-in-out',

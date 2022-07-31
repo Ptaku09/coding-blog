@@ -1,29 +1,25 @@
-import React, { ChangeEvent, Dispatch, FormEvent, SetStateAction, useEffect, useRef, useState } from 'react';
-import { Post } from '../../pages/board';
 import Image from 'next/image';
-import EditBlack from '../../public/icons/edit-black.svg';
-import { hashtagData } from '../../lib/hashtags';
-import useOnClickOutside from '../../hooks/useOnClickOutside';
-import useLimitedCheckboxes from '../../hooks/useLimitedCheckboxes';
+import { hashtagData } from '../../../lib/hashtags';
+import React, { ChangeEvent, FormEvent, useContext, useEffect, useRef, useState } from 'react';
+import { Post } from '../../../pages/board';
+import useLimitedCheckboxes from '../../../hooks/useLimitedCheckboxes';
 import { useRouter } from 'next/router';
-import { UpdatePostEndpoint } from '../../lib/enums';
+import useOnClickOutside from '../../../hooks/useOnClickOutside';
+import { UpdatePostEndpoint } from '../../../lib/enums';
+import { PostMenuContext, PostMenuContextProps } from '../../../providers/PostMenuProvider';
 
-type Props = {
-  isOpen: boolean;
-  toggleState: Dispatch<SetStateAction<boolean>>;
-  postData: Post;
-};
-
-const EditPostMenu = ({ isOpen, toggleState, postData }: Props) => {
+const EditPost = ({ postData }: { postData: Post }) => {
   const [formValuesBackground, setFormValuesBackground] = useState<number>(postData.backgroundImage || 1);
   const [formValuesComment, setFormValuesComment] = useState<string>(postData.comment);
   const [isLoading, setIsLoading] = useState<boolean>(false);
+  const { isEditOpen, toggleEditState, toggleState } = useContext<PostMenuContextProps>(PostMenuContext);
   const { checkedState, setCheckedState, setCurrentlyChecked, onCheckboxChange } = useLimitedCheckboxes(hashtagData.length, 4);
   const ref = useRef<HTMLFormElement>(null);
   const router = useRouter();
 
   useOnClickOutside(ref, () => {
-    setTimeout(() => toggleState(false), 100); // wait to prevent miss click
+    setTimeout(() => toggleEditState(false), 100); // wait to prevent miss click
+    toggleState(false);
     setFormValuesBackground(postData.backgroundImage || 1);
     setFormValuesComment(postData.comment);
     setCheckedState(hashtagData.map((hashtag: string) => postData.hashtags.includes(hashtag)));
@@ -78,6 +74,7 @@ const EditPostMenu = ({ isOpen, toggleState, postData }: Props) => {
 
     // Finish loading and close modal
     setIsLoading(false);
+    toggleEditState(false);
     toggleState(false);
 
     // Reload session to see changes
@@ -86,18 +83,15 @@ const EditPostMenu = ({ isOpen, toggleState, postData }: Props) => {
 
   return (
     <>
-      <button
-        onClick={() => toggleState(true)}
-        className="absolute z-[1] right-2 top-14 w-8 h-8 bg-white flex items-center justify-center shadow-lg rounded-xl"
-      >
-        <Image src={EditBlack} width={19} height={19} alt="edit" />
+      <button onClick={() => toggleEditState(true)} className="px-6 py-1 flex items-center justify-center text-black">
+        Edit
       </button>
-      {isOpen && (
-        <div className="fixed z-30 w-full h-full bg-white dark:bg-dark-user bg-opacity-90 dark:bg-opacity-80 flex items-center justify-center animate-appearing-short">
+      {isEditOpen && (
+        <div className="fixed left-0 top-0 z-30 w-full h-full bg-white dark:bg-dark-user bg-opacity-90 dark:bg-opacity-80 flex items-center justify-center animate-appearing-short">
           <form
             ref={ref}
             onSubmit={handleSubmit}
-            className="w-11/12 h-5/6 px-3 py-5 bg-white dark:bg-dark-user rounded-xl shadow-xl overflow-y-scroll font-raleway font-[500] border-4 border-white dark:border-gray-700"
+            className="w-11/12 h-5/6 px-3 py-5 bg-white dark:bg-dark-user rounded-xl shadow-xl overflow-y-scroll font-raleway font-[500] border-4 dark:border-gray-700"
           >
             <fieldset className="flex items-start justify-center h-auto gap-3 mb-7 flex-wrap border-t-[1px] dark:border-gray-500">
               <legend className="text-center text-xl mb-2 px-4 font-mukta">Choose background</legend>
@@ -169,4 +163,4 @@ const EditPostMenu = ({ isOpen, toggleState, postData }: Props) => {
   );
 };
 
-export default EditPostMenu;
+export default EditPost;
