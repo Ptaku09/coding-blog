@@ -1,6 +1,6 @@
 import { Dispatch, SetStateAction, useState } from 'react';
 
-const useLimitedCheckboxes: (
+type UseLimitedCheckboxesReturnType = (
   dataSize: number,
   limit: number
 ) => {
@@ -8,7 +8,9 @@ const useLimitedCheckboxes: (
   setCheckedState: Dispatch<SetStateAction<boolean[]>>;
   setCurrentlyChecked: Dispatch<SetStateAction<number>>;
   onCheckboxChange: (position: number) => void;
-} = (dataSize: number, limit: number) => {
+};
+
+const useLimitedCheckboxes: UseLimitedCheckboxesReturnType = (dataSize: number, limit: number) => {
   const [checkedState, setCheckedState] = useState(new Array(dataSize).fill(false));
   const [currentlyChecked, setCurrentlyChecked] = useState(0);
 
