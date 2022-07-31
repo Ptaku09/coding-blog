@@ -72,7 +72,7 @@ const User: ({ userData }: { userData: User }) => JSX.Element = ({ userData }: {
           <section className="px-5 -mt-5 font-raleway">
             <h3 className="mb-3 text-xl font-bold">Posts</h3>
             {posts.length > 0 ? (
-              posts.map((post: Post) => <UserPost key={post._id} postData={post} />)
+              posts.map((post: Post) => post && <UserPost key={post?._id} postData={post} />)
             ) : (
               <p className="mt-2 text-gray-500">{userData.username} has not posted yet!</p>
             )}

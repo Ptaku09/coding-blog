@@ -1,15 +1,14 @@
 import Image from 'next/image';
-import defaultAvatar from '../../public/images/defaultAvatar.jpg';
 import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
 import { materialDark, materialLight } from 'react-syntax-highlighter/dist/cjs/styles/prism';
 import { useTheme } from 'next-themes';
-import { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { Post } from '../../pages/board';
 import Link from 'next/link';
 import Buttons from '../atoms/postButtons/Buttons';
-import Hashtag from '../atoms/Hashtag';
 import useElementOnScreen from '../../hooks/useElementOnScreen';
 import ShiningSlide from '../atoms/ShiningSlide';
+import defaultAvatar from '../../public/images/defaultAvatar.jpg';
 
 const BoardPost = ({ postData }: { postData: Post }) => {
   const [themeMode, setThemeMode] = useState<string>('dark');
@@ -37,24 +36,28 @@ const BoardPost = ({ postData }: { postData: Post }) => {
   return (
     <div className="w-screen h-auto bg-white dark:bg-dark-user dark:text-white dark:border-gray-500 border-b-[1px] text-black flex flex-col items-start justify-between px-4 pt-4 animate-appearing-short overflow-hidden">
       <div className="w-full border-b-[1px] dark:border-gray-500 z-[1] bg-inherit outline-none">
-        <div className="flex flex-row items-center justify-between font-raleway">
-          <div className="flex flex-row items-center gap-3">
+        <div className="relative w-full flex items-center justify-between text-gray-500 font-albert">
+          <div className="flex items-center justify-start gap-5">
             <Link href={`/users/${postData.userId}`}>
               <a className="flex flex-row items-center gap-3">
-                <div className="w-9 h-9 rounded-full border-[1px] border-white dark:border-gray-500 overflow-hidden">
-                  <Image src={postData.image || defaultAvatar} width={45} height={45} objectFit="cover" alt="avatar" />
+                <div className="relative w-12 h-12 rounded-full border-[1px] border-white dark:border-gray-500 overflow-hidden">
+                  <Image src={postData.image || defaultAvatar} layout="fill" objectFit="cover" alt="avatar" />
                 </div>
-                <p>{postData.username}</p>
+                <div className="flex items-start justify-center flex-col">
+                  <p className="text-xl text-black dark:text-white">{postData.username}</p>
+                  <p className="text-xs">{postData.language.toUpperCase()}</p>
+                </div>
               </a>
             </Link>
-            <Hashtag text={postData.language} />
           </div>
-          <p>{new Date(postData.createdAt).toLocaleDateString('pl-PL', { year: 'numeric', month: '2-digit', day: '2-digit' })}</p>
+          <p className="absolute top-0 right-0 text-sm">
+            {new Date(postData.createdAt).toLocaleDateString('pl-PL', { year: 'numeric', month: '2-digit', day: '2-digit' })}
+          </p>
         </div>
         <Link href={`/posts/${postData._id}`}>
           <a ref={ref}>
-            <div className="py-2 font-raleway border-b-[1px] dark:border-gray-500 mb-2">
-              <p>{postData.comment}</p>
+            <div className="pt-4 pb-2 border-b-[1px] dark:border-gray-500 mb-2">
+              <p className="font-raleway font-bold">{postData.comment}</p>
             </div>
             {isVisible || postData.code.split('\n').length < 18 ? (
               <SyntaxHighlighter
