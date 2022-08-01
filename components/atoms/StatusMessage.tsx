@@ -24,7 +24,7 @@ const StatusMessage = ({
 }) => {
   return (
     <div
-      className={`fixed z-10 bottom-16 animate-appearing-short mt-10 transition duration-500 bg-white dark:bg-dark text-black dark:text-white font-bebas text-3xl shadow-xl border-2 border-red-500 px-8 py-4 rounded-xl
+      className={`fixed z-10 bottom-16 animate-appearing-short mt-10 transition duration-500 bg-white dark:bg-dark-user text-black dark:text-white font-bebas text-3xl shadow-xl border-2 border-red-500 px-8 py-4 rounded-xl
        ${type === StatusMessageType.ERROR ? 'border-red-500' : type === StatusMessageType.SUCCESS ? 'border-green-500' : 'border-blue-500'}
        ${
          orientation === StatusMessageOrientation.VERTICAL

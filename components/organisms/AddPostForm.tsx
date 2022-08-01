@@ -160,10 +160,13 @@ const AddPostForm = () => {
       className="relative w-full flex flex-col items-center font-raleway animate-appearing-short"
     >
       <input ref={fileInputRef} onChange={handleChange} className="hidden" type="file" id="file" multiple={false} onInvalid={handleEmptyForm} />
-      <label className="relative my-4 p-10 h-32 w-full rounded-xl border-[1px] flex flex-col items-center justify-center" htmlFor="file">
+      <label
+        className="relative my-4 p-10 h-32 w-full rounded-xl border-[1px] dark:border-gray-500 flex flex-col items-center justify-center"
+        htmlFor="file"
+      >
         {fileTitle ? (
           <>
-            <p>{fileTitle}</p>
+            <p className="font-bold text-lg">{fileTitle}</p>
             <p className="absolute bottom-1 text-xs">
               drag another or click{' '}
               <button
@@ -185,10 +188,10 @@ const AddPostForm = () => {
                 fileInputRef.current.click();
               }}
             >
-              <strong className="text-lg">Choose a file</strong>
+              <strong className="text-lg text-blue-500">Choose a file</strong>
             </button>
-            <span> or drag it here</span>
-            <p className="absolute bottom-1 text-xs text-gray-600 dark:text-gray-400">
+            <span className="font-[500]"> or drag it here</span>
+            <p className="absolute bottom-1 text-xs text-gray-600 font-[500] dark:text-gray-400">
               {ACCEPTED_EXTENSIONS.map((ext: string, i: number) => '.' + ext + (i !== ACCEPTED_EXTENSIONS.length - 1 ? ', ' : ''))}
             </p>
           </>
@@ -200,7 +203,7 @@ const AddPostForm = () => {
           onDragLeave={handleDrag}
           onDragOver={handleDrag}
           onDrop={handleDrop}
-          className="absolute z-[2] bg-gray-200 border-[1px] dark:bg-gray-800 rounded-lg shadow-xl animate-appearing-opacity opacity-90 transition-all transform duration-200 w-full h-full top-0 left-0"
+          className="absolute z-[2] bg-gray-200 bg-opacity-90 dark:bg-gray-600 dark:bg-opacity-90 border-4 border-gray-300 dark:border-gray-500 rounded-lg shadow-xl animate-appearing-opacity transition-all transform duration-200 w-full h-full top-0 left-0"
         >
           <div className="w-full h-full flex flex-col items-center justify-center">
             <div className="animate-bounce">
@@ -214,14 +217,14 @@ const AddPostForm = () => {
         </div>
       )}
 
-      <div className="flex flex-row flex-wrap justify-center items-center border-[1px] rounded-xl p-2 mb-4">
-        <p className="text-center text-sm mb-1">Select up to 4 hashtags describing your code</p>
+      <div className="flex flex-row flex-wrap justify-center items-center border-[1px] dark:border-gray-500 rounded-xl p-2 mb-4">
+        <p className="text-center text-sm font-[500] mb-1">Select up to 4 hashtags describing your code</p>
         {hashtagData.map((category: string, index: number) => (
           <div key={index} className="w-auto h-auto">
             <input className="hidden peer" id={category} type="checkbox" checked={checkedState[index]} onChange={() => onCheckboxChange(index)} />
             <label
               htmlFor={category}
-              className="w-auto h-full px-5 py-0.5 m-1 rounded-xl shadow-xl flex flex-col items-center justify-center text-sm text-white bg-purple-300 peer-checked:bg-purple-600"
+              className="w-auto h-full px-5 py-0.5 m-1 rounded-xl shadow-xl flex flex-col items-center justify-center font-[500] text-sm text-white bg-purple-300 dark:bg-gray-500 peer-checked:bg-purple-600"
             >
               {category}
             </label>
@@ -230,7 +233,7 @@ const AddPostForm = () => {
       </div>
 
       <textarea
-        className="peer relative dark:bg-dark w-full min-h-56 rounded-xl border-[1px] mb-2 dark:text-white font-raleway p-2 outline-purple-600"
+        className="peer relative dark:bg-dark-user w-full min-h-56 rounded-xl border-[1px] dark:border-gray-500 mb-2 dark:text-white font-raleway font-bold p-2 outline-purple-600"
         maxLength={250}
         onChange={onTextChange}
         placeholder="Add comment..."
@@ -243,11 +246,11 @@ const AddPostForm = () => {
       >
         {charsCount} / 250
       </p>
-      <div className="w-full flex items-center justify-center gap-8 font-bebas text-xl">
-        <button className="bg-gray-500 px-5 py-2 rounded-xl shadow-xl border-white border-[1px] text-white" onClick={handleFormReset} type="reset">
+      <div className="w-full flex items-center justify-center gap-8 font-mukta text-xl">
+        <button className="bg-gray-500 px-5 py-2 rounded-xl shadow-xl text-white" onClick={handleFormReset} type="reset">
           Reset
         </button>
-        <button className="bg-purple-600 px-5 py-2 rounded-xl shadow-xl border-white border-[1px] text-white" type="submit">
+        <button className="bg-purple-600 px-5 py-2 rounded-xl shadow-xl text-white" type="submit">
           Add post
         </button>
       </div>
