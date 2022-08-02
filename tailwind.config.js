@@ -150,6 +150,7 @@ module.exports = {
         'edu-sa': ['Edu SA Beginner', 'sans-serif'],
         mukta: ['Mukta', 'sans-serif'],
         albert: ['Albert Sans', 'sans-serif'],
+        ubuntu: ['Ubuntu', 'sans-serif'],
       },
       height: {
         'mobile-screen': 'calc(100vh - 64px)',

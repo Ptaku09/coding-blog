@@ -51,7 +51,7 @@ const Curiosity = () => {
       <div id="curiosity-title" className="w-screen h-16 bg-curiosity bg-cover text-white font-bebas text-3xl flex items-center justify-center">
         <p className="bg-black p-1">Did you know that...?</p>
       </div>
-      <div id="curiosity-content" className="w-screen h-44 relative font-raleway text-xl p-5 flex items-center flex-col bg-white">
+      <div id="curiosity-content" className="w-screen h-44 relative font-raleway font-[500] text-xl p-5 flex items-center flex-col bg-white">
         <p>Many people claims, crowd opinion is much more reliable then any description.</p>
         <span className="w-3/5 h-[2px] bg-black absolute bottom-5" />
       </div>

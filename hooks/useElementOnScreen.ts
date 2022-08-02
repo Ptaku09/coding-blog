@@ -1,4 +1,4 @@
-import { RefObject, useEffect, useState } from 'react';
+import { RefObject, useCallback, useEffect, useState } from 'react';
 
 type UseElementOnScreenReturnType = <T extends HTMLElement = HTMLElement>(
   ref: RefObject<T>,
@@ -11,9 +11,9 @@ const useElementOnScreen: UseElementOnScreenReturnType = <T extends HTMLElement 
 ) => {
   const [isVisible, setIsVisible] = useState<boolean>(false);
 
-  const callback = (entries: IntersectionObserverEntry[]) => {
+  const callback = useCallback((entries: IntersectionObserverEntry[]) => {
     setIsVisible(entries[0].isIntersecting);
-  };
+  }, []);
 
   useEffect(() => {
     const observer = new IntersectionObserver(callback, options);
@@ -24,7 +24,7 @@ const useElementOnScreen: UseElementOnScreenReturnType = <T extends HTMLElement 
     return () => {
       if (current) observer.unobserve(current);
     };
-  }, [ref, options]);
+  }, [ref, options, callback]);
 
   return {
     isVisible,

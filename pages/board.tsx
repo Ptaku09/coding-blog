@@ -1,5 +1,5 @@
 import BoardMobileLayout from '../components/templates/BoardMobileLayout';
-import { ReactElement, useContext, useEffect, useState } from 'react';
+import { ReactElement, useContext, useEffect, useRef, useState } from 'react';
 import { GetServerSideProps, GetServerSidePropsContext } from 'next';
 import { getSession } from 'next-auth/react';
 import BoardPost from '../components/molecules/BoardPost';
@@ -10,7 +10,7 @@ import GoToTopLayout from '../components/templates/GoToTopLayout';
 import InfiniteScroll from 'react-infinite-scroll-component';
 import PostLoading from '../components/atoms/PostLoading';
 import BoardEndMessage from '../components/atoms/BoardEndMessage';
-import { useResizeDetector } from 'react-resize-detector';
+import useBreakpointDetector from '../hooks/useBreakpointDetector';
 
 export type Post = {
   _id: string;
@@ -31,7 +31,8 @@ const Board: NextPageWithLayout = () => {
   const [iterator, setIterator] = useState<number>(1);
   const [isEverythingLoaded, setIsEverythingLoaded] = useState<boolean>(false);
   const { scrollRef } = useContext<ScrollRestorationContextProps>(ScrollRestorationContext);
-  const { width, ref } = useResizeDetector();
+  const ref = useRef<HTMLDivElement>(null);
+  const { isBreakpoint } = useBreakpointDetector(ref, 768);
 
   useEffect(() => {
     const storedPosts = sessionStorage.getItem('posts');
@@ -98,7 +99,7 @@ const Board: NextPageWithLayout = () => {
         next={fetchMorePosts}
         hasMore={!isEverythingLoaded}
         loader={null}
-        scrollThreshold={(width as number) < 768 ? `150px` : 0.5}
+        scrollThreshold={isBreakpoint ? `150px` : 0.5}
         dataLength={posts.length}
         endMessage={<BoardEndMessage />}
       >
