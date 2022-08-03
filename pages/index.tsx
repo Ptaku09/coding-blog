@@ -5,7 +5,6 @@ import MobileHowToStartSection from '../components/organisms/MobileHowToStartSec
 import LogoAndName from '../components/atoms/LogoAndName';
 import HomePageLayout from '../components/templates/HomePageLayout';
 import React, { ReactElement, useRef } from 'react';
-import Curiosity from '../components/atoms/Curiosity';
 import MainViewPicture from '../public/images/main-view-pictrue-desktop.svg';
 import Image from 'next/image';
 import DesktopHowToStartSection from '../components/organisms/DesktopHowToStartSection';
@@ -80,7 +79,6 @@ const Home: NextPageWithLayout = () => {
           {isBreakpoint ? <MobileHowToStartSection /> : <DesktopHowToStartSection />}
         </div>
         <div className="w-screen h-auto relative -mt-16 pt-16 md:pb-12 bg-dark-user flex flex-col items-center overflow-x-hidden">
-          {isBreakpoint ? <Curiosity /> : null}
           <UsersOpinions />
         </div>
       </div>

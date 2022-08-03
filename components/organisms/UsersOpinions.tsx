@@ -1,41 +1,89 @@
 import mysterious from '../../public/images/mysterious.jpg';
 import defaultAvatar from '../../public/images/defaultAvatar.jpg';
 import jakeWebb from '../../public/images/jakeWebb.jpg';
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect } from 'react';
 import OpinionPost, { OpinionPostTypes } from '../molecules/OpinionPost';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/dist/ScrollTrigger';
 
 const UsersOpinions = () => {
-  const ref = useRef<HTMLDivElement>(null);
   gsap.registerPlugin(ScrollTrigger);
 
   useEffect(() => {
-    const element = ref.current;
+    const dots: HTMLDivElement[] = gsap.utils.toArray('.opinion-dot');
+    const usersInfo: HTMLDivElement[] = gsap.utils.toArray('.opinion-info');
+    const comments: HTMLParagraphElement[] = gsap.utils.toArray('.opinion-comment');
 
-    gsap.fromTo(
-      element!.querySelector('#users-opinions-title'),
-      {
-        x: -50,
-        opacity: 0,
-      },
-      {
-        opacity: 1,
-        x: 0,
-        scrollTrigger: {
-          scroller: 'body',
-          trigger: element!.querySelector('#create-an-account'),
-          start: 'top bottom-=50',
-          end: 'top bottom-=50',
+    dots.forEach((dot: HTMLDivElement) => {
+      gsap.fromTo(
+        dot,
+        {
+          scale: 0.7,
         },
-      }
-    );
+        {
+          scale: 1,
+          backgroundColor: '#ccc',
+          lazy: false,
+          scrollTrigger: {
+            scrub: 1,
+            scroller: 'body',
+            trigger: dot,
+            start: 'top bottom-=93',
+            end: 'top bottom-=93',
+          },
+        }
+      );
+    });
+
+    usersInfo.forEach((info: HTMLDivElement) => {
+      gsap.fromTo(
+        info,
+        {
+          x: -25,
+          opacity: 0,
+        },
+        {
+          x: 0,
+          opacity: 1,
+          lazy: false,
+          scrollTrigger: {
+            scrub: 1,
+            scroller: 'body',
+            trigger: info,
+            start: 'top bottom-=110',
+            end: 'top bottom-=110',
+          },
+        }
+      );
+    });
+
+    comments.forEach((comment: HTMLParagraphElement) => {
+      gsap.fromTo(
+        comment,
+        {
+          x: 25,
+          opacity: 0,
+        },
+        {
+          x: 0,
+          opacity: 1,
+          lazy: false,
+          scrollTrigger: {
+            scrub: 1,
+            scroller: 'body',
+            trigger: comment,
+            start: 'top bottom-=50',
+            end: 'top bottom-=50',
+          },
+        }
+      );
+    });
   }, []);
 
   return (
     <section>
       <h3 className="font-raleway font-bold text-4xl text-white text-center my-10">Hear the crowd!</h3>
-      <div ref={ref} className="relative w-full h-auto px-10 mb-7">
+      <div className="relative w-full h-auto px-10 mb-10">
         <ul className="flex flex-col gap-16 py-5 after:absolute after:top-0 after:-translate-x-5 after:block after:w-[2px] after:h-full after:bg-gray-300">
           {[
             {
