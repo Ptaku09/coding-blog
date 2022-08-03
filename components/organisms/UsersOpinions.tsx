@@ -81,9 +81,9 @@ const UsersOpinions = () => {
   }, []);
 
   return (
-    <section>
+    <section className="-mt-10">
       <h3 className="font-raleway font-bold text-4xl text-white text-center my-10">Hear the crowd!</h3>
-      <div className="relative w-full h-auto px-10 mb-10">
+      <div className="relative w-full h-auto px-10 mb-14">
         <ul className="flex flex-col gap-16 py-5 after:absolute after:top-0 after:-translate-x-5 after:block after:w-[2px] after:h-full after:bg-gray-300">
           {[
             {

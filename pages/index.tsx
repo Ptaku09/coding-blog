@@ -26,10 +26,7 @@ const Home: NextPageWithLayout = () => {
   } = useBreakpointDetector(ref, 768);
 
   return (
-    <div
-      ref={ref}
-      className="w-screen bg-home-page-mobile md:bg-home-page-desktop h-auto flex items-center justify-start flex-col text-black font-raleway"
-    >
+    <div ref={ref} className="w-screen bg-dark-user md:bg-home-page-desktop h-auto flex items-center justify-start flex-col text-black font-raleway">
       <div className="absolute z-10 w-screen p-4 text-2xl text-white flex items-center justify-between">
         <LogoAndName />
         {status === 'authenticated' ? (
@@ -47,7 +44,7 @@ const Home: NextPageWithLayout = () => {
         )}
       </div>
       <div className="w-screen h-auto flex items-start justify-start flex-col">
-        <div className="h-mobile-screen w-screen md:h-screen md:flex md:items-center md:flex-row-reverse">
+        <div className="h-mobile-screen bg-gradient-to-tr from-black via-gray-900 to-indigo-900 w-screen md:h-screen md:flex md:items-center md:flex-row-reverse">
           <div className="absolute z-[2] w-screen top-0 h-1/2 md:w-1/2">
             <div className="w-full h-1/2 absolute bottom-7 md:top-1/2 flex items-center justify-center flex-col md:h-full">
               <h1 className="text-white font-ubuntu text-5xl font-bold text-center border-b-2 mx-12 mb-5 pb-4">Show your ideas to the world!</h1>
@@ -78,7 +75,7 @@ const Home: NextPageWithLayout = () => {
           </h3>
           {isBreakpoint ? <MobileHowToStartSection /> : <DesktopHowToStartSection />}
         </div>
-        <div className="w-screen h-auto relative -mt-16 pt-16 md:pb-12 bg-dark-user flex flex-col items-center overflow-x-hidden">
+        <div className="w-screen h-auto relative z-[3] translate-y-10 bg-dark-user rounded-b-[100%40px] flex flex-col items-center overflow-x-hidden">
           <UsersOpinions />
         </div>
       </div>

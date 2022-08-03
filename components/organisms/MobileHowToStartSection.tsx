@@ -3,7 +3,7 @@ import Image from 'next/image';
 import NewPostBlack from '../../public/icons/new-post-black.svg';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/dist/ScrollTrigger';
-import { useEffect, useRef } from 'react';
+import { useEffect } from 'react';
 import SampleUserPost from '../atoms/SampleUserPost';
 import SamplePostCreator from '../atoms/SamplePostCreator';
 import SampleSingInMenu from '../atoms/SampleSingInMenu';
@@ -12,80 +12,36 @@ import { useSession } from 'next-auth/react';
 
 const MobileHowToStartSection = () => {
   const { status } = useSession();
-  const ref = useRef<HTMLTableSectionElement>(null);
   gsap.registerPlugin(ScrollTrigger);
 
   useEffect(() => {
-    const element = ref.current;
+    const components: HTMLDivElement[] = gsap.utils.toArray('.mobile-how-to-start-component');
 
-    gsap.fromTo(
-      element!.querySelector('#create-an-account'),
-      {
-        x: -50,
-        opacity: 0,
-      },
-      {
-        opacity: 1,
-        x: 0,
-        lazy: false,
-        scrollTrigger: {
-          scroller: 'body',
-          trigger: element!.querySelector('#create-an-account'),
-          start: 'top bottom-=50',
-          end: 'top bottom-=50',
+    components.forEach((component: HTMLDivElement) => {
+      gsap.fromTo(
+        component,
+        {
+          scale: 0.7,
+          opacity: 0,
         },
-      }
-    );
-  }, []);
-
-  useEffect(() => {
-    const element = ref.current;
-
-    gsap.fromTo(
-      element!.querySelector('#share-your-code'),
-      {
-        x: 50,
-        opacity: 0,
-      },
-      {
-        opacity: 1,
-        x: 0,
-        lazy: false,
-        scrollTrigger: {
-          scroller: 'body',
-          trigger: element!.querySelector('#share-your-code'),
-          start: 'top bottom-=50',
-          end: 'top bottom-=50',
-        },
-      }
-    );
-  }, []);
-
-  useEffect(() => {
-    const element = ref.current;
-
-    gsap.fromTo(
-      element!.querySelector('#wait-for-reactions'),
-      {
-        x: -50,
-        opacity: 0,
-      },
-      {
-        opacity: 1,
-        x: 0,
-        lazy: false,
-        scrollTrigger: {
-          scroller: 'body',
-          trigger: element!.querySelector('#wait-for-reactions'),
-          start: 'top bottom-=50',
-          end: 'top bottom-=50',
-        },
-      }
-    );
+        {
+          scale: 1,
+          opacity: 1,
+          lazy: false,
+          scrollTrigger: {
+            scrub: 1,
+            scroller: 'body',
+            trigger: component,
+            start: 'top bottom-=50',
+            end: 'top bottom-=50',
+          },
+        }
+      );
+    });
   }, []);
 
   return (
-    <section className="flex items-center justify-start flex-col w-screen h-auto px-6" ref={ref}>
+    <section className="flex items-center justify-start flex-col w-screen h-auto px-6">
       <MobileHowToStartComponent title="Create an account">
         <p className="mb-4 p-1 font-raleway font-[500] text-lg text-center">Sign in for free via Google, Github or Twitter.</p>
         <SampleSingInMenu />
