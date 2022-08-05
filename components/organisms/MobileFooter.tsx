@@ -22,7 +22,11 @@ const MobileFooter = () => {
           />
         </a>
       </Link>
-      <Image src={Search} width={25} height={25} alt="search" />
+      <Link href="/search">
+        <a className="flex items-center justify-center">
+          <Image src={Search} width={25} height={25} alt="search" />
+        </a>
+      </Link>
       <Link href="/bookmarks">
         <a className="flex items-center justify-center">
           <Image src={Bookmarks} width={25} height={25} alt="bookmarks" />
