@@ -26,58 +26,69 @@ enum SelectedSearchingArea {
 
 const Search: NextPageWithLayout = () => {
   const [selectedSearchingArea, setSelectedSearchingArea] = useState<SelectedSearchingArea>(SelectedSearchingArea.posts);
-  const [searchResults, setSearchResults] = useState<SearchResultPost[] | SearchResultUser[]>([]);
+  const [foundedPosts, setFoundedPosts] = useState<SearchResultPost[]>([]);
+  const [foundedUsers, setFoundedUsers] = useState<SearchResultUser[]>([]);
   const [queryInput, setQueryInput] = useState<string>('');
   const [isSearchingDisabled, setIsSearchingDisabled] = useState<boolean>(true);
 
   const handleQueryInputChange = async (e: ChangeEvent<HTMLInputElement>) => {
     setQueryInput(e.target.value);
-
-    if (e.target.value.length >= 3) {
-      setIsSearchingDisabled(false);
-      const response = await fetch(`/api/search/${selectedSearchingArea}?query=${e.target.value}&limit=5`);
-      const { status, data } = await response.json();
-
-      if (status === 200) {
-        setSearchResults(data);
-      } else {
-        setSearchResults([]);
-      }
-    } else {
-      setIsSearchingDisabled(true);
-      setSearchResults([]);
-    }
+    await handleSearch(selectedSearchingArea, e.target.value, 5);
   };
 
   const handleSearchingAreaChange = async (area: SelectedSearchingArea) => {
     setSelectedSearchingArea(area);
-
-    if (queryInput.length >= 3) {
-      setIsSearchingDisabled(false);
-      const response = await fetch(`/api/search/${area}?query=${queryInput}&limit=5`);
-      const { status, data } = await response.json();
-
-      if (status === 200) {
-        setSearchResults(data);
-      } else {
-        setSearchResults([]);
-      }
-    } else {
-      setIsSearchingDisabled(true);
-      setSearchResults([]);
-    }
+    await handleSearch(area, queryInput, 5);
   };
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    await handleSearch(selectedSearchingArea, queryInput, 20);
+  };
 
-    const response = await fetch(`/api/search/${selectedSearchingArea}?query=${queryInput}&limit=20`);
-    const { status, data } = await response.json();
+  const handleSearch = async (area: SelectedSearchingArea, query: string, limit: number) => {
+    switch (area) {
+      case SelectedSearchingArea.posts:
+        await searchPosts(query, limit);
+        break;
 
-    if (status === 200) {
-      setSearchResults(data);
+      case SelectedSearchingArea.users:
+        await searchUsers(query, limit);
+        break;
+    }
+  };
+
+  const searchPosts = async (query: string, limit: number) => {
+    if (query.length >= 3) {
+      setIsSearchingDisabled(false);
+
+      const response = await fetch(`/api/search/posts?query=${query}&limit=${limit}`);
+      const { status, data } = await response.json();
+
+      status === 200 ? setFoundedPosts(data) : setFoundedPosts([]);
+
+      setFoundedUsers([]);
     } else {
-      setSearchResults([]);
+      setIsSearchingDisabled(true);
+      setFoundedPosts([]);
+      setFoundedUsers([]);
+    }
+  };
+
+  const searchUsers = async (query: string, limit: number) => {
+    if (query.length >= 3) {
+      setIsSearchingDisabled(false);
+
+      const response = await fetch(`/api/search/users?query=${query}&limit=${limit}`);
+      const { status, data } = await response.json();
+
+      status === 200 ? setFoundedUsers(data) : setFoundedUsers([]);
+
+      setFoundedPosts([]);
+    } else {
+      setIsSearchingDisabled(true);
+      setFoundedPosts([]);
+      setFoundedUsers([]);
     }
   };
 
@@ -86,7 +97,7 @@ const Search: NextPageWithLayout = () => {
       <form onSubmit={handleSubmit} className="pb-3 mb-4 w-full flex flex-col items-center border-b-[1px]">
         <input
           type="text"
-          className="w-full h-8 border-2 dark:border-gray-700 px-2 font-raleway font-thin rounded-lg focus:outline-purple-600"
+          className="w-full h-8 border-2 dark:border-gray-700 px-2 font-raleway font-[500] rounded-lg focus:outline-purple-600"
           value={queryInput}
           onChange={handleQueryInputChange}
           minLength={3}
@@ -125,10 +136,10 @@ const Search: NextPageWithLayout = () => {
         </button>
       </form>
       <div>
-        {searchResults.length === 0 && <p>No results</p>}
-        {searchResults.length > 0 && selectedSearchingArea === SelectedSearchingArea.posts
-          ? searchResults.map((result: SearchResultPost | SearchResultUser) => <p key={result._id}>{result.username}</p>)
-          : searchResults.map((result: SearchResultPost | SearchResultUser) => <p key={result._id}>user: {result.username}</p>)}
+        {foundedPosts.length === 0 && foundedUsers.length === 0 && <p>No results</p>}
+        {selectedSearchingArea === SelectedSearchingArea.posts
+          ? foundedPosts.map((result: SearchResultPost) => <p key={result._id}>post: {result.comment}</p>)
+          : foundedUsers.map((result: SearchResultUser) => <p key={result._id}>user: {result.username}</p>)}
       </div>
     </div>
   );
