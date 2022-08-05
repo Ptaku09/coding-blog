@@ -8,22 +8,22 @@ type Query = {
 
 const handler = async (req: NextApiRequest, res: NextApiResponse) => {
   const client = await clientPromise;
-  const db = client.db(process.env.MONGODB_POST_NAME);
+  const db = client.db(process.env.MONGODB_USER_NAME);
 
   switch (req.method) {
     case 'GET':
       const { query: searchQuery, limit }: Query = req.query;
 
       try {
-        const posts = await db
-          .collection('Posts')
+        const users = await db
+          .collection('users')
           .aggregate([
             {
               $search: {
-                index: 'posts',
+                index: 'users',
                 autocomplete: {
                   query: searchQuery,
-                  path: 'comment',
+                  path: 'username',
                   fuzzy: {
                     maxEdits: 2,
                     prefixLength: 3,
@@ -38,16 +38,13 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
               $project: {
                 image: true,
                 username: true,
-                language: true,
-                comment: true,
-                likes: true,
-                createdAt: true,
+                bio: true,
               },
             },
           ])
           .toArray();
 
-        res.json({ status: 200, data: posts });
+        res.json({ status: 200, data: users });
       } catch (error) {
         res.json({ status: 404 });
       }
