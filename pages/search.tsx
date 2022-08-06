@@ -1,8 +1,10 @@
 import { NextPageWithLayout } from './_app';
 import React, { ChangeEvent, FormEvent, ReactElement, useState } from 'react';
 import DefaultMobileLayout from '../components/templates/DefaultMobileLayout';
+import SearchPost from '../components/molecules/SearchPost';
+import SearchUser from '../components/molecules/SearchUser';
 
-type SearchResultPost = {
+export type SearchResultPost = {
   _id: string;
   image: string;
   username: string;
@@ -12,10 +14,12 @@ type SearchResultPost = {
   createdAt: string;
 };
 
-type SearchResultUser = {
+export type SearchResultUser = {
   _id: string;
   image: string;
+  name: string;
   username: string;
+  backgroundImage: number;
   bio: string;
 };
 
@@ -93,7 +97,7 @@ const Search: NextPageWithLayout = () => {
   };
 
   return (
-    <div className="relative w-screen h-auto min-h-screen py-16 px-8 bg-white dark:bg-dark-user overflow-y-scroll scroll-smooth flex items-center justify-start flex-col">
+    <div className="relative w-screen h-auto min-h-screen py-16 px-8 bg-white dark:bg-dark-user overflow-y-scroll scroll-smooth font-raleway flex items-center justify-start flex-col">
       <form onSubmit={handleSubmit} className="pb-3 mb-4 w-full flex flex-col items-center border-b-[1px]">
         <input
           type="text"
@@ -130,16 +134,16 @@ const Search: NextPageWithLayout = () => {
         <button
           type="submit"
           disabled={isSearchingDisabled}
-          className="my-2 py-1 px-5 text-white bg-purple-600 disabled:bg-gray-500 font-albert rounded-lg shadow-xl"
+          className="mb-2 mt-4 py-1 px-5 text-white bg-purple-600 disabled:bg-gray-500 font-albert rounded-lg shadow-xl"
         >
           Search
         </button>
       </form>
-      <div>
-        {foundedPosts.length === 0 && foundedUsers.length === 0 && <p>No results</p>}
+      <div className="w-full flex flex-col">
+        {foundedPosts.length === 0 && foundedUsers.length === 0 && <p className="text-center">No results</p>}
         {selectedSearchingArea === SelectedSearchingArea.posts
-          ? foundedPosts.map((result: SearchResultPost) => <p key={result._id}>post: {result.comment}</p>)
-          : foundedUsers.map((result: SearchResultUser) => <p key={result._id}>user: {result.username}</p>)}
+          ? foundedPosts.map((result: SearchResultPost) => <SearchPost key={result._id} data={result} />)
+          : foundedUsers.map((result: SearchResultUser) => <SearchUser key={result._id} data={result} />)}
       </div>
     </div>
   );

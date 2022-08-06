@@ -37,7 +37,9 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
             {
               $project: {
                 image: true,
+                name: true,
                 username: true,
+                backgroundImage: true,
                 bio: true,
               },
             },
