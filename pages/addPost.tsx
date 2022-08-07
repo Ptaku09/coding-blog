@@ -8,9 +8,11 @@ import AddPostForm from '../components/organisms/AddPostForm';
 import { NextPageWithLayout } from './_app';
 import Link from 'next/link';
 import ArrowLeftBlack from '../public/icons/arrow-left-black.svg';
+import { useRouter } from 'next/router';
 
 const AddPost: NextPageWithLayout = () => {
   const { data: session } = useSession();
+  const router = useRouter();
 
   return (
     <div className="min-h-screen w-screen py-16 bg-white dark:bg-dark-user flex flex-col items-center justify-start">
@@ -24,11 +26,9 @@ const AddPost: NextPageWithLayout = () => {
               <p className="text-lg">{session?.user?.username}</p>
             </a>
           </Link>
-          <Link href="/board" scroll={false}>
-            <a className="w-8 h-8 bg-white flex items-center justify-center shadow-lg rounded-xl">
-              <Image src={ArrowLeftBlack} width={19} height={19} alt="go back" />
-            </a>
-          </Link>
+          <a onClick={() => router.back()} className="w-8 h-8 bg-white flex items-center justify-center shadow-lg rounded-xl">
+            <Image src={ArrowLeftBlack} width={19} height={19} alt="go back" />
+          </a>
         </div>
         <AddPostForm />
       </div>

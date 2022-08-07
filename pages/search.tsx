@@ -3,6 +3,8 @@ import React, { ChangeEvent, FormEvent, ReactElement, useState } from 'react';
 import DefaultMobileLayout from '../components/templates/DefaultMobileLayout';
 import SearchPost from '../components/molecules/SearchPost';
 import SearchUser from '../components/molecules/SearchUser';
+import { GetServerSideProps, GetServerSidePropsContext } from 'next';
+import { getSession } from 'next-auth/react';
 
 export type SearchResultPost = {
   _id: string;
@@ -151,6 +153,23 @@ const Search: NextPageWithLayout = () => {
 
 Search.getLayout = (page: ReactElement) => {
   return <DefaultMobileLayout>{page}</DefaultMobileLayout>;
+};
+
+export const getServerSideProps: GetServerSideProps = async (context: GetServerSidePropsContext) => {
+  const session = await getSession(context);
+
+  if (!session) {
+    return {
+      redirect: {
+        destination: '/signin',
+        permanent: false,
+      },
+    };
+  }
+
+  return {
+    props: {},
+  };
 };
 
 export default Search;

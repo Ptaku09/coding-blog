@@ -11,7 +11,7 @@ import GoToTopLayout from '../../components/templates/GoToTopLayout';
 import ArrowLeftBlack from '../../public/icons/arrow-left-black.svg';
 import UserPost from '../../components/molecules/UserPost';
 import EditUserMenu from '../../components/organisms/EditUserMenu';
-import Link from 'next/link';
+import { useRouter } from 'next/router';
 
 type User = {
   _id: string;
@@ -32,6 +32,7 @@ const User: ({ userData }: { userData: User }) => JSX.Element = ({ userData }: {
   const [posts, setPosts] = useState<Post[]>([]);
   const [isEditMenuOpen, setIsEditMenuOpen] = useState<boolean>(false);
   const { data: session } = useSession();
+  const router = useRouter();
 
   useEffect(() => {
     userData &&
@@ -46,11 +47,12 @@ const User: ({ userData }: { userData: User }) => JSX.Element = ({ userData }: {
         <>
           <section className="flex flex-col items-start justify-start">
             <div className="w-screen h-56 relative">
-              <Link href="/board" scroll={false}>
-                <a className="absolute z-[1] left-2 top-14 w-8 h-8 bg-white flex items-center justify-center shadow-lg rounded-xl">
-                  <Image src={ArrowLeftBlack} width={19} height={19} alt="go back" />
-                </a>
-              </Link>
+              <a
+                onClick={() => router.back()}
+                className="absolute z-[1] left-2 top-14 w-8 h-8 bg-white flex items-center justify-center shadow-lg rounded-xl"
+              >
+                <Image src={ArrowLeftBlack} width={19} height={19} alt="go back" />
+              </a>
               {session?.user.id === userData._id && <EditUserMenu isOpen={isEditMenuOpen} toggleState={setIsEditMenuOpen} userData={userData} />}
               <Image src={`/images/background${userData.backgroundImage}.jpg`} layout="fill" objectFit="cover" alt="background" priority />
             </div>
