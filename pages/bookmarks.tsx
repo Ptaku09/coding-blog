@@ -112,7 +112,7 @@ const Bookmarks: NextPageWithLayout = () => {
     });
   };
 
-  const handleSubmit = (e: FormEvent<HTMLButtonElement>) => {
+  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
     // Update query params with form values
@@ -160,6 +160,7 @@ const Bookmarks: NextPageWithLayout = () => {
         <div className="fixed top-0 z-30 w-full h-full bg-white dark:bg-dark-user bg-opacity-90 dark:bg-opacity-80 flex items-center justify-center animate-appearing-short">
           <form
             ref={ref}
+            onSubmit={handleSubmit}
             className="w-11/12 h-5/6 px-3 py-5 bg-white dark:bg-dark-user rounded-xl shadow-round overflow-y-scroll font-raleway font-[500] border-4 border-gray-200 dark:border-gray-700"
           >
             <fieldset className="flex items-center justify-center flex-col gap-5 pb-8 border-t-[1px] dark:border-gray-500">
@@ -208,7 +209,7 @@ const Bookmarks: NextPageWithLayout = () => {
               <button type="button" onClick={handleCloseSortMenu} className="mt-8 w-28 py-2 bg-red-400 text-white shadow-xl font-bold">
                 Cancel
               </button>
-              <button type="submit" onClick={handleSubmit} className="mt-8 w-28 py-2 bg-black text-white shadow-xl font-bold">
+              <button type="submit" className="mt-8 w-28 py-2 bg-black text-white shadow-xl font-bold">
                 Sort
               </button>
             </div>
