@@ -9,6 +9,9 @@ import Image from 'next/image';
 import { Post } from '../board';
 import GoToTopLayout from '../../components/templates/GoToTopLayout';
 import ArrowLeftBlack from '../../public/icons/arrow-left-black.svg';
+import Github from '../../public/icons/github-gray.svg';
+import Twitter from '../../public/icons/twitter-gray.svg';
+import Instagram from '../../public/icons/instagram-gray.svg';
 import UserPost from '../../components/molecules/UserPost';
 import EditUserMenu from '../../components/organisms/EditUserMenu';
 import { useRouter } from 'next/router';
@@ -26,6 +29,9 @@ type User = {
   likedPosts: string[];
   bookmarkedPosts: string[];
   createdPosts: string[];
+  github: string;
+  twitter: string;
+  instagram: string;
 };
 
 const User: ({ userData }: { userData: User }) => JSX.Element = ({ userData }: { userData: User }) => {
@@ -67,6 +73,33 @@ const User: ({ userData }: { userData: User }) => JSX.Element = ({ userData }: {
                 <div className="mt-6">
                   <h3 className="text-2xl font-[500]">{userData.motto || `${userData.username} has no motto yet!`}</h3>
                   <p className="mt-1 text-gray-500">{userData.bio || `${userData.username} has no bio yet!`}</p>
+                  <div className="flex gap-4 mt-5">
+                    {userData.github && (
+                      <a href={`https://github.com/${userData.github}`} target="_blank" rel="noreferrer" className="flex items-center justify-center">
+                        <Image src={Github} width={20} height={20} alt="github" />
+                      </a>
+                    )}
+                    {userData.twitter && (
+                      <a
+                        href={`https://twitter.com/${userData.twitter}`}
+                        target="_blank"
+                        rel="noreferrer"
+                        className="flex items-center justify-center"
+                      >
+                        <Image src={Twitter} width={20} height={20} alt="twitter" />
+                      </a>
+                    )}
+                    {userData.instagram && (
+                      <a
+                        href={`https://www.instagram.com/${userData.instagram}`}
+                        target="_blank"
+                        rel="noreferrer"
+                        className="flex items-center justify-center"
+                      >
+                        <Image src={Instagram} width={20} height={20} alt="instagram" />
+                      </a>
+                    )}
+                  </div>
                 </div>
               </div>
             </div>

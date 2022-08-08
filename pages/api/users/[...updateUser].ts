@@ -111,6 +111,27 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
 
       break;
 
+    case UpdateUserEndpoint.github:
+      const { github } = req.body;
+
+      updatedUser = await updatedUser.findOneAndUpdate({ _id: new ObjectId(query[0] as string) }, { $set: { github } });
+
+      break;
+
+    case UpdateUserEndpoint.twitter:
+      const { twitter } = req.body;
+
+      updatedUser = await updatedUser.findOneAndUpdate({ _id: new ObjectId(query[0] as string) }, { $set: { twitter } });
+
+      break;
+
+    case UpdateUserEndpoint.instagram:
+      const { instagram } = req.body;
+
+      updatedUser = await updatedUser.findOneAndUpdate({ _id: new ObjectId(query[0] as string) }, { $set: { instagram } });
+
+      break;
+
     default:
       return res.json({ status: 400, data: `Endpoint not found: /${query[1]}` });
   }

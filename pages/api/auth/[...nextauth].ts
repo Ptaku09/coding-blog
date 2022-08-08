@@ -13,6 +13,7 @@ export default NextAuth({
       clientId: process.env.GITHUB_CLIENT_ID as string,
       clientSecret: process.env.GITHUB_CLIENT_SECRET as string,
       profile(profile) {
+        console.log(profile);
         return {
           id: profile.id,
           name: profile.name,
@@ -26,6 +27,9 @@ export default NextAuth({
           likedPosts: [],
           bookmarkedPosts: [],
           createdPosts: [],
+          github: profile.html_url,
+          twitter: '',
+          instagram: '',
         };
       },
     }),
@@ -47,6 +51,9 @@ export default NextAuth({
           likedPosts: [],
           bookmarkedPosts: [],
           createdPosts: [],
+          github: '',
+          twitter: profile.data.url,
+          instagram: '',
         };
       },
     }),
@@ -67,6 +74,9 @@ export default NextAuth({
           likedPosts: [],
           bookmarkedPosts: [],
           createdPosts: [],
+          github: '',
+          twitter: '',
+          instagram: '',
         };
       },
     }),

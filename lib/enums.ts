@@ -30,6 +30,9 @@ export enum UpdateUserEndpoint {
   likedPosts = 'likedPosts',
   bookmarkedPosts = 'bookmarkedPosts',
   createdPosts = 'createdPosts',
+  github = 'github',
+  twitter = 'twitter',
+  instagram = 'instagram',
 }
 
 // ----------------------------------------------------------

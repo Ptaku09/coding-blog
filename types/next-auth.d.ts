@@ -20,5 +20,8 @@ declare module 'next-auth' {
     likedPosts: string[];
     bookmarkedPosts: { [key in 'bookmarkedPostId' | 'addedAt']: string }[];
     createdPosts: string[];
+    github: string;
+    twitter: string;
+    instagram: string;
   }
 }

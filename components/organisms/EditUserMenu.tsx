@@ -5,6 +5,9 @@ import User from '../../pages/users/[id]';
 import { UpdateUserEndpoint } from '../../lib/enums';
 import { useRouter } from 'next/router';
 import useOnClickOutside from '../../hooks/useOnClickOutside';
+import Github from '../../public/icons/github-gray.svg';
+import Twitter from '../../public/icons/twitter-gray.svg';
+import Instagram from '../../public/icons/instagram-gray.svg';
 
 type Props = {
   isOpen: boolean;
@@ -17,6 +20,11 @@ const EditUserMenu = ({ isOpen, toggleState, userData }: Props) => {
   const [formValuesUsername, setFormValuesUsername] = useState<string>(userData.username);
   const [formValuesMotto, setFormValuesMotto] = useState<string>(userData.motto);
   const [formValuesBio, setFormValuesBio] = useState<string>(userData.bio);
+  const [formValuesSocialMedia, setFormValuesSocialMedia] = useState<{ github: string; twitter: string; instagram: string }>({
+    github: userData.github,
+    twitter: userData.twitter,
+    instagram: userData.instagram,
+  });
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const ref = useRef<HTMLFormElement>(null);
   const router = useRouter();
@@ -27,6 +35,11 @@ const EditUserMenu = ({ isOpen, toggleState, userData }: Props) => {
     setFormValuesUsername(userData.username);
     setFormValuesMotto(userData.motto);
     setFormValuesBio(userData.bio);
+    setFormValuesSocialMedia({
+      github: userData.github,
+      twitter: userData.twitter,
+      instagram: userData.instagram,
+    });
   });
 
   const handleUsernameChange = (e: ChangeEvent<HTMLInputElement>) => {
@@ -39,6 +52,13 @@ const EditUserMenu = ({ isOpen, toggleState, userData }: Props) => {
 
   const handleBioChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
     setFormValuesBio(e.target.value);
+  };
+
+  const handleSocialMediaChange = (e: ChangeEvent<HTMLInputElement>) => {
+    setFormValuesSocialMedia({
+      ...formValuesSocialMedia,
+      [e.target.name]: e.target.value,
+    });
   };
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
@@ -85,6 +105,34 @@ const EditUserMenu = ({ isOpen, toggleState, userData }: Props) => {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({ bio: formValuesBio }),
+      }));
+
+    // Update social media if changed
+    formValuesSocialMedia.github !== userData.github &&
+      (await fetch(`/api/users/${userData._id}/${UpdateUserEndpoint.github}`, {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ github: formValuesSocialMedia.github }),
+      }));
+
+    formValuesSocialMedia.twitter !== userData.twitter &&
+      (await fetch(`/api/users/${userData._id}/${UpdateUserEndpoint.twitter}`, {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ twitter: formValuesSocialMedia.twitter }),
+      }));
+
+    formValuesSocialMedia.instagram !== userData.instagram &&
+      (await fetch(`/api/users/${userData._id}/${UpdateUserEndpoint.instagram}`, {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ instagram: formValuesSocialMedia.instagram }),
       }));
 
     // Finish loading and close modal
@@ -155,7 +203,7 @@ const EditUserMenu = ({ isOpen, toggleState, userData }: Props) => {
                 maxLength={60}
               />
             </fieldset>
-            <fieldset className="border-t-[1px] dark:border-gray-500">
+            <fieldset className="mb-8 border-t-[1px] dark:border-gray-500">
               <legend className="text-xl mb-2 px-4 text-center font-mukta">Change bio</legend>
               <textarea
                 className="w-full h-44 border-2 dark:border-gray-700 p-2 text-xl font-raleway font-thin overflow-y-scroll rounded-lg focus:outline-purple-600"
@@ -164,6 +212,47 @@ const EditUserMenu = ({ isOpen, toggleState, userData }: Props) => {
                 onChange={handleBioChange}
                 maxLength={120}
               />
+            </fieldset>
+            <fieldset className="border-t-[1px] dark:border-gray-500">
+              <legend className="text-xl mb-2 px-4 text-center font-mukta">Social media</legend>
+              <div className="w-full flex flex-col gap-5">
+                <div className="flex flex-row-reverse items-center gap-3">
+                  <input
+                    type="text"
+                    name="github"
+                    className="w-full h-8 border-2 dark:border-gray-700 p-2 text-xl font-raleway font-thin rounded-lg focus:outline-purple-600"
+                    value={formValuesSocialMedia.github}
+                    onChange={handleSocialMediaChange}
+                  />
+                  <label htmlFor="github" className="flex items-center">
+                    <Image src={Github} width={40} height={40} alt="github" />
+                  </label>
+                </div>
+                <div className="flex flex-row-reverse items-center gap-3">
+                  <input
+                    type="text"
+                    name="twitter"
+                    className="w-full h-8 border-2 dark:border-gray-700 p-2 text-xl font-raleway font-thin rounded-lg focus:outline-purple-600"
+                    value={formValuesSocialMedia.twitter}
+                    onChange={handleSocialMediaChange}
+                  />
+                  <label htmlFor="twitter" className="flex items-center">
+                    <Image src={Twitter} width={40} height={40} alt="twitter" />
+                  </label>
+                </div>
+                <div className="flex flex-row-reverse items-center gap-3">
+                  <input
+                    type="text"
+                    name="instagram"
+                    className="w-full h-8 border-2 dark:border-gray-700 p-2 text-xl font-raleway font-thin rounded-lg focus:outline-purple-600"
+                    value={formValuesSocialMedia.instagram}
+                    onChange={handleSocialMediaChange}
+                  />
+                  <label htmlFor="instagram" className="flex items-center">
+                    <Image src={Instagram} width={40} height={40} alt="instagram" />
+                  </label>
+                </div>
+              </div>
             </fieldset>
             <div className="w-full flex items-center justify-center">
               <button
