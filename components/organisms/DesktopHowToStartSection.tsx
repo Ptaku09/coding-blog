@@ -30,8 +30,9 @@ const DesktopHowToStartSection = () => {
         lazy: false,
         scrollTrigger: {
           scroller: 'body',
+          scrub: 1,
           trigger: element!.querySelector('#create-an-account-bg'),
-          start: 'top bottom-=200',
+          start: 'top bottom-=160',
           end: 'top bottom-=200',
         },
       }
@@ -49,9 +50,10 @@ const DesktopHowToStartSection = () => {
         lazy: false,
         scrollTrigger: {
           scroller: 'body',
+          scrub: 1,
           trigger: element!.querySelector('#create-an-account'),
-          start: 'top bottom-=250',
-          end: 'top bottom-=250',
+          start: 'top bottom-=180',
+          end: 'top bottom-=220',
         },
       }
     );
@@ -72,8 +74,9 @@ const DesktopHowToStartSection = () => {
         lazy: false,
         scrollTrigger: {
           scroller: 'body',
+          scrub: 1,
           trigger: element!.querySelector('#share-your-code-bg'),
-          start: 'top bottom-=200',
+          start: 'top bottom-=160',
           end: 'top bottom-=200',
         },
       }
@@ -91,9 +94,10 @@ const DesktopHowToStartSection = () => {
         lazy: false,
         scrollTrigger: {
           scroller: 'body',
+          scrub: 1,
           trigger: element!.querySelector('#share-your-code'),
-          start: 'top bottom-=250',
-          end: 'top bottom-=250',
+          start: 'top bottom-=180',
+          end: 'top bottom-=220',
         },
       }
     );
@@ -114,8 +118,9 @@ const DesktopHowToStartSection = () => {
         lazy: false,
         scrollTrigger: {
           scroller: 'body',
+          scrub: 1,
           trigger: element!.querySelector('#wait-for-reactions-bg'),
-          start: 'top bottom-=200',
+          start: 'top bottom-=160',
           end: 'top bottom-=200',
         },
       }
@@ -133,13 +138,37 @@ const DesktopHowToStartSection = () => {
         lazy: false,
         scrollTrigger: {
           scroller: 'body',
+          scrub: 1,
           trigger: element!.querySelector('#wait-for-reactions'),
-          start: 'top bottom-=250',
-          end: 'top bottom-=250',
+          start: 'top bottom-=180',
+          end: 'top bottom-=220',
         },
       }
     );
   }, []);
+
+  useEffect(() => {
+    const texts: HTMLDivElement[] = gsap.utils.toArray('.desktop-how-to-start-text');
+
+    texts.forEach((text: HTMLDivElement) => {
+      gsap.fromTo(
+        text,
+        {
+          opacity: 0,
+        },
+        {
+          opacity: 1,
+          scrollTrigger: {
+            scroller: 'body',
+            scrub: 1,
+            trigger: text,
+            start: 'top bottom-=230',
+            end: 'top bottom-=272',
+          },
+        }
+      );
+    });
+  });
 
   return (
     <section className="h-auto w-screen grid grid-rows-3 pt-10 pb-20" ref={ref}>

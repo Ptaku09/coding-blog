@@ -2,7 +2,7 @@ import React from 'react';
 
 const LoremIpsumForHTS = () => {
   return (
-    <div className="w-4/5 2xl:w-2/3 p-10 font-raleway flex justify-center flex-col">
+    <div className="desktop-how-to-start-text w-4/5 2xl:w-2/3 p-10 font-raleway flex justify-center flex-col">
       <p className="mb-5 text-4xl font-bold">Lorem ipsum...</p>
       <p>
         dolor sit amet, consectetur adipiscing elit. Fusce sollicitudin lectus est, sed finibus ex pharetra non. Proin id dui vitae diam tincidunt

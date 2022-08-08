@@ -6,7 +6,7 @@ import Image from 'next/image';
 
 const HomeFooter = () => {
   return (
-    <div className="w-screen relative z-[2] p-3 pt-14 pb-0 md:p-5 min-h-56 md:min-h-0 h-auto bg-black text-white grid grid-rows-[1fr_2fr_1fr] font-bebas md:flex md:justify-around">
+    <div className="w-screen relative z-[2] p-3 pt-14 pb-0 md:p-5 md:pt-14 min-h-56 md:min-h-0 h-auto bg-black text-white grid grid-rows-[1fr_2fr_1fr] font-bebas md:flex md:justify-around">
       <div className="flex justify-start text-xl border-b-[1px] md:border-0 pb-0">
         <LogoAndName />
       </div>
