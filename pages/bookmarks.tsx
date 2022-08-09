@@ -217,9 +217,7 @@ const Bookmarks: NextPageWithLayout = () => {
         </div>
       )}
       <div className="w-11/12">
-        {posts.map((post: Post) => (
-          <BookmarkPost key={post._id} postData={post} handleRemoveBookmark={handleRemoveBookmark} />
-        ))}
+        {posts.map((post: Post) => post && <BookmarkPost key={post._id} postData={post} handleRemoveBookmark={handleRemoveBookmark} />)}
       </div>
       <StatusMessage
         isShown={isSomethingWrong}
