@@ -36,6 +36,9 @@ module.exports = {
       textColor: {
         dark: '#0e172a',
       },
+      screens: {
+        laptop: '1130px',
+      },
       keyframes: {
         appear: {
           '0%': {

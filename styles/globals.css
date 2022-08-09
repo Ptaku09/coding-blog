@@ -13,8 +13,4 @@
     *, *::after, *::before {
         box-sizing: inherit;
     }
-
-    ::-webkit-scrollbar {
-        display: none;
-    }
 }

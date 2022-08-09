@@ -5,7 +5,7 @@ const LogoAndName = () => {
   return (
     <div className="flex items-center justify-center gap-3 font-raleway font-[500]">
       <Image src={LogoWhite} width={35} height={35} alt="white logo" />
-      coding blog
+      <p>coding blog</p>
     </div>
   );
 };

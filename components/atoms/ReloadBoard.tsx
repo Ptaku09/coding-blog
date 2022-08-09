@@ -14,7 +14,7 @@ const ReloadBoard = () => {
 
   return (
     <button
-      className={`fixed z-20 bottom-28 flex items-center justify-center rounded-lg shadow-xl border-[1px] border-white right-4 bg-gray-500 h-10 w-10 transform duration-300 ${
+      className={`fixed z-20 bottom-28 laptop:bottom-16 right-4 flex items-center justify-center rounded-lg shadow-xl border-[1px] border-white bg-gray-500 hover:bg-gray-600 h-10 w-10 transform duration-300 ${
         scrollPosition >= 200 ? 'translate-y-0' : 'translate-y-12'
       }`}
       onClick={handleReload}

@@ -6,8 +6,6 @@ import React, { useEffect, useRef, useState } from 'react';
 import { Post } from '../../pages/board';
 import Link from 'next/link';
 import Buttons from '../atoms/postButtons/Buttons';
-import useElementOnScreen from '../../hooks/useElementOnScreen';
-import ShiningSlide from '../atoms/ShiningSlide';
 import defaultAvatar from '../../public/images/defaultAvatar.jpg';
 
 const BoardPost = ({ postData }: { postData: Post }) => {
@@ -15,11 +13,6 @@ const BoardPost = ({ postData }: { postData: Post }) => {
   const [likes, setLikes] = useState<number>(0);
   const { theme } = useTheme();
   const ref = useRef<HTMLAnchorElement>(null);
-  const { isVisible } = useElementOnScreen(ref, {
-    root: null,
-    rootMargin: '50px 0px',
-    threshold: 0,
-  });
 
   // omit hydration effect
   useEffect(() => {
@@ -34,7 +27,7 @@ const BoardPost = ({ postData }: { postData: Post }) => {
   }, [postData._id, postData.likes]);
 
   return (
-    <div className="w-screen h-auto bg-white dark:bg-dark-user dark:text-white dark:border-gray-500 border-b-[1px] text-black flex flex-col items-start justify-between px-4 pt-4 animate-appearing-short overflow-hidden">
+    <div className="w-screen laptop:w-full h-auto bg-white dark:bg-dark-user dark:text-white dark:border-gray-500 border-b-[1px] text-black flex flex-col items-start justify-between px-4 pt-4 animate-appearing-short overflow-hidden">
       <div className="w-full border-b-[1px] dark:border-gray-500 z-[1] bg-inherit outline-none">
         <div className="relative w-full flex items-center justify-between text-gray-500 font-albert">
           <div className="flex items-center justify-start gap-5">
@@ -59,21 +52,15 @@ const BoardPost = ({ postData }: { postData: Post }) => {
             <div className="pt-4 pb-2 border-b-[1px] dark:border-gray-500 mb-2">
               <p className="font-raleway font-bold">{postData.comment}</p>
             </div>
-            {isVisible || postData.code.split('\n').length < 18 ? (
-              <SyntaxHighlighter
-                language={postData.language}
-                showLineNumbers={true}
-                wrapLines={true}
-                style={themeMode === 'dark' ? materialDark : materialLight}
-                customStyle={{ maxHeight: '450px' }}
-              >
-                {postData.code}
-              </SyntaxHighlighter>
-            ) : (
-              <div className="w-full h-[450px] mb-2 bg-[#fafafa] dark:bg-[#2f2f2f]">
-                <ShiningSlide />
-              </div>
-            )}
+            <SyntaxHighlighter
+              language={postData.language}
+              showLineNumbers={true}
+              wrapLines={true}
+              style={themeMode === 'dark' ? materialDark : materialLight}
+              customStyle={{ maxHeight: '450px' }}
+            >
+              {postData.code}
+            </SyntaxHighlighter>
           </a>
         </Link>
       </div>

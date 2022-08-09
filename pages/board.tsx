@@ -1,5 +1,5 @@
-import BoardMobileLayout from '../components/templates/BoardMobileLayout';
-import { ReactElement, useContext, useEffect, useRef, useState } from 'react';
+import BoardLayout from '../components/templates/BoardLayout';
+import { ReactElement, useContext, useEffect, useState } from 'react';
 import { GetServerSideProps, GetServerSidePropsContext } from 'next';
 import { getSession } from 'next-auth/react';
 import BoardPost from '../components/molecules/BoardPost';
@@ -10,7 +10,7 @@ import GoToTopLayout from '../components/templates/GoToTopLayout';
 import InfiniteScroll from 'react-infinite-scroll-component';
 import PostLoading from '../components/atoms/PostLoading';
 import BoardEndMessage from '../components/atoms/BoardEndMessage';
-import useBreakpointDetector from '../hooks/useBreakpointDetector';
+import { useResizeDetector } from 'react-resize-detector';
 
 export type Post = {
   _id: string;
@@ -31,8 +31,7 @@ const Board: NextPageWithLayout = () => {
   const [iterator, setIterator] = useState<number>(1);
   const [isEverythingLoaded, setIsEverythingLoaded] = useState<boolean>(false);
   const { scrollRef } = useContext<ScrollRestorationContextProps>(ScrollRestorationContext);
-  const ref = useRef<HTMLDivElement>(null);
-  const { isBreakpoint } = useBreakpointDetector(ref, 768);
+  const { width, ref } = useResizeDetector();
 
   useEffect(() => {
     const storedPosts = sessionStorage.getItem('posts');
@@ -92,29 +91,31 @@ const Board: NextPageWithLayout = () => {
   return (
     <div
       ref={ref}
-      className="relative w-screen h-auto min-h-screen py-12 bg-white dark:bg-dark-user text-white overflow-y-scroll scroll-smooth flex items-center justify-start flex-col"
+      className="relative w-screen laptop:w-full h-auto min-h-screen py-12 laptop:py-0 bg-white dark:bg-dark-user text-white overflow-y-scroll laptop:overflow-hidden scroll-smooth flex items-center justify-start flex-col md:grid md:grid-cols-1"
     >
-      <div className="absolute z-10 top-0 right-0 w-16 h-full" />
-      <InfiniteScroll
-        next={fetchMorePosts}
-        hasMore={!isEverythingLoaded}
-        loader={null}
-        scrollThreshold={isBreakpoint ? `150px` : 0.5}
-        dataLength={posts.length}
-        endMessage={<BoardEndMessage />}
-      >
-        {posts.map((post: Post, index: number) => post && <BoardPost key={index} postData={post} />)}
-      </InfiniteScroll>
-      {!isEverythingLoaded && <PostLoading />}
+      {(width as number) < 600 && <div className="absolute z-10 top-0 right-0 w-16 h-full" />}
+      <div className="flex flex-col">
+        <InfiniteScroll
+          next={fetchMorePosts}
+          hasMore={!isEverythingLoaded}
+          loader={null}
+          scrollThreshold={(width as number) < 600 ? `150px` : 0.5}
+          dataLength={posts.length}
+          endMessage={<BoardEndMessage />}
+        >
+          {posts.map((post: Post, index: number) => post && <BoardPost key={index} postData={post} />)}
+        </InfiniteScroll>
+        {!isEverythingLoaded && <PostLoading />}
+      </div>
     </div>
   );
 };
 
 Board.getLayout = (page: ReactElement) => {
   return (
-    <BoardMobileLayout>
+    <BoardLayout>
       <GoToTopLayout>{page}</GoToTopLayout>
-    </BoardMobileLayout>
+    </BoardLayout>
   );
 };
 
