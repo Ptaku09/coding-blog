@@ -27,7 +27,7 @@ const BoardPost = ({ postData }: { postData: Post }) => {
   }, [postData._id, postData.likes]);
 
   return (
-    <div className="w-screen laptop:w-full h-auto bg-white dark:bg-dark-user dark:text-white dark:border-gray-500 border-b-[1px] text-black flex flex-col items-start justify-between px-4 pt-4 animate-appearing-short overflow-hidden">
+    <div className="w-screen md:w-full h-auto bg-white dark:bg-dark-user dark:text-white dark:border-gray-500 border-b-[1px] text-black flex flex-col items-start justify-between px-4 pt-4 animate-appearing-short overflow-hidden">
       <div className="w-full border-b-[1px] dark:border-gray-500 z-[1] bg-inherit outline-none">
         <div className="relative w-full flex items-center justify-between text-gray-500 font-albert">
           <div className="flex items-center justify-start gap-5">

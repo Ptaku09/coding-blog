@@ -91,7 +91,7 @@ const Board: NextPageWithLayout = () => {
   return (
     <div
       ref={ref}
-      className="relative w-screen laptop:w-full h-auto min-h-screen py-12 laptop:py-0 bg-white dark:bg-dark-user text-white overflow-y-scroll laptop:overflow-hidden scroll-smooth flex items-center justify-start flex-col md:grid md:grid-cols-1"
+      className="relative w-screen md:w-full h-auto min-h-screen py-12 md:py-0 bg-white dark:bg-dark-user text-white overflow-y-scroll md:overflow-hidden scroll-smooth flex items-center justify-start flex-col md:grid md:grid-cols-1"
     >
       {(width as number) < 600 && <div className="absolute z-10 top-0 right-0 w-16 h-full" />}
       <div className="flex flex-col">
