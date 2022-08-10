@@ -1,10 +1,11 @@
 import { NextPageWithLayout } from './_app';
-import React, { ChangeEvent, FormEvent, ReactElement, useState } from 'react';
+import React, { ChangeEvent, FormEvent, ReactElement, useEffect, useState } from 'react';
 import DefaultMobileLayout from '../components/templates/DefaultMobileLayout';
 import SearchPost from '../components/molecules/SearchPost';
 import SearchUser from '../components/molecules/SearchUser';
 import { GetServerSideProps, GetServerSidePropsContext } from 'next';
 import { getSession } from 'next-auth/react';
+import { useRouter } from 'next/router';
 
 export type SearchResultPost = {
   _id: string;
@@ -36,6 +37,7 @@ const Search: NextPageWithLayout = () => {
   const [foundedUsers, setFoundedUsers] = useState<SearchResultUser[]>([]);
   const [queryInput, setQueryInput] = useState<string>('');
   const [isSearchingDisabled, setIsSearchingDisabled] = useState<boolean>(true);
+  const router = useRouter();
 
   const handleQueryInputChange = async (e: ChangeEvent<HTMLInputElement>) => {
     setQueryInput(e.target.value);
@@ -49,6 +51,7 @@ const Search: NextPageWithLayout = () => {
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    await router.push(`/search?query=${queryInput}`, undefined, { shallow: true });
     await handleSearch(selectedSearchingArea, queryInput, 20);
   };
 
@@ -98,11 +101,23 @@ const Search: NextPageWithLayout = () => {
     }
   };
 
+  useEffect(() => {
+    const searchQuery = async (query: string) => {
+      setQueryInput(query);
+      await searchPosts(query, 10);
+    };
+
+    if (router.query.query) {
+      searchQuery(router.query.query as string).catch(console.error);
+    }
+  }, [router.query.query]);
+
   return (
     <div className="relative w-screen h-auto min-h-screen py-16 px-8 bg-white dark:bg-dark-user overflow-y-scroll scroll-smooth font-raleway flex items-center justify-start flex-col">
       <form onSubmit={handleSubmit} className="pb-3 mb-4 w-full flex flex-col items-center border-b-[1px]">
         <input
           type="text"
+          placeholder="Search"
           className="w-full h-8 border-2 dark:border-gray-700 px-2 font-raleway font-[500] rounded-lg focus:outline-purple-600"
           value={queryInput}
           onChange={handleQueryInputChange}
