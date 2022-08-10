@@ -171,7 +171,7 @@ const DesktopHowToStartSection = () => {
   });
 
   return (
-    <section className="h-auto w-screen grid grid-rows-3 pt-10 pb-20" ref={ref}>
+    <section className="h-auto w-full grid grid-rows-3 pt-10 pb-20" ref={ref}>
       <DesktopHowToStartModule>
         <div className="flex items-center justify-end p-10">
           <DesktopHowToStartComponentLeft title="Create an account">

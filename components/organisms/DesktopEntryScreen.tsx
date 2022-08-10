@@ -9,7 +9,7 @@ const DesktopEntryScreen = () => {
   const { status } = useSession();
 
   return (
-    <div className="absolute z-[2] w-screen h-screen top-0 grid grid-cols-[1fr_1fr]">
+    <div className="absolute z-[2] w-full h-screen top-0 grid grid-cols-[1fr_1fr]">
       <div className="pl-20 w-full h-full flex items-center justify-end">
         <AnimatedGlobe />
       </div>

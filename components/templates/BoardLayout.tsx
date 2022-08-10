@@ -37,7 +37,8 @@ const BoardLayout = ({ children }: { children: ReactNode }) => {
           </div>
           <div className="w-full h-screen flex justify-start">
             <div className="fixed w-60 h-full">
-              <p>text</p>
+              <p>Not found what are you searching for?</p>
+              <p>Try our search engine</p>
             </div>
           </div>
         </div>
