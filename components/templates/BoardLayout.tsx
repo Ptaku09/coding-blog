@@ -6,6 +6,7 @@ import PopupTutorial from '../molecules/PopupTutorial';
 import ReloadBoard from '../atoms/ReloadBoard';
 import { useResizeDetector } from 'react-resize-detector';
 import BoardMenu from '../organisms/BoardMenu';
+import SearchMenu from '../organisms/SearchMenu';
 
 const BoardLayout = ({ children }: { children: ReactNode }) => {
   const { width, ref } = useResizeDetector();
@@ -20,7 +21,7 @@ const BoardLayout = ({ children }: { children: ReactNode }) => {
           <ReloadBoard />
           <MobileFooter />
         </>
-      ) : (width as number) < 1130 ? (
+      ) : (width as number) < 1226 ? (
         <div className="grid grid-cols-[1fr_650px] bg-white dark:bg-dark-user">
           <BoardMenu />
           <div className="w-full relative">
@@ -35,12 +36,7 @@ const BoardLayout = ({ children }: { children: ReactNode }) => {
             <main className="border-x-[1px] dark:border-gray-500">{children}</main>
             <ReloadBoard />
           </div>
-          <div className="w-full h-screen flex justify-start">
-            <div className="fixed w-60 h-full">
-              <p>Not found what are you searching for?</p>
-              <p>Try our search engine</p>
-            </div>
-          </div>
+          <SearchMenu />
         </div>
       )}
     </div>

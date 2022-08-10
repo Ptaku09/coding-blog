@@ -13,4 +13,8 @@
     *, *::after, *::before {
         box-sizing: inherit;
     }
+
+    #search-menu::-webkit-scrollbar {
+        display: none;
+    }
 }
