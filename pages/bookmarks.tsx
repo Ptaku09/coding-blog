@@ -124,7 +124,7 @@ const Bookmarks: NextPageWithLayout = () => {
   useOnClickOutside(ref, handleCloseSortMenu);
 
   return posts.length === 0 ? (
-    <div className="w-screen min-h-screen h-auto py-12 bg-white dark:bg-dark-user font-raleway flex items-center justify-center flex-col">
+    <div className="w-full min-h-screen h-auto py-12 md:py-0 bg-white dark:bg-dark-user font-raleway flex items-center justify-center flex-col">
       <div className="w-full flex items-center justify-center flex-col gap-1">
         <p className="text-xl font-raleway font-[500]">You have no bookmarked posts</p>
         <p>
@@ -140,11 +140,11 @@ const Bookmarks: NextPageWithLayout = () => {
     </div>
   ) : (
     <div
-      className={`w-screen min-h-screen z-20 h-auto py-12 bg-white dark:bg-dark-user font-raleway flex items-center justify-start flex-col gap-2 
-      ${isSortMenuOpen && 'h-screen overflow-hidden fixed'}`}
+      className={`w-full min-h-screen z-20 h-auto py-12 md:py-0 bg-white dark:bg-dark-user font-raleway flex items-center justify-start flex-col gap-2 
+      ${isSortMenuOpen && 'h-screen overflow-hidden fixed md:static'}`}
     >
       <h1 className="text-4xl font-bold mt-6">Your bookmarks</h1>
-      <p>Total: {posts.length}</p>
+      <p className="font-albert">Total: {posts.length}</p>
       <a onClick={() => router.back()} className="bg-purple-600 flex items-center justify-center px-6 py-0.5 shadow-lg rounded-xl">
         <Image src={ReturnWhite} width={26} height={26} alt="avatar" />
       </a>
@@ -157,11 +157,11 @@ const Bookmarks: NextPageWithLayout = () => {
         </p>
       </button>
       {isSortMenuOpen && (
-        <div className="fixed top-0 z-30 w-full h-full bg-white dark:bg-dark-user bg-opacity-90 dark:bg-opacity-80 flex items-center justify-center animate-appearing-short">
+        <div className="fixed top-0 left-0 z-30 w-full h-full bg-white dark:bg-dark-user bg-opacity-90 dark:bg-opacity-80 flex items-center justify-center animate-appearing-short">
           <form
             ref={ref}
             onSubmit={handleSubmit}
-            className="w-11/12 h-5/6 px-3 py-5 bg-white dark:bg-dark-user rounded-xl shadow-round overflow-y-scroll font-raleway font-[500] border-4 border-gray-200 dark:border-gray-700"
+            className="w-11/12 md:w-96 h-5/6 px-3 py-5 bg-white dark:bg-dark-user rounded-xl shadow-round overflow-y-scroll font-raleway font-[500] border-4 border-gray-200 dark:border-gray-700"
           >
             <fieldset className="flex items-center justify-center flex-col gap-5 pb-8 border-t-[1px] dark:border-gray-500">
               <legend className="mb-6 px-4 text-center text-xl font-raleway font-bold">Sort by</legend>
@@ -177,7 +177,7 @@ const Bookmarks: NextPageWithLayout = () => {
                   />
                   <label
                     htmlFor={value}
-                    className="w-52 py-4 rounded-xl shadow-xl flex flex-col items-center justify-center text-base font-[500] text-white bg-purple-300 dark:bg-gray-500 peer-checked:bg-purple-600"
+                    className="w-52 py-4 rounded-xl shadow-xl flex flex-col items-center justify-center text-base font-[500] text-white bg-purple-300 dark:bg-gray-500 peer-checked:bg-purple-600 cursor-pointer"
                   >
                     {label}
                   </label>
@@ -198,7 +198,7 @@ const Bookmarks: NextPageWithLayout = () => {
                   />
                   <label
                     htmlFor={value}
-                    className="w-28 py-2 rounded-xl shadow-xl flex flex-col items-center justify-center text-base font-[500] text-white bg-purple-300 dark:bg-gray-500 peer-checked:bg-purple-600"
+                    className="w-28 py-2 rounded-xl shadow-xl flex flex-col items-center justify-center text-base font-[500] text-white bg-purple-300 dark:bg-gray-500 peer-checked:bg-purple-600 cursor-pointer"
                   >
                     {label}
                   </label>

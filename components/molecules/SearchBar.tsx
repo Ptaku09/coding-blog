@@ -49,7 +49,7 @@ const SearchBar = () => {
         <button
           type="submit"
           disabled={isSearchingDisabled}
-          className="my-3 py-1 px-5 text-white bg-purple-600 disabled:bg-gray-500 transition-all duration-500 hover:bg-purple-500 font-albert rounded-lg shadow-xl"
+          className="my-3 py-1 px-5 text-white bg-purple-600 disabled:bg-gray-500 transition-all duration-500 hover:bg-purple-500 font-albert rounded-lg shadow-xl disabled:cursor-not-allowed"
         >
           See details
         </button>
