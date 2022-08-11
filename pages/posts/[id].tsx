@@ -16,6 +16,7 @@ import { server } from '../../config';
 import PostMenu from '../../components/organisms/postMenu/PostMenu';
 import { PostMenuContext, PostMenuContextProps } from '../../providers/PostMenuProvider';
 import { useRouter } from 'next/router';
+import Link from 'next/link';
 
 const Post: ({ postData }: { postData: Post }) => JSX.Element = ({ postData }: { postData: Post }) => {
   const [themeMode, setThemeMode] = useState<string>('dark');
@@ -29,35 +30,37 @@ const Post: ({ postData }: { postData: Post }) => JSX.Element = ({ postData }: {
   }, [theme]);
 
   return (
-    <div className={`bg-white dark:bg-dark-user pb-12 ${(isEditOpen || isDeleteOpen) && 'h-screen' + 'overflow-hidden fixed z-30'}`}>
+    <div className={`bg-white dark:bg-dark-user pb-12 ${(isEditOpen || isDeleteOpen) && 'h-screen overflow-hidden fixed md:static z-30'}`}>
       {postData ? (
         <>
-          <div className="w-screen h-56 relative shadow-inner">
+          <div className="w-full h-56 relative shadow-inner">
             <a
               onClick={() => router.back()}
-              className="absolute z-[1] left-2 top-14 w-8 h-8 bg-white flex items-center justify-center shadow-lg rounded-xl"
+              className="md:hidden absolute z-[1] left-2 top-14 w-8 h-8 bg-white flex items-center justify-center shadow-lg rounded-xl"
             >
               <Image src={ArrowLeftBlack} width={19} height={19} alt="go back" />
             </a>
             {session?.user.id === postData.userId && <PostMenu postData={postData} />}
             <div className="absolute bottom-7 z-[1] w-full px-5 py-2 flex items-center justify-between bg-white bg-opacity-80 dark:bg-dark-user dark:bg-opacity-80 shadow-round">
-              <div className="flex flex-row items-center gap-3 font-albert font-bold my-2">
-                <div className="relative w-14 h-14 rounded-full border-2 border-white dark:border-gray-500 overflow-hidden">
-                  <Image src={postData.image} layout="fill" objectFit="cover" alt="avatar" />
-                </div>
-                <div className="flex items-start justify-center flex-col font-albert">
-                  <p className="font-bold text-xl">{postData.username}</p>
-                  <div className="flex items-center justify-center flex-row gap-1.5 font-thin text-xs">
-                    <p>{new Date(postData.createdAt).toLocaleTimeString('pl-PL', { hour: 'numeric', minute: '2-digit' })}</p>
-                    <span className="text-2xl">&#183;</span>
-                    <p>{new Date(postData.createdAt).toLocaleDateString('pl-PL', { year: 'numeric', month: '2-digit', day: '2-digit' })}</p>
+              <Link href={`/users/${postData.userId}`}>
+                <a className="flex flex-row items-center gap-3 font-albert font-bold my-2">
+                  <div className="relative w-14 h-14 rounded-full border-2 border-white dark:border-gray-500 overflow-hidden">
+                    <Image src={postData.image} layout="fill" objectFit="cover" alt="avatar" />
                   </div>
-                </div>
-              </div>
+                  <div className="flex items-start justify-center flex-col font-albert">
+                    <p className="font-bold text-xl">{postData.username}</p>
+                    <div className="flex items-center justify-center flex-row gap-1.5 font-thin text-xs">
+                      <p>{new Date(postData.createdAt).toLocaleTimeString('pl-PL', { hour: 'numeric', minute: '2-digit' })}</p>
+                      <span className="text-2xl">&#183;</span>
+                      <p>{new Date(postData.createdAt).toLocaleDateString('pl-PL', { year: 'numeric', month: '2-digit', day: '2-digit' })}</p>
+                    </div>
+                  </div>
+                </a>
+              </Link>
             </div>
             <Image src={`/images/background${postData.backgroundImage || 1}.jpg`} layout="fill" objectFit="cover" alt="background" priority />
           </div>
-          <div className="relative -top-4 w-screen min-h-screen h-auto px-4 bg-white dark:bg-dark-user rounded-t-xl">
+          <div className="relative -top-4 w-full min-h-screen h-auto px-4 bg-white dark:bg-dark-user rounded-t-xl">
             <div className="relative flex items-start flex-col border-b-[1px] dark:border-gray-500 font-raleway">
               <p className="min-h-[11rem] h-auto py-4 font-bold">{postData.comment}</p>
               <div className="w-full mb-2 text-sm flex items-center justify-center flex-row flex-wrap gap-2">

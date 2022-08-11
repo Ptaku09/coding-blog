@@ -91,7 +91,7 @@ const EditPost = ({ postData }: { postData: Post }) => {
           <form
             ref={ref}
             onSubmit={handleSubmit}
-            className="w-11/12 h-5/6 px-3 py-5 bg-white dark:bg-dark-user rounded-xl shadow-xl overflow-y-scroll font-raleway font-[500] border-4 dark:border-gray-700"
+            className="w-11/12 md:w-96 h-5/6 px-3 py-5 bg-white dark:bg-dark-user rounded-xl shadow-xl overflow-y-scroll font-raleway font-[500] border-4 dark:border-gray-700"
           >
             <fieldset className="flex items-start justify-center h-auto gap-3 mb-7 flex-wrap border-t-[1px] dark:border-gray-500">
               <legend className="text-center text-xl mb-2 px-4 font-mukta">Choose background</legend>

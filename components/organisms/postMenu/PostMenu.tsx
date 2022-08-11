@@ -19,14 +19,14 @@ const PostMenu = ({ postData }: { postData: Post }) => {
     <>
       <button
         onClick={() => toggleState(true)}
-        className="absolute z-[1] right-2 top-14 w-8 h-8 bg-white flex items-center justify-center shadow-lg rounded-xl"
+        className="absolute z-[1] right-2 top-14 md:top-2 w-8 h-8 bg-white flex items-center justify-center shadow-lg rounded-xl"
       >
         <Image src={EditBlack} width={19} height={19} alt="edit" />
       </button>
       {isOpen && (
         <div
           ref={ref}
-          className="absolute right-8 top-[5.5rem] z-10 flex items-center justify-start flex-col bg-white h-auto px-5 py-2 border-2 border-black dark:border-0 rounded-b-xl origin-top animate-slide-down "
+          className="absolute right-8 top-[5.5rem] md:top-10 z-10 flex items-center justify-start flex-col bg-white h-auto px-5 py-2 border-2 border-black dark:border-0 rounded-b-xl origin-top animate-slide-down "
         >
           <div className="absolute top-0 w-full bg-black py-2">
             <p className="font-raleway font-bold text-center text-white">OPTIONS</p>

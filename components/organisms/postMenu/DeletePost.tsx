@@ -44,7 +44,7 @@ const DeletePost = () => {
           <form
             ref={ref}
             onSubmit={handleSubmit}
-            className="w-11/12 h-auto px-3 py-5 bg-white dark:bg-dark-user rounded-xl shadow-xl overflow-y-scroll font-mukta text-xl text-center border-4 dark:border-gray-700"
+            className="w-11/12 md:w-96 h-auto px-3 py-5 md:py-10 bg-white dark:bg-dark-user rounded-xl shadow-xl overflow-y-scroll font-mukta text-xl text-center border-4 dark:border-gray-700 md:overflow-y-hidden"
           >
             <p className="text-2xl font-raleway font-bold">Are you sure you want to delete this post?</p>
             <label className="flex justify-center items-center flex-wrap gap-2 mt-5 text-lg">
