@@ -48,21 +48,25 @@ const User: ({ userData }: { userData: User }) => JSX.Element = ({ userData }: {
   }, [userData]);
 
   return (
-    <div className={`w-screen h-auto min-h-screen pb-12 bg-white dark:bg-dark-user ${isEditMenuOpen && 'h-screen' + 'overflow-hidden fixed'}`}>
+    <div
+      className={`w-full h-auto min-h-screen pb-12 md:pb-0 bg-white dark:bg-dark-user ${
+        isEditMenuOpen && 'h-screen overflow-hidden fixed md:static'
+      }`}
+    >
       {userData ? (
         <>
           <section className="flex flex-col items-start justify-start">
-            <div className="w-screen h-56 relative">
+            <div className="w-full h-56 relative">
               <a
                 onClick={() => router.back()}
-                className="absolute z-[1] left-2 top-14 w-8 h-8 bg-white flex items-center justify-center shadow-lg rounded-xl"
+                className="md:hidden absolute z-[1] left-2 top-14 w-8 h-8 bg-white flex items-center justify-center shadow-lg rounded-xl"
               >
                 <Image src={ArrowLeftBlack} width={19} height={19} alt="go back" />
               </a>
               {session?.user.id === userData._id && <EditUserMenu isOpen={isEditMenuOpen} toggleState={setIsEditMenuOpen} userData={userData} />}
               <Image src={`/images/background${userData.backgroundImage}.jpg`} layout="fill" objectFit="cover" alt="background" priority />
             </div>
-            <div className="w-screen h-auto px-5 bg-white dark:bg-dark-user -translate-y-4 rounded-t-xl">
+            <div className="w-full h-auto px-5 bg-white dark:bg-dark-user -translate-y-4 rounded-t-xl">
               <div className="w-32 h-32 relative -translate-y-16 rounded-full border-4 border-white dark:border-dark-user overflow-hidden">
                 <Image src={userData.image} objectFit="cover" layout="fill" alt="avatar" />
               </div>

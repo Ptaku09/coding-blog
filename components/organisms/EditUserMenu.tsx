@@ -147,16 +147,16 @@ const EditUserMenu = ({ isOpen, toggleState, userData }: Props) => {
     <>
       <button
         onClick={() => toggleState(true)}
-        className="absolute z-[1] right-2 top-14 w-8 h-8 bg-white flex items-center justify-center shadow-lg rounded-xl"
+        className="absolute z-[1] right-2 top-14 md:top-2 w-8 h-8 bg-white flex items-center justify-center shadow-lg rounded-xl"
       >
         <Image src={EditBlack} width={19} height={19} alt="edit" />
       </button>
       {isOpen && (
-        <div className="fixed z-30 w-full h-full bg-white dark:bg-dark-user bg-opacity-90 dark:bg-opacity-80 flex items-center justify-center animate-appearing-short">
+        <div className="fixed z-30 left-0 w-full h-full bg-white dark:bg-dark-user bg-opacity-90 dark:bg-opacity-80 flex items-center justify-center animate-appearing-short">
           <form
             ref={ref}
             onSubmit={handleSubmit}
-            className="w-11/12 h-5/6 px-3 py-5 bg-white dark:bg-dark-user rounded-xl shadow-xl overflow-y-scroll font-raleway font-[500] border-4 border-white dark:border-gray-700"
+            className="w-11/12 md:w-96 h-5/6 px-3 py-5 bg-white dark:bg-dark-user rounded-xl shadow-xl overflow-y-scroll font-raleway font-[500] border-4 border-white dark:border-gray-700"
           >
             <fieldset className="flex items-start justify-center h-auto gap-3 flex-wrap border-t-[1px] dark:border-gray-500">
               <legend className="text-xl mb-2 px-4 text-center font-mukta">Choose background</legend>
