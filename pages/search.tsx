@@ -1,11 +1,11 @@
 import { NextPageWithLayout } from './_app';
 import React, { ChangeEvent, FormEvent, ReactElement, useEffect, useState } from 'react';
-import DefaultMobileLayout from '../components/templates/DefaultMobileLayout';
 import SearchPost from '../components/molecules/SearchPost';
 import SearchUser from '../components/molecules/SearchUser';
 import { GetServerSideProps, GetServerSidePropsContext } from 'next';
 import { getSession } from 'next-auth/react';
 import { useRouter } from 'next/router';
+import SearchLayout from '../components/templates/SearchLayout';
 
 export type SearchResultPost = {
   _id: string;
@@ -113,7 +113,7 @@ const Search: NextPageWithLayout = () => {
   }, [router.query.query]);
 
   return (
-    <div className="relative w-screen h-auto min-h-screen py-16 px-8 bg-white dark:bg-dark-user overflow-y-scroll scroll-smooth font-raleway flex items-center justify-start flex-col">
+    <div className="relative w-full h-auto min-h-screen py-16 md:py-4 px-8 bg-white dark:bg-dark-user font-raleway flex items-center justify-start flex-col">
       <form onSubmit={handleSubmit} className="pb-3 mb-4 w-full flex flex-col items-center border-b-[1px]">
         <input
           type="text"
@@ -156,7 +156,7 @@ const Search: NextPageWithLayout = () => {
           Search
         </button>
       </form>
-      <div className="w-full flex flex-col">
+      <div className="w-full h-auto flex flex-col overflow-hidden">
         {foundedPosts.length === 0 && foundedUsers.length === 0 && <p className="text-center">No results</p>}
         {selectedSearchingArea === SelectedSearchingArea.posts
           ? foundedPosts.map((result: SearchResultPost) => <SearchPost key={result._id} data={result} />)
@@ -167,7 +167,7 @@ const Search: NextPageWithLayout = () => {
 };
 
 Search.getLayout = (page: ReactElement) => {
-  return <DefaultMobileLayout>{page}</DefaultMobileLayout>;
+  return <SearchLayout>{page}</SearchLayout>;
 };
 
 export const getServerSideProps: GetServerSideProps = async (context: GetServerSidePropsContext) => {

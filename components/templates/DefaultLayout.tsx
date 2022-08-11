@@ -1,15 +1,12 @@
-import { ReactNode } from 'react';
-import MobileFooter from '../organisms/MobileFooter';
 import MobileHeader from '../organisms/MobileHeader';
-import AddNewPost from '../atoms/AddNewPost';
-import PopupTutorial from '../molecules/PopupTutorial';
-import ReloadBoard from '../atoms/ReloadBoard';
+import MobileFooter from '../organisms/MobileFooter';
+import { ReactNode } from 'react';
 import { useResizeDetector } from 'react-resize-detector';
-import BoardMenu from '../organisms/BoardMenu';
-import SearchMenu from '../organisms/SearchMenu';
 import CompactBoardMenu from '../organisms/CompactBoardMenu';
+import SearchMenu from '../organisms/SearchMenu';
+import BoardMenu from '../organisms/BoardMenu';
 
-const BoardLayout = ({ children }: { children: ReactNode }) => {
+const DefaultLayout = ({ children }: { children: ReactNode }) => {
   const { width, ref } = useResizeDetector();
 
   return (
@@ -17,10 +14,7 @@ const BoardLayout = ({ children }: { children: ReactNode }) => {
       {(width as number) < 770 ? (
         <>
           <MobileHeader />
-          <PopupTutorial />
           <main>{children}</main>
-          <AddNewPost />
-          <ReloadBoard />
           <MobileFooter />
         </>
       ) : (width as number) < 1050 ? (
@@ -29,7 +23,6 @@ const BoardLayout = ({ children }: { children: ReactNode }) => {
           <CompactBoardMenu />
           <div className="w-full relative">
             <main className="border-x-[1px] dark:border-gray-500">{children}</main>
-            <ReloadBoard />
           </div>
           <div />
         </div>
@@ -39,7 +32,6 @@ const BoardLayout = ({ children }: { children: ReactNode }) => {
           <CompactBoardMenu />
           <div className="w-full relative">
             <main className="border-x-[1px] dark:border-gray-500">{children}</main>
-            <ReloadBoard />
           </div>
           <SearchMenu />
           <div />
@@ -49,7 +41,6 @@ const BoardLayout = ({ children }: { children: ReactNode }) => {
           <BoardMenu />
           <div className="w-full relative">
             <main className="border-x-[1px] dark:border-gray-500">{children}</main>
-            <ReloadBoard />
           </div>
           <SearchMenu />
         </div>
@@ -58,4 +49,4 @@ const BoardLayout = ({ children }: { children: ReactNode }) => {
   );
 };
 
-export default BoardLayout;
+export default DefaultLayout;

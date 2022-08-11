@@ -2,7 +2,7 @@ import { Post } from '../board';
 import { getSession, useSession } from 'next-auth/react';
 import React, { ReactElement, useContext, useEffect, useState } from 'react';
 import { GetServerSideProps, GetServerSidePropsContext } from 'next';
-import DefaultMobileLayout from '../../components/templates/DefaultMobileLayout';
+import DefaultLayout from '../../components/templates/DefaultLayout';
 import { NextPageWithLayout } from '../_app';
 import Image from 'next/image';
 import { useTheme } from 'next-themes';
@@ -92,9 +92,9 @@ const Post: ({ postData }: { postData: Post }) => JSX.Element = ({ postData }: {
 
 (Post as NextPageWithLayout).getLayout = (page: ReactElement) => {
   return (
-    <DefaultMobileLayout>
+    <DefaultLayout>
       <GoToTopLayout>{page}</GoToTopLayout>
-    </DefaultMobileLayout>
+    </DefaultLayout>
   );
 };
 

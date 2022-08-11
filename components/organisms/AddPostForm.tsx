@@ -5,7 +5,7 @@ import React, { useRef, useState } from 'react';
 import { useTheme } from 'next-themes';
 import { useSession } from 'next-auth/react';
 import StatusMessage, { StatusMessageType } from '../atoms/StatusMessage';
-import { ACCEPTED_EXTENSIONS } from '../../lib/extensions';
+import { ACCEPTED_EXTENSIONS } from '../../utils/extensions';
 import { hashtagData } from '../../lib/hashtags';
 import useLimitedCheckboxes from '../../hooks/useLimitedCheckboxes';
 

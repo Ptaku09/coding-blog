@@ -42,3 +42,13 @@ export enum UpdatePostEndpoint {
   comment = 'comment',
   hashtags = 'hashtags',
 }
+
+// ----------------------------------------------------------
+// Path names for desktop menu
+export enum PathNames {
+  board = '/board',
+  bookmarks = '/bookmarks',
+  search = '/search',
+  addPost = '/addPost',
+  user = '/users/[id]',
+}

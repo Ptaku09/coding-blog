@@ -1,5 +1,5 @@
 import { NextPageWithLayout } from '../_app';
-import DefaultMobileLayout from '../../components/templates/DefaultMobileLayout';
+import DefaultLayout from '../../components/templates/DefaultLayout';
 import React, { ReactElement, useEffect, useState } from 'react';
 import { getSession, useSession } from 'next-auth/react';
 import { GetServerSideProps, GetServerSidePropsContext } from 'next';
@@ -122,9 +122,9 @@ const User: ({ userData }: { userData: User }) => JSX.Element = ({ userData }: {
 
 (User as NextPageWithLayout).getLayout = (page: ReactElement) => {
   return (
-    <DefaultMobileLayout>
+    <DefaultLayout>
       <GoToTopLayout>{page}</GoToTopLayout>
-    </DefaultMobileLayout>
+    </DefaultLayout>
   );
 };
 

@@ -1,6 +1,6 @@
 import { NextApiRequest, NextApiResponse } from 'next';
 import clientPromise from '../../../mongodb';
-import { detectLanguage } from '../../../lib/extensions';
+import { detectLanguage } from '../../../utils/extensions';
 import { DEFAULT_AMOUNT_OF_FETCHED_POSTS } from '../../../lib/constants';
 import { RequestOperationType, UpdateUserEndpoint } from '../../../lib/enums';
 import { server } from '../../../config';

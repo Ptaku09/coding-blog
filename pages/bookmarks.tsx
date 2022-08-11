@@ -1,7 +1,7 @@
 import { getSession, useSession } from 'next-auth/react';
 import { GetServerSideProps, GetServerSidePropsContext } from 'next';
 import React, { FormEvent, ReactElement, useEffect, useRef, useState } from 'react';
-import DefaultMobileLayout from '../components/templates/DefaultMobileLayout';
+import DefaultLayout from '../components/templates/DefaultLayout';
 import Link from 'next/link';
 import { Post } from './board';
 import { RequestOperationType, SortDirection, SortOptions, UpdateUserEndpoint } from '../lib/enums';
@@ -231,9 +231,9 @@ const Bookmarks: NextPageWithLayout = () => {
 
 Bookmarks.getLayout = (page: ReactElement) => {
   return (
-    <DefaultMobileLayout>
+    <DefaultLayout>
       <GoToTopLayout>{page}</GoToTopLayout>
-    </DefaultMobileLayout>
+    </DefaultLayout>
   );
 };
 

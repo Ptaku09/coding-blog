@@ -1,7 +1,7 @@
 import { GetServerSideProps, GetServerSidePropsContext } from 'next';
 import { getSession, useSession } from 'next-auth/react';
 import React, { ReactElement } from 'react';
-import DefaultMobileLayout from '../components/templates/DefaultMobileLayout';
+import DefaultLayout from '../components/templates/DefaultLayout';
 import Image from 'next/image';
 import defaultAvatar from '../public/images/defaultAvatar.jpg';
 import AddPostForm from '../components/organisms/AddPostForm';
@@ -37,7 +37,7 @@ const AddPost: NextPageWithLayout = () => {
 };
 
 AddPost.getLayout = (page: ReactElement) => {
-  return <DefaultMobileLayout>{page}</DefaultMobileLayout>;
+  return <DefaultLayout>{page}</DefaultLayout>;
 };
 
 export default AddPost;
