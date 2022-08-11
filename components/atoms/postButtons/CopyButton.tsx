@@ -1,6 +1,6 @@
 import Image from 'next/image';
 import CopyWhite from '../../../public/icons/copy-white.svg';
-import StatusMessage, { StatusMessageOrientation, StatusMessageType } from '../StatusMessage';
+import StatusMessage, { StatusMessageType } from '../StatusMessage';
 import CopyBlack from '../../../public/icons/copy-black.svg';
 import { useTheme } from 'next-themes';
 import { useState } from 'react';
@@ -28,7 +28,7 @@ const CopyButton = ({ text, size = 18 }: { text: string; size?: number }) => {
           <Image src={CopyBlack} width={size} height={size} alt="copy" />
         )}
       </button>
-      <StatusMessage isShown={isCopied} message="Copied" type={StatusMessageType.SUCCESS} orientation={StatusMessageOrientation.VERTICAL} />
+      <StatusMessage isShown={isCopied} message="Copied" type={StatusMessageType.SUCCESS} />
     </div>
   );
 };

@@ -15,7 +15,7 @@ const AddPost: NextPageWithLayout = () => {
   const router = useRouter();
 
   return (
-    <div className="min-h-screen w-screen py-16 bg-white dark:bg-dark-user flex flex-col items-center justify-start">
+    <div className="min-h-screen w-full py-16 md:py-4 bg-white dark:bg-dark-user flex flex-col items-center justify-start">
       <div className="h-full w-11/12 flex flex-col items-start">
         <div className="w-full flex flex-row justify-between items-center">
           <Link href={`/users/${session?.user.id}`}>
@@ -26,7 +26,7 @@ const AddPost: NextPageWithLayout = () => {
               <p className="text-lg">{session?.user?.username}</p>
             </a>
           </Link>
-          <a onClick={() => router.back()} className="w-8 h-8 bg-white flex items-center justify-center shadow-lg rounded-xl">
+          <a onClick={() => router.back()} className="md:hidden w-8 h-8 bg-white flex items-center justify-center shadow-lg rounded-xl">
             <Image src={ArrowLeftBlack} width={19} height={19} alt="go back" />
           </a>
         </div>

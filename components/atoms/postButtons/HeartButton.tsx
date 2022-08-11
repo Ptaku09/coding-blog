@@ -2,7 +2,7 @@ import Image from 'next/image';
 import HeartRed from '../../../public/icons/heart-red.svg';
 import HeartGray from '../../../public/icons/heart-gray.svg';
 import { useEffect, useState } from 'react';
-import StatusMessage, { StatusMessageOrientation, StatusMessageType } from '../StatusMessage';
+import StatusMessage, { StatusMessageType } from '../StatusMessage';
 import { useSession } from 'next-auth/react';
 import { RequestOperationType, UpdateUserEndpoint } from '../../../lib/enums';
 
@@ -87,12 +87,7 @@ const HeartButton = ({ postId, postLikes, size = 18 }: { postId: string; postLik
         )}
       </button>
       <p>{likeCount}</p>
-      <StatusMessage
-        isShown={isSomethingWrong}
-        orientation={StatusMessageOrientation.VERTICAL}
-        type={StatusMessageType.ERROR}
-        message="Something went wrong"
-      />
+      <StatusMessage isShown={isSomethingWrong} type={StatusMessageType.ERROR} message="Something went wrong" />
     </div>
   );
 };

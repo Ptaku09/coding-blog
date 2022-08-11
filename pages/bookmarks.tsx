@@ -5,7 +5,7 @@ import DefaultLayout from '../components/templates/DefaultLayout';
 import Link from 'next/link';
 import { Post } from './board';
 import { RequestOperationType, SortDirection, SortOptions, UpdateUserEndpoint } from '../lib/enums';
-import StatusMessage, { StatusMessageOrientation, StatusMessageType } from '../components/atoms/StatusMessage';
+import StatusMessage, { StatusMessageType } from '../components/atoms/StatusMessage';
 import BookmarkPost from '../components/molecules/BookmarkPost';
 import Image from 'next/image';
 import ReturnWhite from '../public/icons/return-white.svg';
@@ -219,12 +219,7 @@ const Bookmarks: NextPageWithLayout = () => {
       <div className="w-11/12">
         {posts.map((post: Post) => post && <BookmarkPost key={post._id} postData={post} handleRemoveBookmark={handleRemoveBookmark} />)}
       </div>
-      <StatusMessage
-        isShown={isSomethingWrong}
-        orientation={StatusMessageOrientation.VERTICAL}
-        type={StatusMessageType.ERROR}
-        message="Something went wrong"
-      />
+      <StatusMessage isShown={isSomethingWrong} type={StatusMessageType.ERROR} message="Something went wrong" />
     </div>
   );
 };

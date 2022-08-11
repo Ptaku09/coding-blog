@@ -6,7 +6,7 @@ import BookmarkFilledWhite from '../../../public/icons/bookmark-filled-white.svg
 import { useTheme } from 'next-themes';
 import { useSession } from 'next-auth/react';
 import { useEffect, useState } from 'react';
-import StatusMessage, { StatusMessageOrientation, StatusMessageType } from '../StatusMessage';
+import StatusMessage, { StatusMessageType } from '../StatusMessage';
 import { RequestOperationType, UpdateUserEndpoint } from '../../../lib/enums';
 
 const BookmarkButton = ({ postId, size = 18 }: { postId: string; size?: number }) => {
@@ -71,12 +71,7 @@ const BookmarkButton = ({ postId, size = 18 }: { postId: string; size?: number }
           <Image src={BookmarkEmptyBlack} width={size} height={size} alt="share" />
         )}
       </button>
-      <StatusMessage
-        isShown={isSomethingWrong}
-        orientation={StatusMessageOrientation.VERTICAL}
-        type={StatusMessageType.ERROR}
-        message="Something went wrong"
-      />
+      <StatusMessage isShown={isSomethingWrong} type={StatusMessageType.ERROR} message="Something went wrong" />
     </div>
   );
 };

@@ -10,15 +10,15 @@ import { hashtagData } from '../../lib/hashtags';
 import useLimitedCheckboxes from '../../hooks/useLimitedCheckboxes';
 
 const AddPostForm = () => {
-  const [charsCount, setCharsCount] = useState(0);
-  const [fileTitle, setFileTitle] = useState('');
-  const [isDragActive, setIsDragActive] = useState(false);
-  const [formattedFile, setFormattedFile] = useState('');
-  const [comment, setComment] = useState('');
-  const [isWrongExtension, setIsWrongExtension] = useState(false);
-  const [isSuccess, setIsSuccess] = useState(false);
-  const [isEmpty, setIsEmpty] = useState(false);
-  const [isTooBig, setIsTooBig] = useState(false);
+  const [charsCount, setCharsCount] = useState<number>(0);
+  const [fileTitle, setFileTitle] = useState<string>('');
+  const [isDragActive, setIsDragActive] = useState<boolean>(false);
+  const [formattedFile, setFormattedFile] = useState<string>('');
+  const [comment, setComment] = useState<string>('');
+  const [isWrongExtension, setIsWrongExtension] = useState<boolean>(false);
+  const [isSuccess, setIsSuccess] = useState<boolean>(false);
+  const [isEmpty, setIsEmpty] = useState<boolean>(false);
+  const [isTooBig, setIsTooBig] = useState<boolean>(false);
   const { checkedState, setCheckedState, setCurrentlyChecked, onCheckboxChange } = useLimitedCheckboxes(hashtagData.length, 4);
   const fileInputRef = useRef() as React.MutableRefObject<HTMLInputElement>;
   const { theme } = useTheme();
@@ -218,7 +218,7 @@ const AddPostForm = () => {
       )}
 
       <div className="flex flex-row flex-wrap justify-center items-center border-[1px] dark:border-gray-500 rounded-xl p-2 mb-4">
-        <p className="text-center text-sm font-[500] mb-1">Select up to 4 hashtags describing your code</p>
+        <p className="w-full text-center text-sm font-[500] mb-1">Select up to 4 hashtags describing your code</p>
         {hashtagData.map((category: string, index: number) => (
           <div key={index} className="w-auto h-auto">
             <input className="hidden peer" id={category} type="checkbox" checked={checkedState[index]} onChange={() => onCheckboxChange(index)} />
@@ -241,7 +241,7 @@ const AddPostForm = () => {
       />
       <p
         className={`peer-focus:bg-purple-600 peer-focus:translate-x-0 ${
-          charsCount > 0 ? 'translate-x-0' : '-translate-x-64'
+          charsCount > 0 ? 'translate-x-0' : '-translate-x-64 md:-translate-x-0'
         } bg-gray-300 transform duration-200 text-white w-24 text-center py-1 px-3 mb-6 rounded-xl shadow-xl`}
       >
         {charsCount} / 250

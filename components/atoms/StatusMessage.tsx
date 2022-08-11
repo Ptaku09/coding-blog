@@ -11,30 +11,12 @@ export enum StatusMessageOrientation {
   HORIZONTAL = 'horizontal',
 }
 
-const StatusMessage = ({
-  isShown,
-  message,
-  type,
-  orientation = StatusMessageOrientation.HORIZONTAL,
-}: {
-  isShown: boolean;
-  message: string;
-  type: StatusMessageType;
-  orientation?: StatusMessageOrientation;
-}) => {
+const StatusMessage = ({ isShown, message, type }: { isShown: boolean; message: string; type: StatusMessageType }) => {
   return (
     <div
       className={`fixed z-10 bottom-16 md:bottom-8 animate-appearing-short mt-10 transition duration-500 bg-white dark:bg-dark-user text-black dark:text-white font-bebas text-3xl shadow-xl border-2 border-red-500 px-8 py-4 rounded-xl
        ${type === StatusMessageType.ERROR ? 'border-red-500' : type === StatusMessageType.SUCCESS ? 'border-green-500' : 'border-blue-500'}
-       ${
-         orientation === StatusMessageOrientation.VERTICAL
-           ? isShown
-             ? 'left-1/2 -translate-x-1/2 translate-y-0'
-             : 'left-1/2 -translate-x-1/2 translate-y-64'
-           : isShown
-           ? 'translate-x-0'
-           : '-translate-x-96'
-       }`}
+       ${isShown ? 'left-1/2 -translate-x-1/2 translate-y-0' : 'left-1/2 -translate-x-1/2 translate-y-64'}`}
     >
       <p className="text-center">{message.toLocaleUpperCase()}</p>
       {isShown && (
