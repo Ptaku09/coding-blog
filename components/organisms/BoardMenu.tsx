@@ -27,10 +27,12 @@ const BoardMenu = () => {
   return (
     <div className="w-full h-screen flex justify-end">
       <div className="fixed w-72 h-full p-4 pb-24">
-        <div className="flex items-center justify-center gap-3 font-raleway font-bold">
-          <Image src={LogoGray} width={35} height={35} alt="blue logo" />
-          <p className="text-2xl text-gray-500 dark:text-gray-300">coding blog</p>
-        </div>
+        <Link href="/">
+          <a className="flex items-center justify-center gap-3 font-raleway font-bold">
+            <Image src={LogoGray} width={35} height={35} alt="blue logo" />
+            <p className="text-2xl text-gray-500 dark:text-gray-300">coding blog</p>
+          </a>
+        </Link>
         <div className="mt-12 h-full flex justify-between flex-col font-raleway font-[500] text-lg text-gray-500 dark:text-gray-300">
           <ul className="space-y-4">
             <li>

@@ -27,9 +27,11 @@ const CompactBoardMenu = () => {
   return (
     <div className="w-full h-screen flex justify-center">
       <div className="fixed w-20 h-full pt-4 px-2 pb-24">
-        <div className="flex items-center justify-center gap-3 font-raleway font-bold">
-          <Image src={LogoGray} width={35} height={35} alt="blue logo" />
-        </div>
+        <Link href="/">
+          <a className="flex items-center justify-center gap-3 font-raleway font-bold">
+            <Image src={LogoGray} width={35} height={35} alt="blue logo" />
+          </a>
+        </Link>
         <div className="mt-12 h-full flex justify-between flex-col font-raleway font-[500] text-lg text-gray-500 dark:text-gray-300">
           <ul className="space-y-4">
             <li>

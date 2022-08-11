@@ -18,7 +18,7 @@ import DesktopEntryScreen from '../components/organisms/DesktopEntryScreen';
 const Home: NextPageWithLayout = () => {
   const { data: session, status } = useSession();
   const ref = useRef<HTMLDivElement>(null);
-  const { isBreakpoint } = useBreakpointDetector(ref, 768);
+  const { isBreakpoint } = useBreakpointDetector(ref, 1000);
 
   return (
     <div ref={ref} className="w-full bg-dark-user h-auto flex items-center justify-start flex-col text-black font-raleway">
@@ -39,7 +39,7 @@ const Home: NextPageWithLayout = () => {
         )}
       </div>
       <div className="w-full h-auto flex items-start justify-start flex-col">
-        <div className="h-mobile-screen bg-gradient-to-tr from-black via-gray-900 to-indigo-900 w-full md:h-screen md:flex md:items-center md:flex-row-reverse">
+        <div className="h-mobile-screen md:h-screen bg-gradient-to-tr from-black via-gray-900 to-indigo-900 w-full">
           {isBreakpoint ? <MobileEntryScreen /> : <DesktopEntryScreen />}
         </div>
         <div className="w-full md:-mt-16 relative z-[2] h-auto bg-white rounded-t-[100%80px] rounded-b-[100%80px] flex items-center justify-start flex-col">

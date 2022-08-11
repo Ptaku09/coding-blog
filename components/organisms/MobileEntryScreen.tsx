@@ -10,7 +10,7 @@ const MobileEntryScreen = () => {
 
   return (
     <>
-      <div className="absolute z-[2] w-screen top-0 h-1/2">
+      <div className="absolute z-[3] w-screen top-0 h-1/2">
         <div className="w-full h-1/2 absolute bottom-7 flex items-center justify-center flex-col">
           <h1 className="text-white font-ubuntu text-5xl font-bold text-center border-b-2 mx-12 mb-5 pb-4">Show your ideas to the world!</h1>
           <p className="mb-5 text-gray-300 font-bold text-xl">Invent, create and share</p>
@@ -19,7 +19,7 @@ const MobileEntryScreen = () => {
           </Link>
         </div>
       </div>
-      <div className="z-[2] h-screen w-screen flex items-end justify-center mt-44 pt-2 overflow-hidden">
+      <div className="z-[2] h-screen w-screen flex items-end justify-center mt-44 md:-mt-10 pt-2 overflow-hidden">
         <AnimatedGlobe />
       </div>
     </>
